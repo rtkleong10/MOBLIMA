@@ -1,7 +1,8 @@
 package Model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 
@@ -9,36 +10,49 @@ public class PricingScheme implements Serializable {
 	private static final long serialVersionUID = 5342648434933852012L;
 
 	private double basePrice;
-	private EnumMap<CinemaClass, Double> cinemaMultipliers;
-	private EnumMap<AgeGroup, Double> ageMultipliers;
-	private EnumMap<MovieType, Double> movieMultipliers;
-	private HashMap<Date, String> holidays;
-	private double holidayMultiplier;
-
-	public double getPrice(Date date, CinemaClass cinemaClass, AgeGroup ageGroup, MovieType movieType) {
+	private HashMap<LocalDate, String> holidays = new HashMap<>();
+	private EnumMap<CinemaClass, Double> cinemaMultipliers = new EnumMap<>(CinemaClass.class);
+	private EnumMap<AgeGroup, Double> ageMultipliers = new EnumMap<>(AgeGroup.class);
+	private EnumMap<MovieType, Double> movieMultipliers = new EnumMap<>(MovieType.class);
+	private HashMap<DateType, Double> dateMultipliers = new HashMap<>();
+	
+	public double getPrice(LocalDate date, CinemaClass cinemaClass, AgeGroup ageGroup, MovieType movieType) {
 		double price = this.basePrice;
-
-		if (isHoliday(date))
-			price *= getHolidayMultiplier();
-
-		Double cinemaMultiplier = this.cinemaMultipliers.get(cinemaClass);
+		
+		Double cinemaMultiplier = this.getCinemaMultiplier(cinemaClass);
 		if (cinemaMultiplier != null)
 			price *= cinemaMultiplier;
-
-		Double ageMultiplier = this.ageMultipliers.get(ageGroup);
+		
+		Double ageMultiplier = this.getAgeMultiplier(ageGroup);
 		if (ageMultiplier != null)
 			price *= ageMultiplier;
 
-		Double movieMultiplier = this.movieMultipliers.get(movieType);
+		Double movieMultiplier = this.getMovieMultiplier(movieType);
 		if (movieMultiplier != null)
 			price *= movieMultiplier;
+		
+		Double dateMultiplier = this.getDateMultiplier(date);
+		if (dateMultiplier != null)
+			price *= dateMultiplier;
 
 		return price;
 	}
+	
+	public HashMap<LocalDate, String> getHolidays() {
+		return this.holidays;
+	}
 
-	private boolean isHoliday(Date date) {
-		for (Date holidayDate: getHolidays().keySet()) {
-			if (date == holidayDate)
+	public void removeHolidayDate(LocalDate holidayDate) {
+		this.holidays.remove(holidayDate);
+	}
+	
+	public void addHolidayDates(LocalDate holidayDate, String holidayName) {
+		this.holidays.put(holidayDate, holidayName);
+	}
+	
+	private boolean isHoliday(LocalDate date) {
+		for (LocalDate holidayDate: getHolidays().keySet()) {
+			if (date.equals(holidayDate))
 				return true;
 		}
 
@@ -53,47 +67,42 @@ public class PricingScheme implements Serializable {
 		this.basePrice = basePrice;
 	}
 
-	public double getCinemaMultiplier(CinemaClass cinemaClass) {
+	public Double getCinemaMultiplier(CinemaClass cinemaClass) {
 		return this.cinemaMultipliers.get(cinemaClass);
 	}
 
-	public void setCinemaMultiplier(CinemaClass cinemaClass, double cinemaMultiplier) {
+	public void setCinemaMultiplier(CinemaClass cinemaClass, Double cinemaMultiplier) {
 		this.cinemaMultipliers.put(cinemaClass, cinemaMultiplier);
 	}
 
-	public double getAgeMultiplier(AgeGroup ageGroup) {
+	public Double getAgeMultiplier(AgeGroup ageGroup) {
 		return this.ageMultipliers.get(ageGroup);
 	}
 
-	public void setAgeMultiplier(AgeGroup ageGroup, double ageMultiplier) {
+	public void setAgeMultiplier(AgeGroup ageGroup, Double ageMultiplier) {
 		this.ageMultipliers.put(ageGroup, ageMultiplier);
 	}
 
-	public double getMovieMultiplier(MovieType movieType) {
+	public Double getMovieMultiplier(MovieType movieType) {
 		return this.movieMultipliers.get(movieType);
 	}
 
-	public void setMovieMultiplier(MovieType movieType, double movieMultiplier) {
+	public void setMovieMultiplier(MovieType movieType, Double movieMultiplier) {
 		this.movieMultipliers.put(movieType, movieMultiplier);
 	}
-
-	public HashMap<Date, String> getHolidays() {
-		return this.holidays;
+	
+	public Double getDateMultiplier(LocalDate date) {
+		if (this.isHoliday(date))
+			return this.dateMultipliers.get(DateType.HOLIDAY);
+		
+		else if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)
+			return this.dateMultipliers.get(DateType.WEEKEND);
+		
+		else
+			return this.dateMultipliers.get(DateType.WEEKDAY);
 	}
 
-	public void removeHolidayDate(Date holidayDate) {
-		this.holidays.remove(holidayDate);
-	}
-
-	public void addHolidayDates(Date holidayDate, String holidayName) {
-		this.holidays.put(holidayDate, holidayName);
-	}
-
-	public double getHolidayMultiplier() {
-		return this.holidayMultiplier;
-	}
-
-	public void setHolidayMultiplier(double holidayMultiplier) {
-		this.holidayMultiplier = holidayMultiplier;
+	public void setDateMultiplier(DateType dateType, Double dateMultiplier) {
+		this.dateMultipliers.put(dateType, dateMultiplier);
 	}
 }

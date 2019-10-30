@@ -1,6 +1,6 @@
 package Controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import Model.*;
 
@@ -9,10 +9,12 @@ public class CineplexManager extends DataManager {
 	private static final String MOVIEGOER_FILENAME = "res/data/movieGoer.dat";
 	private static final String PRICINGSCHEME_FILENAME = "res/data/pricingScheme.dat";
 
-	private static ArrayList<CinemaStaff> cinemaStaffList;
-	private static ArrayList<MovieGoer> movieGoerList;
+	// String key is the username used to access the account
+	private static HashMap<String, CinemaStaff> cinemaStaffList;
+	private static HashMap<String, MovieGoer> movieGoerList;
+	
 	private static PricingScheme pricingScheme;
-
+	
 	private CineplexManager() {}
 
 	public static void initialize() {
@@ -20,18 +22,18 @@ public class CineplexManager extends DataManager {
 		readMovieGoerList();
 		readPricingScheme();
 	}
-
+	
 	public static void update() {
 		updateCinemaStaffList();
 		updateMovieGoerList();
 		updatePricingScheme();
 	}
 
-	public static ArrayList<CinemaStaff> getCinemaStaffList() {
+	public static HashMap<String, CinemaStaff> getCinemaStaffList() {
 		return cinemaStaffList;
 	}
 
-	public static ArrayList<MovieGoer> getMovieGoerList() {
+	public static HashMap<String, MovieGoer> getMovieGoerList() {
 		return movieGoerList;
 	}
 
@@ -39,40 +41,36 @@ public class CineplexManager extends DataManager {
 		return pricingScheme;
 	}
 
-	public static void setCinemaStaffList(ArrayList<CinemaStaff> cinemaStaffList) {
+	public static void setCinemaStaffList(HashMap<String, CinemaStaff> cinemaStaffList) {
 		CineplexManager.cinemaStaffList = cinemaStaffList;
-		updateCinemaStaffList();
 	}
 
-	public static void setMovieGoerList(ArrayList<MovieGoer> movieGoerList) {
+	public static void setMovieGoerList(HashMap<String, MovieGoer> movieGoerList) {
 		CineplexManager.movieGoerList = movieGoerList;
-		updateMovieGoerList();
 	}
 
 	public static void setPricingScheme(PricingScheme pricingScheme) {
 		CineplexManager.pricingScheme = pricingScheme;
-		updatePricingScheme();
 	}
 
 	@SuppressWarnings("unchecked")
 	private static void readCinemaStaffList() {
 		Object obj = readSerializedObject(CINEMASTAFF_FILENAME);
 
-
-		if (obj == null || !(obj instanceof ArrayList<?>))
-			cinemaStaffList = new ArrayList<CinemaStaff>();
+		if (obj == null || !(obj instanceof HashMap<?, ?>))
+			cinemaStaffList = new HashMap<>();
 		else
-			cinemaStaffList = (ArrayList<CinemaStaff>) obj;
+			cinemaStaffList = (HashMap<String, CinemaStaff>) obj;
 	}
 
 	@SuppressWarnings("unchecked")
 	private static void readMovieGoerList() {
 		Object obj = readSerializedObject(MOVIEGOER_FILENAME);
-
-		if (obj == null || !(obj instanceof ArrayList<?>))
-			movieGoerList = new ArrayList<MovieGoer>();
+		
+		if (obj == null || !(obj instanceof HashMap<?, ?>))
+			movieGoerList = new HashMap<>();
 		else
-			movieGoerList = (ArrayList<MovieGoer>) obj;
+			movieGoerList = (HashMap<String, MovieGoer>) obj;
 	}
 
 	private static void readPricingScheme() {
