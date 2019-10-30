@@ -10,9 +10,11 @@ public class Movie implements Serializable {
 	private String synopsis;
 	private String director;
 	private String[] cast;
+	private ShowingStatus showingStatus;
 	private ReleaseRating releaseRating;
 	private MovieType movieType;
 	private ArrayList<ReviewRating> reviewRatings = new ArrayList<ReviewRating>();
+	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 	
 	public Movie(String title, String synopsis, String director, String[] cast, ReleaseRating releaseRating,
 			MovieType movieType) {
@@ -22,6 +24,10 @@ public class Movie implements Serializable {
 		this.cast = cast;
 		this.releaseRating = releaseRating;
 		this.movieType = movieType;
+	}
+	
+	public void addShowTime(ShowTime showTime) {
+		this.showTimes.add(showTime);
 	}
 	
 	public Double getOverallRating() {
@@ -36,6 +42,15 @@ public class Movie implements Serializable {
 		
 		double overallRating = sum / noOfReviews;
 		return overallRating;
+	}
+	
+	public double getTotalSales() {
+		double totalSales = 0;
+		
+		for (ShowTime showTime: showTimes)
+			totalSales += showTime.getTotalSales();
+		
+		return totalSales;
 	}
 
 	public String getTitle() {
@@ -64,5 +79,9 @@ public class Movie implements Serializable {
 
 	public ArrayList<ReviewRating> getReviewRatings() {
 		return reviewRatings;
+	}
+
+	public ShowingStatus getShowingStatus() {
+		return showingStatus;
 	}
 }

@@ -27,11 +27,17 @@ public class Cinema implements Serializable{
 	public String getCinemaCode() {
 		return cinemaCode;
 	}
+	
 	public boolean[][] getLayout() {
 		return layout;
 	}
+	
 	public CinemaClass getCinemaClass() {
 		return cinemaClass;
+	}
+	
+	public ArrayList<ShowTime> getShowTimes() {
+		return this.showTimes;
 	}
 }
 
