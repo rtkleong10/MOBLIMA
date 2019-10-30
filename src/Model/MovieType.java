@@ -1,14 +1,7 @@
 package Model;
 
 public enum MovieType {
-	
-	
-	  Regular,
-	  Blockbuster,
-	  _3D
-	  
-	
-	
-	
-
+	REGULAR,
+	BLOCKBUSTER,
+	_3D;
 }

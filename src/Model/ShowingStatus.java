@@ -1,15 +1,9 @@
 package Model;
 
 public enum ShowingStatus {
-	 
-	 
-	ComingSoon,
-	Preview,
-	Now_Showing,
-	End_Of_Showing
-	
-	
-	
-
+	COMING_SOON,
+	PREVIEW,
+	NOW_SHOWING,
+	END_OF_SHOWING;
 }
  

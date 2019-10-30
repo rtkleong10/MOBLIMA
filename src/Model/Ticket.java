@@ -3,6 +3,8 @@ package Model;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
+	private static final long serialVersionUID = 6163594143675954354L;
+	
 	private int row;
 	private int col;
 	
@@ -14,9 +16,8 @@ public class Ticket implements Serializable {
 	public int getRow() {
 		return row;
 	}
+	
 	public int getCol() {
 		return col;
 	}
-	
-
 }

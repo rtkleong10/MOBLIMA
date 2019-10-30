@@ -1,5 +1,6 @@
 package Model;
 
 public enum CinemaClass {
-	Normal,platinumMovieSuite;
+	NORMAL,
+	PLATINUM_MOVIE_SUITE;
 }

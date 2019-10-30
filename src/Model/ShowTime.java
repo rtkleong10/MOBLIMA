@@ -1,36 +1,74 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ShowTime implements Serializable{
-	private String name;
-	private ArrayList <Booking> bookings; //(has-a)
-	private int [][] layout; // From cinema when created
+	private static final long serialVersionUID = 8096921810451802218L;
+	
+	private boolean[][] layout; // From the cinema when created
+	private LocalDateTime startTime;
+	private Duration duration;
+	private Movie movie;
+	private ArrayList <Booking> bookings;
 
-	public ShowTime(String name, int[][] layout) {
-		this.name = name;
+	public ShowTime(boolean[][] layout, LocalDateTime startTime, Duration duration, Movie movie) {
 		this.layout = layout;
 		this.bookings = new ArrayList<Booking>();
+		this.startTime = startTime;
+		this.duration = duration;
+		this.movie = movie;
 	}
 	
-	public void createBooking(int[][] bookSeat, String transaction, double price ){
-		Booking newBooking = new Booking(bookSeat, transaction,  price);
-		bookings.add(newBooking);
-		
+	public void createBooking(boolean[][] selectedSeats, String transactionId, double price ){
+		Booking newBooking = new Booking(selectedSeats, transactionId,  price);
+		this.bookings.add(newBooking);	
 	}
-	public int[][] getSeatAvailabilities() {
-
-		int[][] seatAvail = layout.clone();
+	
+	public SeatStatus[][] getSeatAvailabilities() {
+		SeatStatus[][] seatAvail = new SeatStatus[layout.length][];
 		
-		for (Booking b: bookings) {
-			for (Ticket t: b.getTicket()) {
-				seatAvail[t.getRow()][t.getCol()] = 0;
+		for (int i = 0; i < layout.length; i++) {
+			boolean[] row = layout[i];
+			seatAvail[i] = new SeatStatus[row.length];
+			
+			for (int j = 0; j < row.length; j++) {
+				seatAvail[i][j] = row[j] == true ? SeatStatus.EMPTY : SeatStatus.NO_SEAT;
 			}
 		}
-		/*-1: No seat
-		0: Taken
-		1: Available*/
+		
+		for (Booking booking: bookings) {
+			for (Ticket t: booking.getTickets()) {
+				int row = t.getRow();
+				int col = t.getCol();
+				
+				if (seatAvail[row][col] == SeatStatus.EMPTY)
+					seatAvail[row][col] = SeatStatus.TAKEN;
+			}
+		}
+		
 		return seatAvail;
+	}
+
+	public boolean[][] getLayout() {
+		return layout;
+	}
+
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public ArrayList<Booking> getBookings() {
+		return bookings;
 	}
 }
