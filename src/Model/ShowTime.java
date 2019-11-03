@@ -20,10 +20,11 @@ public class ShowTime implements Serializable{
 		this.startTime = startTime;
 		this.duration = duration;
 		this.movie = movie;
+		movie.addShowTime(this);
 	}
 	
-	public void createBooking(boolean[][] selectedSeats, String transactionId, double price ){
-		Booking newBooking = new Booking(selectedSeats, transactionId,  price);
+	public void createBooking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
+		Booking newBooking = new Booking(transactionId, movieGoer, selectedSeats, price);
 		this.bookings.add(newBooking);	
 	}
 	
@@ -70,5 +71,14 @@ public class ShowTime implements Serializable{
 
 	public ArrayList<Booking> getBookings() {
 		return bookings;
+	}
+	
+	public double getTotalSales() {
+		double totalSales = 0;
+		
+		for (Booking booking: bookings)
+			totalSales += booking.getPrice();
+		
+		return totalSales;
 	}
 }

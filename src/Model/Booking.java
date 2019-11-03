@@ -6,11 +6,12 @@ import java.util.ArrayList;
 public class Booking implements Serializable{
 	private static final long serialVersionUID = 3967681838005218902L;
 	
-	private ArrayList<Ticket> tickets;
 	private String transactionId; 
+	private MovieGoer movieGoer;
+	private ArrayList<Ticket> tickets;
 	private double price;
 	
-	public Booking(boolean[][] selectedSeats, String transactionId, double price) {
+	public Booking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price) {
 		this.transactionId = transactionId;
 		this.price = price;
 		this.tickets = new ArrayList<Ticket>();
@@ -25,12 +26,16 @@ public class Booking implements Serializable{
 		}
 	}
 	
-	public ArrayList<Ticket> getTickets() {
-		return tickets;
-	}
-
 	public String getTransactionId() {
 		return transactionId;
+	}
+	
+	public MovieGoer getMovieGoer() {
+		return movieGoer;
+	}
+	
+	public ArrayList<Ticket> getTickets() {
+		return tickets;
 	}
 
 	public double getPrice() {

@@ -9,17 +9,21 @@ public class ReviewRating implements Serializable {
 	private static final int MAX_RATING = 5;
 	private static final int DEFAULT_RATING = 3;
 	
+	private MovieGoer movieGoer;
 	private String review;
-	private int rating;
+	private Integer rating;
 	
-	public ReviewRating(String review, int rating) {
+	public ReviewRating(MovieGoer movieGoer, String review, int rating) {
+		this.movieGoer = movieGoer;
 		this.review = review;
 		
 		if (rating >= MIN_RATING && rating <= MAX_RATING)
 			this.rating = rating;
-		else
-			this.rating = DEFAULT_RATING;
 	} 
+	
+	public MovieGoer getMovieGoer() {
+		return movieGoer;
+	}
 	
 	public String getReview() {
 		return review;
