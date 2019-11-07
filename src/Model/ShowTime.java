@@ -52,6 +52,20 @@ public class ShowTime implements Serializable{
 		
 		return seatAvail;
 	}
+	
+	public boolean checkAvail( boolean [][] selectedSeat ) {
+		SeatStatus[][] availSeat = this.getSeatAvailabilities();
+		for (int i =0; i<availSeat.length ; i++) {
+			for (int j=0; j<availSeat[i].length; j++) {
+				if(availSeat[i][j] == SeatStatus.TAKEN && selectedSeat[i][j] == true )
+					return false;
+				if(availSeat[i][j] == SeatStatus.NO_SEAT && selectedSeat[i][j] == true )
+					return false;
+			}
+		}
+		return true;
+	}
+	
 
 	public boolean[][] getLayout() {
 		return layout;
