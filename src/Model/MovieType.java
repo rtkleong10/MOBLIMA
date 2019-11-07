@@ -7,4 +7,4 @@ public enum MovieType {
 	  Blockbuster,
 	  _3D
 	  
-}
+}	
