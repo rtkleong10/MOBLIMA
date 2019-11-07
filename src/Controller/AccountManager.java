@@ -25,8 +25,13 @@ public class AccountManager extends DataManager {
 		updateMovieGoerList();
 	}
 	
-	public static CinemaStaff getCinemaStaff(String username) {
-		return cinemaStaffList.get(username);
+	public static CinemaStaff getCinemaStaff(String username, String password) {
+		CinemaStaff cinemaStaff = cinemaStaffList.get(username);
+		
+		if (cinemaStaff.login(password))
+			return cinemaStaff;
+		else
+			return null;
 	}
 	
 	public static boolean addCinemaStaff(CinemaStaff cinemaStaff) {
@@ -41,8 +46,13 @@ public class AccountManager extends DataManager {
 		}
 	}
 
-	public static MovieGoer getMovieGoer(String username) {
-		return movieGoerList.get(username);
+	public static MovieGoer getMovieGoer(String username, String password) {
+		MovieGoer movieGoer = movieGoerList.get(username);
+		
+		if (movieGoer.login(password))
+			return movieGoer;
+		else
+			return null;
 	}
 
 	public static boolean addMovieGoer(MovieGoer movieGoer) {
