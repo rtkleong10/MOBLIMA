@@ -1,8 +1,8 @@
-package Controller;
+package controller;
 
 import java.io.*;
 
-public class DataManager {
+public abstract class DataManager {
 	protected static Object readSerializedObject(String fileName) {
 		Object obj = null;
 		
@@ -28,7 +28,7 @@ public class DataManager {
 		return obj;
 	}
 
-	public static void writeSerializedObject(String fileName, Object obj) {
+	protected static void writeSerializedObject(String fileName, Object obj) {
 		try {
 			FileOutputStream file = new FileOutputStream(fileName);
 			ObjectOutputStream out = new ObjectOutputStream(file);
