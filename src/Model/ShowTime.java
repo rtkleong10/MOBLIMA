@@ -63,7 +63,17 @@ public class ShowTime implements Serializable{
 		return true;
 	}
 	
-
+	public boolean checkFull() {
+		SeatStatus[][] availSeat = this.getSeatAvailabilities();
+		for (int i =0; i<availSeat.length ; i++) {
+			for (int j=0; j<availSeat[i].length; j++) {
+				if(availSeat[i][j] == SeatStatus.EMPTY )
+					return false;
+			}
+		}
+		return  true;
+	}
+	
 	public boolean[][] getLayout() {
 		return layout;
 	}
@@ -72,9 +82,6 @@ public class ShowTime implements Serializable{
 		return startTime;
 	}
 
-	public Duration getDuration() {
-		return duration;
-	}
 
 	public Movie getMovie() {
 		return movie;
