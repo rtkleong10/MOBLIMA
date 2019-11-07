@@ -6,13 +6,15 @@ public class Movie {
 	private String synopsis;
 	private String director;
 	private String[] cast;
-	private static double OverallRating ;
+	private double OverallRating ;
 	
-	public static void calcOverallRating(int n) 
-	{ 
-	OverallRating= ReviewRating.getRating()/n; //n is the total number of people who reviewed the movie
-	 										  // get n by incrementing it in main when a person reviews
-	         
+	public void calcOverallRating() 
+	{ int s,n;
+	  n=0;
+	  s=0;
+	  s+= ReviewRating.getRating();
+	  n+=1;
+	  OverallRating=s/n;
 	
 	}
    
