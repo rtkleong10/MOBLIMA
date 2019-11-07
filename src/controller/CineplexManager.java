@@ -1,10 +1,10 @@
-package Controller;
+package controller;
 
 import java.util.ArrayList;
 
-import Model.Cineplex;
-import Model.Movie;
-import Model.PricingScheme;
+import model.Cineplex;
+import model.Movie;
+import model.PricingScheme;
 
 public class CineplexManager extends DataManager {
 	private static final String PRICINGSCHEME_FILENAME = "res/data/pricingScheme.dat";

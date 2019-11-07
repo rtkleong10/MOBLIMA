@@ -1,9 +1,9 @@
-package Controller;
+package controller;
 
 import java.util.HashMap;
 
-import Model.CinemaStaff;
-import Model.MovieGoer;
+import model.CinemaStaff;
+import model.MovieGoer;
 
 public class AccountManager extends DataManager {
 	private static final String CINEMASTAFF_FILENAME = "res/data/cinemaStaff.dat";

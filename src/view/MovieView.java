@@ -1,12 +1,12 @@
-package View;
+package view;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import Controller.CineplexManager;
-import Model.Movie;
-import Model.ReviewRating;
+import controller.CineplexManager;
+import model.Movie;
+import model.ReviewRating;
 
 public class MovieView {
 	public void printMovieDetails(Movie movie) {

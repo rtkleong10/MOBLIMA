@@ -1,8 +1,7 @@
-package Model;
+package model;
 
 public enum MovieType {
 	REGULAR,
 	BLOCKBUSTER,
-	_3D,
-	SCIFI;
+	_3D;
 }

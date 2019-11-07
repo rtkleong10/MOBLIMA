@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ public class ReviewRating implements Serializable {
 	
 	private MovieGoer movieGoer;
 	private String review;
-	private Integer rating;
+	private Integer rating = DEFAULT_RATING;
 	
 	public ReviewRating(MovieGoer movieGoer, String review, int rating) {
 		this.movieGoer = movieGoer;

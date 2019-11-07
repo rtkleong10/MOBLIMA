@@ -1,10 +1,45 @@
-package View;
+package view;
 
-import Controller.CineplexManager;
-import Model.*;
+import java.util.Scanner;
 
-public class MovieGoerView {
+import controller.CineplexManager;
+import model.*;
+
+public class MovieGoerView extends View {
 	private MovieGoer movieGoer;
+	
+	public void start() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println(
+			"Welcome " + movieGoer.getName() + "!\n" +
+			"1: Get booking history\n" +
+			"2: Back"
+		);
+		
+		int option;
+		
+		do {
+			System.out.print("Option: ");
+			option = sc.nextInt();
+			
+			switch (option) {
+				case 1:
+					getBookingHistory();
+					break;
+					
+				case 2:
+					System.out.println("Going back");
+					break;
+					
+				default:
+					System.out.println("Invalid option selected!");
+					break;
+			}
+		} while (option != 2);
+		
+		sc.close();
+	}
 	
 	public MovieGoerView(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;

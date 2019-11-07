@@ -1,6 +1,16 @@
-package Controller;
+package controller;
 
 import java.util.Scanner;
+
+import model.AgeGroup;
+import model.Booking;
+import model.Movie;
+import model.MovieGoer;
+import model.MovieType;
+import model.ReleaseRating;
+import model.SeatStatus;
+import model.ShowTime;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,17 +19,7 @@ import java.io.ObjectOutputStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import Model.ShowTime;
-import Model.AgeGroup;
-import Model.Booking;
-import Model.Movie;
-import Model.MovieGoer;
-import Model.MovieType;
-import Model.ReleaseRating;
-import Model.SeatStatus;
-
 import java.time.Month;
-import Model.MovieGoer;
 import java.io.PrintStream;
 
 public class BookingApp {
@@ -60,7 +60,7 @@ public class BookingApp {
 		MovieGoer[] movieGoers = new MovieGoer[3];
 		String[] names = {"Bob", "Joe", "Sally"};
 		for (int i = 0; i < names.length; i++) {
-		    movieGoers[i] = new MovieGoer("nanyoci", names[i],null,null,null,null);
+		    movieGoers[i] = new MovieGoer("nanyoci", names[i],null,null,null);
 		}
 		//booking data
 		boolean[][] book1 = {{false, false,false, false, false,false, false},
