@@ -1,24 +1,21 @@
 package Model;
 
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class ShowTime implements Serializable{
 	private static final long serialVersionUID = 8096921810451802218L;
 	
 	private boolean[][] layout; // From the cinema when created
 	private LocalDateTime startTime;
-	private Duration duration;
 	private Movie movie;
 	private ArrayList <Booking> bookings;
 
-	public ShowTime(boolean[][] layout, LocalDateTime startTime, Duration duration, Movie movie) {
+	public ShowTime(boolean[][] layout, LocalDateTime startTime,  Movie movie) {
 		this.layout = layout;
 		this.bookings = new ArrayList<Booking>();
 		this.startTime = startTime;
-		this.duration = duration;
 		this.movie = movie;
 		movie.addShowTime(this);
 	}

@@ -1,7 +1,10 @@
 package Model;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Movie implements Serializable {
 	private static final long serialVersionUID = 5822630624504041207L;
@@ -13,17 +16,19 @@ public class Movie implements Serializable {
 	private ShowingStatus showingStatus;
 	private ReleaseRating releaseRating;
 	private MovieType movieType;
+	private Duration duration;
 	private ArrayList<ReviewRating> reviewRatings = new ArrayList<ReviewRating>();
 	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 	
 	public Movie(String title, String synopsis, String director, String[] cast, ReleaseRating releaseRating,
-			MovieType movieType) {
+			MovieType movieType, Duration duration) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.director = director;
 		this.cast = cast;
 		this.releaseRating = releaseRating;
 		this.movieType = movieType;
+		this.duration = duration;
 	}
 	
 	public void addShowTime(ShowTime showTime) {
