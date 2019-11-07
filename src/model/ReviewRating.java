@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 
@@ -11,37 +11,23 @@ public class ReviewRating implements Serializable {
 	
 	private MovieGoer movieGoer;
 	private String review;
-	private Integer rating;
-/**
- * creates a review rating based on the details listed
- * @param movieGoer 
- * @param review
- * @param rating 
- */
+	private Integer rating = DEFAULT_RATING;
+	
 	public ReviewRating(MovieGoer movieGoer, String review, int rating) {
 		this.movieGoer = movieGoer;
 		this.review = review;
 		
 		if (rating >= MIN_RATING && rating <= MAX_RATING)
 			this.rating = rating;
-	}
-/**
- * @return movie goer of type MovieGoer class
- */
+	} 
 	
 	public MovieGoer getMovieGoer() {
 		return movieGoer;
 	}
-/**
- * @return review provided
- */
 	
 	public String getReview() {
 		return review;
 	}
-/**
- * @return rating 
- */
 	
 	public int getRating() {
 		return rating;

@@ -1,10 +1,10 @@
-package Model;
+package model;
 
 public enum AgeGroup {
 	CHILD("Child"),
 	ADULT("Adult"),
-	SENIOR_CITIZEN("Senior Citizen"); 
-
+	SENIORs_CITIZEN("Senior Citizen"); 
+	
 	public final String ageGroup;
 
 	private AgeGroup(String ageGroup) {
