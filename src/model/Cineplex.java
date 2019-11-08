@@ -25,4 +25,5 @@ public class Cineplex implements Serializable{
 	public String getName() {
 		return name;
 	}
+	
 }

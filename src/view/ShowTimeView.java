@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import controller.*;
 import model.*;
 import view.*;
-
 import java.util.*;
 
 public class ShowTimeView {
@@ -25,18 +24,31 @@ public class ShowTimeView {
 	 */
 	public static void displayAllShowTimes(List <Cineplex> cineplexes)
 	{
+		
 		for (int i=0; i<cineplexes.size(); i++) {
-			System.out.println("   ===="+cineplexes.get(i).getName()+"===");
-			List <Cinema> cin = cineplexes.get(i).getCinemas();
 			List <ShowTime> allShowTime = new ArrayList <>();
-			for (int j =0; j<cin.size(); j++) {
-				List <ShowTime> showtime = new ArrayList <>();
-				showtime = cin.get(j).getShowTimes();
-				for (int k=0; k< showtime.size(); k++)
-					allShowTime.add(showtime.get(k));
-			}
+			System.out.println("   ===="+cineplexes.get(i).getName()+"===");
+			allShowTime = getShowTimes(cineplexes.get(i));
 			ShowTimeView.displayShowTime(allShowTime);
+			}
+			
+	}
+	/**
+	 * Gets all showtimes from the cineplex
+	 * @param cineplex
+	 * @return
+	 */
+	public static List <ShowTime> getShowTimes(Cineplex cineplex) {
+		List <Cinema> cin = cineplex.getCinemas();
+		List <ShowTime> allShowTime = new ArrayList <>();
+		for (int j =0; j<cin.size(); j++) {
+			List <ShowTime> showtime = new ArrayList <>();
+			showtime = cin.get(j).getShowTimes();
+			for (int k=0; k< showtime.size(); k++) {
+				allShowTime.add(showtime.get(k));
+			}
 		}
+		return allShowTime;
 	}
 	/**
 	 * Displays a list of showtimes

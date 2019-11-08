@@ -1,15 +1,19 @@
 package controller;
 
-import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 import model.*;
+import view.ShowTimeView;
+
 import java.io.PrintStream;
 
 
@@ -17,83 +21,114 @@ public class BookingApp {
 	
 	
 	public static void main (String args[]) {
+		DataManager.load();
+		
 		
 		int choice;
 		Scanner sc = new Scanner (System.in);
 		System.out.println("Select Cineplex: ");
-		System.out.println("1) Golden Village\n"
+		System.out.print("1) Golden Village\n"
 				+ 			"2) Cathay Cineplex\n"
 				+			"3) Shaw Theater\n");
 		System.out.print("Option: ");
+		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
 		choice = sc.nextInt();
-		switch(choice) {
-		case 1: // read in Golden Village 
-			//get showtime
+		ArrayList<Cinema> cinList = new ArrayList<>();
+		ArrayList<Movie> movieList = new ArrayList<>();
+		
+		List<ShowTime> showList = new ArrayList<>();
+		
+		List<Cineplex> selectedCineplex =  new ArrayList<>();
+		selectedCineplex.add(cineplexList.get(choice-1));
+		System.out.println("");
+		
+		showList = ShowTimeView.getShowTimes(cineplexList.get(choice-1));
+		
+		Map<Movie, List <ShowTime>> byMovie = showList.stream()
+				.collect(Collectors.groupingBy(ShowTime::getMovie));    
+	
+		List <String> movieNames =  new ArrayList<>();
+		for (Map.Entry<Movie, List <ShowTime>> entry: byMovie.entrySet()) {
+			 movieNames.add(entry.getKey().getTitle());
+		}
+		System.out.println("Select Movie:");
+		for (int i=0; i<movieNames.size(); i++) {
+			System.out.println( i+1 +") "+ movieNames.get(i));
+		}
+		System.out.print("Option: ");
+		choice = sc.nextInt();
+		
+		List <ShowTime> possibleShow = new ArrayList <>();
+		int count = 1;
+		for (Map.Entry<Movie, List <ShowTime>> entry: byMovie.entrySet()) {
+			if(count == choice) {
+				possibleShow.addAll(entry.getValue());
+				break;
+			}
+			count++;
 		}
 		
+		System.out.println("\nSelect Showtime :");
+		for (int i=0; i<possibleShow.size(); i++) {
+			Comparator<ShowTime> dateComparator = Collections.reverseOrder(Comparator.comparing(ShowTime::getStartTime));
+			possibleShow.sort(dateComparator);
+			System.out.println( i+1 +") "+ possibleShow.get(i).getStartTime().toLocalDate()+"  "+ 
+								possibleShow.get(i).getStartTime().toLocalTime());
+		}
+		System.out.print("Option: ");
+		choice = sc.nextInt();
+		ShowTime selectedShow = possibleShow.get(choice-1);
 		
-		//dummy data
-		boolean layout[][]=new boolean[11][19];
-        for(int i=0;i<11;i++){
-			
-			for(int j=0;j<19;j++)
-			{
-			if(j==4||j==14||i==6)
-			layout[i][j]=false;
-			
-			else
-			layout[i][j]=true;
-			}
-			
-        }
-        
-		int [] minute = {0,0,15,30,0,45} ;
-		int [] hour = {9, 10, 11, 12, 13, 14, 15, 16, 17};
-		LocalDateTime schedule ;
-		ShowTime show;
-			
-		//moviegoer
-		MovieGoer[] movieGoers = new MovieGoer[1];
-		//for (int i = 0; i < 1; i++) {
-		 //   movieGoers[i] = new MovieGoer("nanyoci", "Sally",null,null,null,null);
-		//}
 		
-		String movieShowTime = "MovieShowTimes";
-		//writeSerializedObject(movieShowTime, shows);
 		
-		List <ShowTime> readShow;
-		readShow =readSerializedObject(movieShowTime);
-		
-		//booking begins
+		displaySeat(selectedShow);
+		boolean[][] selectedSeat = new boolean[selectedShow.getLayout().length][];
 		boolean done = false;
-		boolean[][] book3;
 		
-		/*
-		 * New method: checkfull() 
-		 * check if showtime  is full before booking
-		 
-		readShow.get(0).createBooking("123456",movieGoers[0], layout, 5.0);
-		displaySeat(readShow.get(0));
-		if(readShow.get(0).checkFull())
-			System.out.println("FULLY BOOKED");
-		else book3=getSeat(readShow.get(0));
+		if(selectedShow.checkFull()) {
+			System.out.println("Sorry Fully Booked");
+			return ;
+		}
+
+		selectedSeat = getSeat(selectedShow);
+
 		
-		*/
 		do {
-			
-			book3=getSeat(readShow.get(0));
-			
-			if(readShow.get(0).checkAvail( book3)) {
-				readShow.get(0).createBooking("123456",movieGoers[0], book3, 5.0);
-				System.out.println("Transaction ID: " +"123456"+" successful");
+			if(selectedShow.checkAvail(selectedSeat)) {
 				done = true;
+				System.out.println("Available seat selected");
 			}
 			else {
-				System.out.println("Seat is unavailable");
+				System.out.println("Unavailable seat selected");
+				System.out.println("Select seat again");
+				selectedSeat = getSeat(selectedShow);
 			}
 		}while(!done);
 		
-		displaySeat(readShow.get(0));
+		int [] ageGrp = new int[3];
+		System.out.println("How many of each age group [Child Adult Elderly]:");
+		for(int i=0; i<ageGrp.length; i++) {
+			ageGrp[i] = sc.nextInt();
+		}
+		
+		System.out.println("   === Booking Information ===");
+		ShowTimeView.displayShowTime(Arrays.asList(selectedShow));
+		System.out.println("Child: "+ ageGrp[0]);
+		System.out.println("Adult: "+ ageGrp[1]);
+		System.out.println("Child: "+ ageGrp[2]);
+		System.out.print("Confirm Booking [y/n]: ");
+		
+		char confirm = sc.next().charAt(0);
+		if(confirm == 'y') {
+			System.out.println("Success Booking");
+			selectedShow.createBooking("1234", null, selectedSeat, 100);
+			displaySeat(selectedShow);
+		}
+		else
+			System.out.println("Booking Cancelled");
+			
+		
+		
 		
 	}
 	
@@ -180,15 +215,12 @@ public class BookingApp {
 		
 		for (int i =0; i< (availSeat[0].length); i++)
 		{
-			
 				if(i<10)
 					System.out.print("  "+col+"  ");	
 				else
 					System.out.print(" "+col+"  ");	
-			
 			col++;
 		}
-		
 		
 		System.out.println();	
 		for (int i =0; i< 5*(availSeat[0].length)+4; i++)
@@ -200,40 +232,6 @@ public class BookingApp {
 		
 		
 	}
-	public static List readSerializedObject(String filename) {
-		ArrayList <ShowTime>showList = new ArrayList <ShowTime>();
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-		try {
-			fis = new FileInputStream(filename);
-			in = new ObjectInputStream(fis);
-			showList = (ArrayList) in.readObject();
-			in.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		finally {
-		//print out the size
-		System.out.println("Details Size: " + showList.size());
-		System.out.println();
-		}
-		return showList;
-	}
 
-	public static void writeSerializedObject(String filename, ArrayList <ShowTime> list) {
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(list);
-			out.close();
-			System.out.println("Object Persisted");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
 
 }
