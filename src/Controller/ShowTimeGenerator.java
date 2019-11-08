@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import Controller.CineplexManager;
 
 public class ShowTimeGenerator {
 	
-	public static final int MAX_SHOWTIMES = 3; //max showtime per day = 4
+	public static final int MAX_SHOWTIMES = 4; //max showtime per day = 4
 	public static final int MAX_SHOWDAYS = 3;	
 	
 	public static  void main (String []args) {
@@ -130,24 +131,28 @@ public class ShowTimeGenerator {
 		}
 	}
 	
-	/*below is just for printing out the code 
-	
-	MovieView mo = new MovieView();
-	for(int i =0; i< cineplexes.length; i++ ) {
-		ArrayList <Cinema> cinemas = new ArrayList <Cinema>();
-		cinemas = cineplexes[i].getCinemas();
-		System.out.println("Cineplex "+i);
-		for(int j=0; j< cinemas.size() ; j++ ) {
-			s = cinemas.get(j).getShowTimes(); {
-				System.out.println("Cinema "+j);
-				for(int l=0; l<s.size(); l++) {
-					System.out.println("Showtime " +l);
-					Movie m = s.get(l).getMovie();
-					
-					mo.printMovieDetails(m);
-				}
-			}
-		}
-	}*/
+	List <Cineplex> c = Arrays.asList(cineplexes);
+	displayAllShowTimes(c);
 	}
+
+	/**
+	 * Displays ShowTimes of All Cineplexes
+	 * @param cineplexes List of all Cineplexes
+	 */
+	public static void displayAllShowTimes(List <Cineplex> cineplexes)
+	{
+		for (int i=0; i<cineplexes.size(); i++) {
+			System.out.println("==="+cineplexes.get(i).getName()+"===");
+			List <Cinema> cin = cineplexes.get(i).getCinemas();
+			List <ShowTime> allShowTime = new ArrayList <>();
+			for (int j =0; j<cin.size(); j++) {
+				List <ShowTime> showtime = new ArrayList <>();
+				showtime = cin.get(j).getShowTimes();
+				for (int k=0; k< showtime.size(); k++)
+					allShowTime.add(showtime.get(k));
+			}
+			ShowTimeView.displayShowTime(allShowTime);
+		}
+	}
+	
 }

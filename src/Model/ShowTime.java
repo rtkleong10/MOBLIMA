@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -12,6 +13,12 @@ public class ShowTime implements Serializable{
 	private Movie movie;
 	private ArrayList <Booking> bookings;
 
+	/**
+	 * Creates ShowTime
+	 * @param layout
+	 * @param startTime
+	 * @param movie
+	 */
 	public ShowTime(boolean[][] layout, LocalDateTime startTime,  Movie movie) {
 		this.layout = layout;
 		this.bookings = new ArrayList<Booking>();
@@ -20,6 +27,13 @@ public class ShowTime implements Serializable{
 		movie.addShowTime(this);
 	}
 	
+	/**
+	 * Creates booking
+	 * @param transactionId
+	 * @param movieGoer
+	 * @param selectedSeats
+	 * @param price
+	 */
 	public void createBooking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
 		Booking newBooking = new Booking(transactionId, movieGoer, selectedSeats, price);
 		this.bookings.add(newBooking);	
@@ -72,6 +86,10 @@ public class ShowTime implements Serializable{
 			}
 		}
 		return  true;
+	}
+	
+	public LocalDate getDate() {
+		return getStartTime().toLocalDate();
 	}
 	
 	public boolean[][] getLayout() {

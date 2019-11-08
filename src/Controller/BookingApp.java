@@ -28,6 +28,21 @@ public class BookingApp {
 	
 	
 	public static void main (String args[]) {
+		
+		int choice;
+		Scanner sc = new Scanner (System.in);
+		System.out.println("Select Cineplex: ");
+		System.out.println("1) Golden Village\n"
+				+ 			"2) Cathay Cineplex\n"
+				+			"3) Shaw Theater\n");
+		System.out.print("Option: ");
+		choice = sc.nextInt();
+		switch(choice) {
+		case 1: // read in Golden Village 
+			//get showtime
+		}
+		
+		
 		//dummy data
 		boolean layout[][]=new boolean[11][19];
         for(int i=0;i<11;i++){
