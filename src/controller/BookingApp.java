@@ -31,7 +31,7 @@ public class BookingApp {
 		String []movie1Cast = new String [] {"Tom"};
 		Movie movie1 = new Movie("Spider-Man Far From Home", "Peter Parker's life", "Jon Watt", 
 				movie1Cast, ReleaseRating.PG13,
-				MovieType.SCIFI);
+				MovieType.REGULAR);
 		//dummy cinema
 		boolean[][] layout1 = {{false, true, true, false, true, true,false},
 						  		{false, true,true, false, true, true, false},

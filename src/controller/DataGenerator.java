@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import model.*;
@@ -9,7 +10,8 @@ import model.*;
 public class DataGenerator {
 	
 	public static void main(String[] args) {
-		AppManager.initialize();
+		DataManager.initialise();
+		DataStore dataStore = DataManager.getDataStore();
 		
 		CinemaStaff cinemaStaffList[] = {
 			new CinemaStaff("cathy", "cathyishappy"),
@@ -22,14 +24,14 @@ public class DataGenerator {
 		};
 		
 		for (CinemaStaff cinemaStaff: cinemaStaffList) {
-			AccountManager.addCinemaStaff(cinemaStaff);
+			dataStore.addCinemaStaff(cinemaStaff);
 		}
 		
 		for (MovieGoer movieGoer: movieGoerList) {
-			AccountManager.addMovieGoer(movieGoer);
+			dataStore.addMovieGoer(movieGoer);
 		}
 		
-		PricingScheme pricingScheme = CineplexManager.getPricingScheme();
+		PricingScheme pricingScheme = dataStore.getPricingScheme();
 		
 		pricingScheme.setBasePrice(10.0);
 		
@@ -48,7 +50,7 @@ public class DataGenerator {
 		pricingScheme.setMovieMultiplier(MovieType.BLOCKBUSTER, 1.2);
 		pricingScheme.setMovieMultiplier(MovieType._3D, 1.5);
 		
-		HashMap<LocalDate, String> holidays = new HashMap<LocalDate, String>();
+		HashMap<LocalDate, String> holidays = pricingScheme.getHolidays();
 
 		holidays.put(LocalDate.of(2019, 1, 1), "New Year's Day");
 		holidays.put(LocalDate.of(2019, 2, 5), "Chinese New Year");
@@ -61,13 +63,9 @@ public class DataGenerator {
 		holidays.put(LocalDate.of(2019, 8, 11), "Hari Raya Haji");
 		holidays.put(LocalDate.of(2019, 10, 27), "Diwali");
 		holidays.put(LocalDate.of(2019, 12, 25), "Christmas Day");
-
-		for (LocalDate holidayDate: holidays.keySet()) {
-			pricingScheme.addHolidayDates(holidayDate, holidays.get(holidayDate));
-		}
 		
-		System.out.println(AccountManager.getCinemaStaff("cathy", "cathyishappy").getUsername());
-		System.out.println(AccountManager.getMovieGoer("sally", "sallylikesmovies").getName());
+		System.out.println(dataStore.getCinemaStaff("cathy", "cathyishappy").getUsername());
+		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 1, 1), CinemaClass.NORMAL, AgeGroup.ADULT, MovieType.REGULAR));
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 11, 5), CinemaClass.PLATINUM_MOVIE_SUITE, AgeGroup.CHILD, MovieType._3D));
 
@@ -93,12 +91,102 @@ public class DataGenerator {
 				new Movie("Annabelle", "John and Mia are attacked by a couple, who are worshippers of Satan. However, before the cops kill them, the couple use a doll as a conduit to make John and Mia's life miserable.", "John Leonetti", cast[7], ReleaseRating.NC16, MovieType.BLOCKBUSTER)
 		};
 		
-		ArrayList<Movie> fullMovieList = CineplexManager.getMovieList();
+		ArrayList<Movie> fullMovieList = dataStore.getMovieList();
 		
 		for (Movie movie: movieList) {
 			fullMovieList.add(movie);
 		}
 		
-		AppManager.update();
+		boolean layout1[][]=new boolean[11][19];
+        for (int i = 0; i < 11; i++) {
+        	for (int j = 0; j < 19; j++) {
+        		if (j == 4 || j == 14 || i == 6)
+        			layout1[i][j] = false;
+        		else
+        			layout1[i][j] = true;
+        	}
+		}
+        
+		boolean layout2[][] = new boolean[11][19];
+        for (int i = 0; i < 11; i++) {
+        	for (int j = 0; j < 19; j++) {
+        		if(j == 4 || j == 14 || i == 3)
+        			layout2[i][j]=false;
+        		else
+        			layout2[i][j]=true;
+        	}
+		}
+		
+        layout2[0][1] = false;
+		layout2[1][0] = false;
+		layout2[0][0] = false;
+		layout2[0][18] = false;
+		layout2[1][18] = false;
+		layout2[0][17] = false;
+		layout2[10][1] = false;
+		layout2[10][0]=false;
+		layout2[9][0] = false;
+		layout2[10][18] = false;
+		layout2[9][18] = false;
+		layout2[10][17] = false;
+		
+		boolean layout3[][] = new boolean[11][19];
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 19; j++) {
+				layout3[i][j] = true;
+				if (j == 6 || j == 12)
+					layout3[i][j]=false;
+			}
+		}
+		
+		int count = 4;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < count; j++) {
+				layout3[i][j] = false;
+				layout3[i][18 - j] = false;
+			}
+			
+			count--;
+		}
+		
+		ArrayList<Cineplex> cineplexList = dataStore.getCineplexList();
+		String[] cinplexNames = {"Golden Village", "Cathay Cineplex", "Shaw Theatres"};
+		String[] cinName = {"Screen 1", "Screen 2", "Screen 3"};
+		
+		for (int i = 0; i < cinplexNames.length; i++) {
+			Cineplex cineplex = new Cineplex(cinplexNames[i]);
+			cineplex.createCinema(cinName[0], Arrays.copyOf(layout1, layout1.length), CinemaClass.NORMAL);
+			cineplex.createCinema(cinName[1], Arrays.copyOf(layout2, layout2.length), CinemaClass.PLATINUM_MOVIE_SUITE);
+			cineplex.createCinema(cinName[2], Arrays.copyOf(layout3, layout3.length), CinemaClass.NORMAL);
+			cineplexList.add(cineplex);
+		}
+		
+		for (int i = 0; i < layout1.length; i++) {
+			for (int j = 0; j < layout1[i].length; j++)
+				System.out.print(layout1[i][j] ? "O" : " ");
+			System.out.println("");
+		}
+		
+		System.out.println("====");
+		
+		for (int i = 0; i < layout2.length; i++) {
+			for (int j = 0; j < layout2[i].length; j++)
+				System.out.print(layout2[i][j] ? "O" : " ");
+			System.out.println("");
+		}
+		
+		System.out.println("====");
+		
+		for (int i = 0; i < layout3.length; i++) {
+			for (int j = 0; j < layout3[i].length; j++)
+				System.out.print(layout3[i][j] ? "O" : " ");
+			System.out.println("");
+		}
+		
+		for (Movie movie: dataStore.getMovieList()) {
+			System.out.println(movie.getTitle());
+		}
+		
+		DataManager.update();
 	}
 }

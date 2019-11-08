@@ -1,45 +1,30 @@
 package controller;
 
-import java.io.*;
-
-public abstract class DataManager {
-	protected static Object readSerializedObject(String fileName) {
-		Object obj = null;
-		
-		try {
-			FileInputStream file = new FileInputStream(fileName);
-			ObjectInputStream in = new ObjectInputStream(file);
-			
-			obj = in.readObject();
-			
-			in.close();
-			file.close();
-			
-		} catch (EOFException e) {
-            return null;
-            
-        } catch (IOException ex) {
-			ex.printStackTrace();
-			
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		
-		return obj;
+public class DataManager {
+	
+	private static final String FILENAME = "res/data/moblima.dat";
+	private static DataStore dataStore;
+	
+	private DataManager() {}
+	
+	public static DataStore getDataStore() {
+		return dataStore;
 	}
-
-	protected static void writeSerializedObject(String fileName, Object obj) {
-		try {
-			FileOutputStream file = new FileOutputStream(fileName);
-			ObjectOutputStream out = new ObjectOutputStream(file);
-			
-			out.writeObject(obj);
-			
-			out.close();
-			file.close();
-			
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+	
+	public static void initialise() {
+		dataStore = new DataStore();
+	}
+	
+	public static void load() {
+		Object obj = Serialization.readSerializedObject(FILENAME);
+		
+		if (obj == null || !(obj instanceof DataStore))
+			dataStore = new DataStore();
+		else
+			dataStore = (DataStore) obj;
+	}
+	
+	public static void update() {
+		Serialization.writeSerializedObject(FILENAME, dataStore);
 	}
 }
