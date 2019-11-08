@@ -10,17 +10,14 @@ public abstract class View {
 	public abstract void start();
 	
 	protected void exit() {
-		if (previousView == null) { // Exit if it doesn't have previous view
-			System.exit(1);
-		
-		} else {
-			System.out.println("");
+		if (previousView != null) {
+			System.out.println();
 			previousView.start();
 		}
 	}
 	
 	protected void load(View nextView) {
-		System.out.println("");
+		System.out.println();
 		nextView.previousView = this;
 		nextView.start();
 	}

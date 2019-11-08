@@ -4,7 +4,6 @@ import controller.DataManager;
 import model.*;
 
 public class MovieGoerView extends View {
-	private static final int MAX_TRIES = 3;
 	private MovieGoer movieGoer;
 	
 	public void start() {
@@ -37,6 +36,46 @@ public class MovieGoerView extends View {
 		}
 	}
 	
+	private void displayMenu() {
+		int option = getMenuOption(
+			"Welcome " + movieGoer.getName() + "!",
+			"Search for a movie",
+			"View movie details",
+			"Check seat availabilities",
+			"Book a ticket",
+			"View booking history",
+			"List Top 5 Movies",
+			"Exit"
+		);
+		
+		switch (option) {
+			case 1:
+				break;
+				
+			case 2:
+				break;
+				
+			case 3:
+				break;
+				
+			case 4:
+				load(new CineplexSelectView(movieGoer));
+				break;
+				
+			case 5:
+				load(new BookingHistoryView(movieGoer));
+				break;
+				
+			case 6:
+				load(new TopMoviesView());
+				break;
+				
+			case 7:
+				exit();
+				break;
+		}
+	}
+	
 	private void signupMovieGoer() {
 		System.out.print("Username: ");
 		String username = sc.next();
@@ -53,126 +92,47 @@ public class MovieGoerView extends View {
 		
 		String password1 = "", password2;
 		
-		boolean successful = false;
-		
-		for (int i = 0; i < MAX_TRIES; i++) {
+		while (true) {
 			System.out.print("Password: ");
 			password1 = sc.next();
 			
 			System.out.print("Confirm Password: ");
 			password2 = sc.next();
 			
-			if (password1.equals(password2)) {
-				successful = true;
+			if (password1.equals(password2))
 				break;
-				
-			} else {
+			else
 				System.out.println("Error: Password mismatch");
-			}
 		}
 		
-		if (successful) {
-			this.movieGoer = new MovieGoer(username, name, mobileNumber, emailAddress, password1);
-			DataManager.getDataStore().addMovieGoer(this.movieGoer);
-			
+		this.movieGoer = new MovieGoer(username, name, mobileNumber, emailAddress, password1);
+		
+		if (DataManager.getDataStore().addMovieGoer(this.movieGoer)) {
 			System.out.println("");
 			displayMenu();
 			
 		} else {
-			System.out.println("Maximum tries reached");
+			System.out.println("Error: User already exists");
 			exit();
 		}
 	}
 	
 	private void loginMovieGoer() {
-		boolean successful = false;
+		System.out.print("Username: ");
+		String username = sc.next();
 		
-		for (int i = 0; i < MAX_TRIES; i++) {
-			System.out.print("Username: ");
-			String username = sc.next();
-			
-			System.out.print("Password: ");
-			String password = sc.next();
-			
-			this.movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
-			
-			if (this.movieGoer != null) {
-				successful = true;
-				break;
-				
-			} else {
-				System.out.println("Error: Username or password is wrong");
-			}
-		}	
+		System.out.print("Password: ");
+		String password = sc.next();
 		
-		if (successful) {
+		this.movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
+		
+		if (this.movieGoer != null) {
 			System.out.println("");
 			displayMenu();
-		
+			
 		} else {
-			System.out.println("Maximum tries reached");
+			System.out.println("Error: Username or password is wrong");
 			exit();
-		}
-	}
-	
-	private void displayMenu() {
-		int option = getMenuOption(
-			"Welcome " + movieGoer.getName() + "!",
-			"Search for a movie",
-			"View movie details",
-			"Check seat availabilities",
-			"Book a ticket",
-			"View booking history",
-			"List Top 5 Movies",
-			"Exit"
-		);
-		
-		switch (option) {
-			case 1:
-				getBookingHistory();
-				break;
-				
-			case 2:
-				break;
-				
-			case 3:
-				break;
-				
-			case 4:
-				break;
-				
-			case 5:
-//				load(new BookingView(this.movieGoer));
-				break;
-				
-			case 6:
-				load(new TopMoviesView());
-				break;
-				
-			case 7:
-				exit();
-				break;
-		}
-	}
-	
-	public void getBookingHistory() {
-		for (Cineplex cineplex: DataManager.getDataStore().getCineplexList()) {
-			for (Cinema cinema: cineplex.getCinemas()) {
-				for (ShowTime showTime: cinema.getShowTimes()) {
-					for (Booking booking: showTime.getBookings()) {
-						if (booking.getMovieGoer() == movieGoer) {
-							System.out.println(
-								"Booking: " + booking.getTransactionId() + "\n" +
-								"Price: $" + booking.getPrice() + "\n" +
-								"Movie: " + showTime.getMovie() + "\n" +
-								"Date & Time: " + showTime.getStartTime().toString() + "\n" +
-								"Cinema: " + cinema.getCinemaCode() + "\n" +
-								"Cineplex: " + cineplex.getName() + "\n"
-							);
-						}
-					}
-				}
-			}
 		}
 	}
 }

@@ -4,7 +4,6 @@ import controller.DataManager;
 import model.CinemaStaff;
 
 public class CinemaStaffView extends View {
-	private static final int MAX_TRIES = 3;
 	private CinemaStaff cinemaStaff;
 	
 	public void start() {
@@ -15,32 +14,20 @@ public class CinemaStaffView extends View {
 	}
 	
 	private void loginCinemaStaff() {
-		boolean successful = false;
+		System.out.print("Username: ");
+		String username = sc.next();
 		
-		for (int i = 0; i < MAX_TRIES; i++) {
-			System.out.print("Username: ");
-			String username = sc.next();
-			
-			System.out.print("Password: ");
-			String password = sc.next();
-			
-			this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
-			
-			if (this.cinemaStaff != null) {
-				successful = true;
-				break;
-				
-			} else {
-				System.out.println("Error: Username or password is wrong");
-			}
-		}	
+		System.out.print("Password: ");
+		String password = sc.next();
 		
-		if (successful) {
+		this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
+		
+		if (this.cinemaStaff != null) {
 			System.out.println("");
 			displayMenu();
-		
+			
 		} else {
-			System.out.println("Maximum tries reached");
+			System.out.println("Error: Username or password is wrong");
 			exit();
 		}
 	}
@@ -54,5 +41,24 @@ public class CinemaStaffView extends View {
 			"List Top 5 Movies",
 			"Exit"
 		);
+		
+		switch (option) {
+			case 1:
+				break;
+				
+			case 2:
+				break;
+				
+			case 3:
+				break;
+				
+			case 4:
+				load(new TopMoviesView());
+				break;
+				
+			case 5:
+				exit();
+				break;
+		}
 	}
 }

@@ -50,7 +50,7 @@ public class DataGenerator {
 		pricingScheme.setMovieMultiplier(MovieType.BLOCKBUSTER, 1.2);
 		pricingScheme.setMovieMultiplier(MovieType._3D, 1.5);
 		
-		HashMap<LocalDate, String> holidays = new HashMap<LocalDate, String>();
+		HashMap<LocalDate, String> holidays = pricingScheme.getHolidays();
 
 		holidays.put(LocalDate.of(2019, 1, 1), "New Year's Day");
 		holidays.put(LocalDate.of(2019, 2, 5), "Chinese New Year");
@@ -63,10 +63,6 @@ public class DataGenerator {
 		holidays.put(LocalDate.of(2019, 8, 11), "Hari Raya Haji");
 		holidays.put(LocalDate.of(2019, 10, 27), "Diwali");
 		holidays.put(LocalDate.of(2019, 12, 25), "Christmas Day");
-
-		for (LocalDate holidayDate: holidays.keySet()) {
-			pricingScheme.addHolidayDates(holidayDate, holidays.get(holidayDate));
-		}
 		
 		System.out.println(dataStore.getCinemaStaff("cathy", "cathyishappy").getUsername());
 		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());
