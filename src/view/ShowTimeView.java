@@ -19,7 +19,7 @@ public class ShowTimeView {
 		displayAllShowTimes(cineplexList);
 	}
 	/**
-	 * Displays all ShowTimes from all Cineplexes
+	 * Displays all available showtime for all cineplexes
 	 * @param cineplexes
 	 */
 	public static void displayAllShowTimes(List <Cineplex> cineplexes)
@@ -36,10 +36,10 @@ public class ShowTimeView {
 	
 	/**
 	 * Displays a list of showtimes
-	 * @param s
+	 * @param show list of showtimes to be displayed
 	 */
-	public static void displayShowTime (List <ShowTime> s) {
-		Map<Movie, List <ShowTime>> byMovie = s.stream()
+	public static void displayShowTime (List <ShowTime> show) {
+		Map<Movie, List <ShowTime>> byMovie = show.stream()
 				.collect(Collectors.groupingBy(ShowTime::getMovie));    
 	
 	

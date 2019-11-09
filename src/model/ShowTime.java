@@ -14,10 +14,10 @@ public class ShowTime implements Serializable{
 	private ArrayList <Booking> bookings;
 
 	/**
-	 * Creates ShowTime
-	 * @param layout
-	 * @param startTime
-	 * @param movie
+	 * Creates ShowTime instance
+	 * @param cinema cinema which the showtime belongs to
+	 * @param startTime starting time of the show
+	 * @param movie movie of the showtime
 	 */
 	public ShowTime(Cinema cinema, LocalDateTime startTime,  Movie movie) {
 		this.cinema = cinema;
@@ -28,17 +28,20 @@ public class ShowTime implements Serializable{
 	}
 	
 	/**
-	 * Creates booking
-	 * @param transactionId
-	 * @param movieGoer
-	 * @param selectedSeats
-	 * @param price
+	 * Creates Booking instance
+	 * @param transactionId transaction id of the booking
+	 * @param movieGoer account of user who made the booking
+	 * @param selectedSeats seats selected by user to book
+	 * @param price price of the booking transaction 
 	 */
 	public void createBooking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
 		Booking newBooking = new Booking(transactionId, movieGoer, selectedSeats, price);
 		this.bookings.add(newBooking);	
 	}
-	
+	/**
+	 * Gets all seat available for the showtime
+	 * @return 2D array of SeatStatus
+	 */
 	public SeatStatus[][] getSeatAvailabilities() {
 		boolean [][] layout = getLayout();
 		SeatStatus[][] seatAvail = new SeatStatus[layout.length][];
@@ -64,7 +67,11 @@ public class ShowTime implements Serializable{
 		
 		return seatAvail;
 	}
-	
+	/**
+	 * Checks the availability of the seats selected by user
+	 * @param selectedSeat 2D boolean array indicating seat selected by user
+	 * @return true if all seats selected is available; otherwise false
+	 */
 	public boolean checkAvail( boolean [][] selectedSeat ) {
 		SeatStatus[][] availSeat = this.getSeatAvailabilities();
 		for (int i =0; i<availSeat.length ; i++) {
@@ -77,7 +84,10 @@ public class ShowTime implements Serializable{
 		}
 		return true;
 	}
-	
+	/**
+	 * Check if the showtime is already fully booked
+	 * @return true if the showtime is already fully booked; otherwise false
+	 */
 	public boolean checkFull() {
 		SeatStatus[][] availSeat = this.getSeatAvailabilities();
 		for (int i =0; i<availSeat.length ; i++) {
@@ -88,31 +98,55 @@ public class ShowTime implements Serializable{
 		}
 		return  true;
 	}
-	
+	/**
+	 * 
+	 * @return date of the showtime
+	 */
 	public LocalDate getDate() {
 		return getStartTime().toLocalDate();
 	}
-	
+	/**
+	 * 
+	 * @return layout of the cinema of the showtime
+	 */
 	public boolean[][] getLayout() {
 		return cinema.getLayout();
 	}
-
+	/**
+	 * 
+	 * @return date and time of the showtime
+	 */
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
-
+	/**
+	 * 
+	 * @return movie of the showtime
+	 */
 	public Movie getMovie() {
 		return movie;
 	}
-
+	
+	/**
+	 * 
+	 * @return ArrayList of all booking made for the showtime
+	 */
 	public ArrayList<Booking> getBookings() {
 		return bookings;
 	}
-	
+	/**
+	 * 
+	 * @return cinema of the showtime
+	 */
 	public Cinema getCinema() {
 		return cinema;
 	}
+	
+	/**
+	 * 
+	 * @return total sales of the showtime
+	 */
 	public double getTotalSales() {
 		double totalSales = 0;
 		
