@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.DataManager;

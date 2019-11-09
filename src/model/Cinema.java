@@ -19,8 +19,8 @@ public class Cinema implements Serializable{
 		this.cinemaClass = cinemaClass;
 	}
 	
-	public void createShowTime(boolean[][] layout, LocalDateTime startTime, Duration duration, Movie movie) {
-		ShowTime showTime = new ShowTime(layout, startTime, duration, movie);
+	public void createShowTime(boolean[][] layout, LocalDateTime startTime,  Movie movie) {
+		ShowTime showTime = new ShowTime(layout, startTime,  movie);
 		this.showTimes.add(showTime);
 	}
 	

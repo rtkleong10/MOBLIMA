@@ -1,13 +1,16 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
+import java.time.Duration;
 import model.*;
 
 public class DataGenerator {
+	public static final int MAX_SHOWTIMES = 4; //max showtime per day = 4
+	public static final int MAX_SHOWDAYS = 3; //showtimes are made for 3 days
 	
 	public static void main(String[] args) {
 		DataManager.initialise();
@@ -82,14 +85,14 @@ public class DataGenerator {
 		};
 		
 		Movie movieList[] = {
-				new Movie("Harry Potter and the Goblet of Fire", "This movie sees Harry, Ron and Hermione returning for their 4th year in Hogwarts. There is an upcoming tournament between 3 schools where one partipant must from each school must compete in a dangerous quest.", "Mike Newell", cast[0], ShowingStatus.NOW_SHOWING, ReleaseRating.PG, MovieType.BLOCKBUSTER),
-				new Movie("Avengers: Endgame", "The final movie of the Avengers Franchise where the remaining Avengers must figure out a way to defeat Thanos, and save the world and their other superhero friends", "Anthony Russo", cast[1], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.BLOCKBUSTER),
-				new Movie("Starwars: The Force Awakens", "A new order threatens to destroy the New Republic. Finn,  Rey and Poe,  backed by the Resistance and the Republic,  must find a way to stop them and find Luke,  the last surviving Jedi.", "J.J. Abrahams", cast[2], ShowingStatus.COMING_SOON, ReleaseRating.PG13, MovieType._3D),
-				new Movie("Napolean Dynamite", "Napoleon,  a socially awkward teenager,  gets caught up in his dysfunctional family's misadventures while trying to help a friend win the class presidency.", "Jared Hess", cast[3], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.REGULAR),
-				new Movie("Ratatouille", "Remy,  a rat,  aspires to become a renowned French chef. He doesn't realise that people despise rodents and will never enjoy a meal cooked by him.", "Brad Bird", cast[4], ShowingStatus.PREVIEW, ReleaseRating.G, MovieType.REGULAR),
-				new Movie("The Godfather", "Don Vito Corleone, head of a mafia family, decides to handover his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger.", "Francis Coppola", cast[5], ShowingStatus.NOW_SHOWING, ReleaseRating.NC16, MovieType.REGULAR),
-				new Movie("Zootopia", "Judy Hopps and Nick Wilde team up to uncover the mystery behind the fourteen missing predators. They end up finding out that the conspiracy is larger than it seems.", "Rich Moore", cast[6], ShowingStatus.NOW_SHOWING, ReleaseRating.G, MovieType.REGULAR),
-				new Movie("Annabelle", "John and Mia are attacked by a couple, who are worshippers of Satan. However, before the cops kill them, the couple use a doll as a conduit to make John and Mia's life miserable.", "John Leonetti", cast[7], ShowingStatus.END_OF_SHOWING, ReleaseRating.NC16, MovieType.BLOCKBUSTER)
+				new Movie("Harry Potter and the Goblet of Fire", "This movie sees Harry, Ron and Hermione returning for their 4th year in Hogwarts. There is an upcoming tournament between 3 schools where one partipant must from each school must compete in a dangerous quest.", "Mike Newell", cast[0], ShowingStatus.NOW_SHOWING, ReleaseRating.PG, MovieType.BLOCKBUSTER, Duration.ofMinutes(120)),
+				new Movie("Avengers: Endgame", "The final movie of the Avengers Franchise where the remaining Avengers must figure out a way to defeat Thanos, and save the world and their other superhero friends", "Anthony Russo", cast[1], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.BLOCKBUSTER, Duration.ofMinutes(90)),
+				new Movie("Starwars: The Force Awakens", "A new order threatens to destroy the New Republic. Finn,  Rey and Poe,  backed by the Resistance and the Republic,  must find a way to stop them and find Luke,  the last surviving Jedi.", "J.J. Abrahams", cast[2], ShowingStatus.COMING_SOON, ReleaseRating.PG13, MovieType._3D, Duration.ofMinutes(105)),
+				new Movie("Napolean Dynamite", "Napoleon,  a socially awkward teenager,  gets caught up in his dysfunctional family's misadventures while trying to help a friend win the class presidency.", "Jared Hess", cast[3], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.REGULAR, Duration.ofMinutes(130)),
+				new Movie("Ratatouille", "Remy,  a rat,  aspires to become a renowned French chef. He doesn't realise that people despise rodents and will never enjoy a meal cooked by him.", "Brad Bird", cast[4], ShowingStatus.PREVIEW, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(135)),
+				new Movie("The Godfather", "Don Vito Corleone, head of a mafia family, decides to handover his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger.", "Francis Coppola", cast[5],ShowingStatus.NOW_SHOWING,  ReleaseRating.NC16, MovieType.REGULAR, Duration.ofMinutes(150)),
+				new Movie("Zootopia", "Judy Hopps and Nick Wilde team up to uncover the mystery behind the fourteen missing predators. They end up finding out that the conspiracy is larger than it seems.", "Rich Moore", cast[6], ShowingStatus.NOW_SHOWING, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(165)),
+				new Movie("Annabelle", "John and Mia are attacked by a couple, who are worshippers of Satan. However, before the cops kill them, the couple use a doll as a conduit to make John and Mia's life miserable.", "John Leonetti", cast[7], ShowingStatus.END_OF_SHOWING, ReleaseRating.NC16, MovieType.BLOCKBUSTER, Duration.ofMinutes(125))		
 		};
 		
 		ArrayList<Movie> fullMovieList = dataStore.getMovieList();
@@ -186,6 +189,26 @@ public class DataGenerator {
 		
 		for (Movie movie: dataStore.getMovieList()) {
 			System.out.println(movie.getTitle());
+		}
+
+		//Generate ShowTimes
+		int [] minute = {0,0,15,30,0,45} ;
+		int [] hour = {9, 10, 11, 12, 13, 14, 15, 16, 17};
+		LocalDateTime schedule ;
+		int n =0;
+		for(int i =0; i< cineplexList.size(); i++ ) {
+			ArrayList <Cinema> cinemas = new ArrayList <Cinema>();
+			cinemas = cineplexList.get(i).getCinemas();
+			for(int j=0; j< cinemas.size() ; j++ ) {
+				for (int k=0 ; k< MAX_SHOWDAYS; k++) {
+					for(int l=0; l<MAX_SHOWTIMES; l++) {
+						schedule = LocalDateTime.of(2019, 12, k+1, hour[n%(hour.length)],minute[n%(minute.length)]);
+						cinemas.get(j).createShowTime(cinemas.get(j).getLayout(), schedule, fullMovieList.get(n%(fullMovieList.size())));
+						n++;
+					}
+			
+				}
+			}
 		}
 		
 		DataManager.update();
