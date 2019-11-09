@@ -66,6 +66,7 @@ public class DataGenerator {
 		
 		System.out.println(dataStore.getCinemaStaff("cathy", "cathyishappy").getUsername());
 		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());
+
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 1, 1), CinemaClass.NORMAL, AgeGroup.ADULT, MovieType.REGULAR));
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 11, 5), CinemaClass.PLATINUM_MOVIE_SUITE, AgeGroup.CHILD, MovieType._3D));
 
@@ -96,7 +97,7 @@ public class DataGenerator {
 		for (Movie movie: movieList) {
 			fullMovieList.add(movie);
 		}
-		
+
 		boolean layout1[][]=new boolean[11][19];
         for (int i = 0; i < 11; i++) {
         	for (int j = 0; j < 19; j++) {
