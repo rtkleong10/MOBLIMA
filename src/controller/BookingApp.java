@@ -45,7 +45,7 @@ public class BookingApp {
 		System.out.println("");
 		
 		
-		showList = ShowTimeView.getShowTimes(cineplexList.get(choice-1));
+		showList = cineplexList.get(choice-1).getShowTimes();
 
 		Map<Movie, List <ShowTime>> byMovie = showList.stream()
 				.collect(Collectors.groupingBy(ShowTime::getMovie));    

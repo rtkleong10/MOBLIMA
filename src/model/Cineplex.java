@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cineplex implements Serializable{
 	private static final long serialVersionUID = 2510448747911179290L;
@@ -26,4 +27,12 @@ public class Cineplex implements Serializable{
 		return name;
 	}
 	
+	public List <ShowTime> getShowTimes() {
+		List <Cinema> cin = this.getCinemas();
+		List <ShowTime> allShowTime = new ArrayList <>();
+		for (int j =0; j<cin.size(); j++) {
+				allShowTime.addAll(cin.get(j).getShowTimes());
+		}
+		return allShowTime;
+	}
 }

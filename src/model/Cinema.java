@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cinema implements Serializable{
 	private static final long serialVersionUID = -3543551736448152076L;

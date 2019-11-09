@@ -28,29 +28,10 @@ public class ShowTimeView {
 		for (int i=0; i<cineplexes.size(); i++) {
 			List <ShowTime> allShowTime = new ArrayList <>();
 			System.out.println("   ===="+cineplexes.get(i).getName()+"===");
-			allShowTime = getShowTimes(cineplexes.get(i));
+			allShowTime = cineplexes.get(i).getShowTimes();
 			ShowTimeView.displayShowTime(allShowTime);
 			}
 			
-	}
-	/**
-	 * Gets all showtimes from the cineplex
-	 * @param cineplex
-	 * @return
-	 */
-	public static List <ShowTime> getShowTimes(Cineplex cineplex) {
-		List <Cinema> cin = cineplex.getCinemas();
-		List <ShowTime> allShowTime = new ArrayList <>();
-		for (int j =0; j<cin.size(); j++) {
-				allShowTime.addAll(getShowTimes(cin.get(j)));
-		}
-		return allShowTime;
-	}
-	
-	public static List <ShowTime> getShowTimes(Cinema cinema) {
-			List <ShowTime> showtime = new ArrayList <>();
-			showtime = cinema.getShowTimes();
-		return showtime;
 	}
 	
 	/**
