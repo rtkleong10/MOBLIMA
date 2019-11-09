@@ -27,12 +27,13 @@ public class Movie implements Serializable {
 	 * @param releaseRating Movie rating
 	 * @param movieType  Movie type/genre
 	 */
-	public Movie(String title, String synopsis, String director, String[] cast, ReleaseRating releaseRating,
+	public Movie(String title, String synopsis, String director, String[] cast, ShowingStatus showingStatus, ReleaseRating releaseRating,
 			MovieType movieType) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.director = director;
 		this.cast = cast;
+		this.showingStatus = showingStatus;
 		this.releaseRating = releaseRating;
 		this.movieType = movieType;
 	}
@@ -56,7 +57,7 @@ public class Movie implements Serializable {
 		if (noOfReviews <= 1)
 			return null;
 		
-		int sum = 0;
+		Double sum = 0.0;
 		for (ReviewRating reviewRating: reviewRatings)
 			sum += reviewRating.getRating();
 		
