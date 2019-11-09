@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ShowTime implements Serializable{
 	private static final long serialVersionUID = 8096921810451802218L;
 	
-	private boolean[][] layout; // From the cinema when created
+	private Cinema cinema;
 	private LocalDateTime startTime;
 	private Movie movie;
 	private ArrayList <Booking> bookings;
@@ -19,8 +19,8 @@ public class ShowTime implements Serializable{
 	 * @param startTime
 	 * @param movie
 	 */
-	public ShowTime(boolean[][] layout, LocalDateTime startTime,  Movie movie) {
-		this.layout = layout;
+	public ShowTime(Cinema cinema, LocalDateTime startTime,  Movie movie) {
+		this.cinema = cinema;
 		this.bookings = new ArrayList<Booking>();
 		this.startTime = startTime;
 		this.movie = movie;
@@ -40,6 +40,7 @@ public class ShowTime implements Serializable{
 	}
 	
 	public SeatStatus[][] getSeatAvailabilities() {
+		boolean [][] layout = getLayout();
 		SeatStatus[][] seatAvail = new SeatStatus[layout.length][];
 		
 		for (int i = 0; i < layout.length; i++) {
@@ -93,7 +94,7 @@ public class ShowTime implements Serializable{
 	}
 	
 	public boolean[][] getLayout() {
-		return layout;
+		return cinema.getLayout();
 	}
 
 	public LocalDateTime getStartTime() {
@@ -109,6 +110,9 @@ public class ShowTime implements Serializable{
 		return bookings;
 	}
 	
+	public Cinema getCinema() {
+		return cinema;
+	}
 	public double getTotalSales() {
 		double totalSales = 0;
 		

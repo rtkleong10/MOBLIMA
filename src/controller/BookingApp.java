@@ -21,8 +21,9 @@ public class BookingApp {
 	
 	
 	public static void main (String args[]) {
+		DataManager.initialise();
+
 		DataManager.load();
-		
 		
 		int choice;
 		Scanner sc = new Scanner (System.in);
@@ -32,6 +33,7 @@ public class BookingApp {
 				+			"3) Shaw Theater\n");
 		System.out.print("Option: ");
 		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
+		
 		choice = sc.nextInt();
 		ArrayList<Cinema> cinList = new ArrayList<>();
 		ArrayList<Movie> movieList = new ArrayList<>();
@@ -42,8 +44,9 @@ public class BookingApp {
 		selectedCineplex.add(cineplexList.get(choice-1));
 		System.out.println("");
 		
-		showList = ShowTimeView.getShowTimes(cineplexList.get(choice-1));
 		
+		showList = ShowTimeView.getShowTimes(cineplexList.get(choice-1));
+
 		Map<Movie, List <ShowTime>> byMovie = showList.stream()
 				.collect(Collectors.groupingBy(ShowTime::getMovie));    
 	
@@ -51,6 +54,7 @@ public class BookingApp {
 		for (Map.Entry<Movie, List <ShowTime>> entry: byMovie.entrySet()) {
 			 movieNames.add(entry.getKey().getTitle());
 		}
+		
 		System.out.println("Select Movie:");
 		for (int i=0; i<movieNames.size(); i++) {
 			System.out.println( i+1 +") "+ movieNames.get(i));
@@ -70,7 +74,7 @@ public class BookingApp {
 		
 		System.out.println("\nSelect Showtime :");
 		for (int i=0; i<possibleShow.size(); i++) {
-			Comparator<ShowTime> dateComparator = Collections.reverseOrder(Comparator.comparing(ShowTime::getStartTime));
+			Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartTime);
 			possibleShow.sort(dateComparator);
 			System.out.println( i+1 +") "+ possibleShow.get(i).getStartTime().toLocalDate()+"  "+ 
 								possibleShow.get(i).getStartTime().toLocalTime());
@@ -79,7 +83,8 @@ public class BookingApp {
 		choice = sc.nextInt();
 		ShowTime selectedShow = possibleShow.get(choice-1);
 		
-		
+		//findCinema 
+		Cinema selectedCinema = selectedShow.getCinema();
 		
 		displaySeat(selectedShow);
 		boolean[][] selectedSeat = new boolean[selectedShow.getLayout().length][];
@@ -96,7 +101,6 @@ public class BookingApp {
 		do {
 			if(selectedShow.checkAvail(selectedSeat)) {
 				done = true;
-				System.out.println("Available seat selected");
 			}
 			else {
 				System.out.println("Unavailable seat selected");
@@ -111,17 +115,28 @@ public class BookingApp {
 			ageGrp[i] = sc.nextInt();
 		}
 		
+		double price = 0;
+		PricingScheme p = new PricingScheme();
+		price += ageGrp[0]*p.getPrice(selectedShow.getDate(), selectedCinema.getCinemaClass(), AgeGroup.CHILD, selectedShow.getMovie().getMovieType());
+		price += ageGrp[1]*p.getPrice(selectedShow.getDate(), selectedCinema.getCinemaClass(), AgeGroup.ADULT, selectedShow.getMovie().getMovieType());
+		price += ageGrp[2]*p.getPrice(selectedShow.getDate(), selectedCinema.getCinemaClass(), AgeGroup.SENIOR_CITIZEN, selectedShow.getMovie().getMovieType());
+		
+		
 		System.out.println("   === Booking Information ===");
 		ShowTimeView.displayShowTime(Arrays.asList(selectedShow));
 		System.out.println("Child: "+ ageGrp[0]);
 		System.out.println("Adult: "+ ageGrp[1]);
 		System.out.println("Child: "+ ageGrp[2]);
+		System.out.printf("Price : $%.2f\n",price);
 		System.out.print("Confirm Booking [y/n]: ");
 		
 		char confirm = sc.next().charAt(0);
+		String transaction = selectedCinema.getCinemaCode();
 		if(confirm == 'y') {
+			//need to input moviegoer
+			selectedShow.createBooking(transaction, null, selectedSeat, price );
 			System.out.println("Success Booking");
-			selectedShow.createBooking("1234", null, selectedSeat, 100);
+			
 			displaySeat(selectedShow);
 		}
 		else

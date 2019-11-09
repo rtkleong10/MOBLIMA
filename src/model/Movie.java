@@ -19,7 +19,7 @@ public class Movie implements Serializable {
 	private Duration duration;
 	
 	public Movie(String title, String synopsis, String director, String[] cast, ReleaseRating releaseRating,
-			MovieType movieType, Duration duration) {
+			MovieType movieType, Duration duration, ShowingStatus showingStatus) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.director = director;
@@ -27,6 +27,7 @@ public class Movie implements Serializable {
 		this.releaseRating = releaseRating;
 		this.movieType = movieType;
 		this.duration = duration;
+		this.showingStatus =showingStatus;
 	}
 	
 	public void addShowTime(ShowTime showTime) {

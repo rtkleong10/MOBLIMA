@@ -42,14 +42,17 @@ public class ShowTimeView {
 		List <Cinema> cin = cineplex.getCinemas();
 		List <ShowTime> allShowTime = new ArrayList <>();
 		for (int j =0; j<cin.size(); j++) {
-			List <ShowTime> showtime = new ArrayList <>();
-			showtime = cin.get(j).getShowTimes();
-			for (int k=0; k< showtime.size(); k++) {
-				allShowTime.add(showtime.get(k));
-			}
+				allShowTime.addAll(getShowTimes(cin.get(j)));
 		}
 		return allShowTime;
 	}
+	
+	public static List <ShowTime> getShowTimes(Cinema cinema) {
+			List <ShowTime> showtime = new ArrayList <>();
+			showtime = cinema.getShowTimes();
+		return showtime;
+	}
+	
 	/**
 	 * Displays a list of showtimes
 	 * @param s
