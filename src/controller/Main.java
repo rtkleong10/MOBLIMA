@@ -1,14 +1,14 @@
 package controller;
 
-import view.LoginView;
+import view.AppView;
 
 public class Main {
 	public static void main(String[] args) {
-		AppManager.initialize();
+		DataManager.load();
 		
-		LoginView loginView = new LoginView();
+		AppView loginView = new AppView();
 		loginView.start();
 		
-		AppManager.update();
+		DataManager.update();
 	}
 }

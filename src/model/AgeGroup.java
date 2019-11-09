@@ -3,7 +3,7 @@ package model;
 public enum AgeGroup {
 	CHILD("Child"),
 	ADULT("Adult"),
-	SENIORs_CITIZEN("Senior Citizen"); 
+	SENIOR_CITIZEN("Senior Citizen"); 
 	
 	public final String ageGroup;
 
