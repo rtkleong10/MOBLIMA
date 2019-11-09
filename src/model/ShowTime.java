@@ -1,28 +1,39 @@
 package model;
 
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class ShowTime implements Serializable{
 	private static final long serialVersionUID = 8096921810451802218L;
 	
 	private boolean[][] layout; // From the cinema when created
 	private LocalDateTime startTime;
-	private Duration duration;
 	private Movie movie;
 	private ArrayList <Booking> bookings;
 
-	public ShowTime(boolean[][] layout, LocalDateTime startTime, Duration duration, Movie movie) {
+	/**
+	 * Creates ShowTime
+	 * @param layout
+	 * @param startTime
+	 * @param movie
+	 */
+	public ShowTime(boolean[][] layout, LocalDateTime startTime,  Movie movie) {
 		this.layout = layout;
 		this.bookings = new ArrayList<Booking>();
 		this.startTime = startTime;
-		this.duration = duration;
 		this.movie = movie;
 		movie.addShowTime(this);
 	}
 	
+	/**
+	 * Creates booking
+	 * @param transactionId
+	 * @param movieGoer
+	 * @param selectedSeats
+	 * @param price
+	 */
 	public void createBooking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
 		Booking newBooking = new Booking(transactionId, movieGoer, selectedSeats, price);
 		this.bookings.add(newBooking);	
@@ -66,7 +77,21 @@ public class ShowTime implements Serializable{
 		return true;
 	}
 	
-
+	public boolean checkFull() {
+		SeatStatus[][] availSeat = this.getSeatAvailabilities();
+		for (int i =0; i<availSeat.length ; i++) {
+			for (int j=0; j<availSeat[i].length; j++) {
+				if(availSeat[i][j] == SeatStatus.EMPTY )
+					return false;
+			}
+		}
+		return  true;
+	}
+	
+	public LocalDate getDate() {
+		return getStartTime().toLocalDate();
+	}
+	
 	public boolean[][] getLayout() {
 		return layout;
 	}
@@ -75,9 +100,6 @@ public class ShowTime implements Serializable{
 		return startTime;
 	}
 
-	public Duration getDuration() {
-		return duration;
-	}
 
 	public Movie getMovie() {
 		return movie;

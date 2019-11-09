@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class Movie implements Serializable {
@@ -15,15 +16,17 @@ public class Movie implements Serializable {
 	private MovieType movieType;
 	private ArrayList<ReviewRating> reviewRatings = new ArrayList<ReviewRating>();
 	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
+	private Duration duration;
 	
 	public Movie(String title, String synopsis, String director, String[] cast, ReleaseRating releaseRating,
-			MovieType movieType) {
+			MovieType movieType, Duration duration) {
 		this.title = title;
 		this.synopsis = synopsis;
 		this.director = director;
 		this.cast = cast;
 		this.releaseRating = releaseRating;
 		this.movieType = movieType;
+		this.duration = duration;
 	}
 	
 	public void addShowTime(ShowTime showTime) {
