@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Movie implements Serializable {
 	private static final long serialVersionUID = 5822630624504041207L;
+
+	
 	
 	private String title;
 	private String synopsis;
@@ -29,10 +31,42 @@ public class Movie implements Serializable {
 		this.duration = duration;
 	}
 	
+	public void setTitle(String title){
+		this.title=title;
+	}
+	
+	public void setSynopsis(String synopsis){  
+		this.synopsis=synopsis;
+		
+	}
+	
+	public void setDirector(String director){  
+		this.director=director;
+		
+	}
+	public void setCast(String[] cast) {
+		this.cast=cast;
+	}
+	
+	public void setReleaseRating(ReleaseRating releaserating) {
+		this.releaseRating= releaserating;	
+	}
+	
+	public void setMovieType(MovieType movietype) {
+		this.movieType = movietype;
+	}
+	public void setDuration(Duration duration) {
+		this.duration=duration;
+	}
+	
 	public void addShowTime(ShowTime showTime) {
 		this.showTimes.add(showTime);
 	}
-	
+	public void setShowingStatus(ShowingStatus s)
+	{   this.showingStatus =s;
+		
+		
+	}
 	public Double getOverallRating() {
 		int noOfReviews = reviewRatings.size();
 		
