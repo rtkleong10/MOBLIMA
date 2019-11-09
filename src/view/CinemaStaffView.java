@@ -34,19 +34,21 @@ public class CinemaStaffView extends View {
 	
 	private void displayMenu() {
 		int option = getMenuOption(
-			"What would you like to modify?",
-			"Movie Listings",
-			"Cineam Showtimes",
-			"Ticket Pricing Scheme",
+			"What would you like to do?",
+			"Modify Movie Listings",
+			"Modify Cinema Showtimes",
+			"Modify Ticket Pricing Scheme",
 			"List Top 5 Movies",
 			"Exit"
 		);
 		
 		switch (option) {
 			case 1:
+				load(new MovieListingsView());
 				break;
 				
 			case 2:
+				load(new CinemaShowtimesView());
 				break;
 				
 			case 3:
@@ -62,3 +64,4 @@ public class CinemaStaffView extends View {
 		}
 	}
 }
+
