@@ -13,7 +13,6 @@ public class DataGenerator {
 	public static final int MAX_SHOWDAYS = 3; //showtimes are made for 3 days
 	
 	public static void main(String[] args) {
-		
 		DataManager.initialise();
 		DataStore dataStore = DataManager.getDataStore();
 		
@@ -70,6 +69,7 @@ public class DataGenerator {
 		
 		System.out.println(dataStore.getCinemaStaff("cathy", "cathyishappy").getUsername());
 		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());
+
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 1, 1), CinemaClass.NORMAL, AgeGroup.ADULT, MovieType.REGULAR));
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 11, 5), CinemaClass.PLATINUM_MOVIE_SUITE, AgeGroup.CHILD, MovieType._3D));
 
@@ -100,7 +100,7 @@ public class DataGenerator {
 		for (Movie movie: movieList) {
 			fullMovieList.add(movie);
 		}
-		
+
 		boolean layout1[][]=new boolean[11][19];
         for (int i = 0; i < 11; i++) {
         	for (int j = 0; j < 19; j++) {
@@ -190,7 +190,7 @@ public class DataGenerator {
 		for (Movie movie: dataStore.getMovieList()) {
 			System.out.println(movie.getTitle());
 		}
-		
+
 		//Generate ShowTimes
 		int [] minute = {0,0,15,30,0,45} ;
 		int [] hour = {9, 10, 11, 12, 13, 14, 15, 16, 17};
