@@ -7,13 +7,30 @@ public class CinemaStaffView extends View {
 	private CinemaStaff cinemaStaff;
 	
 	public void start() {
-		if (cinemaStaff == null)
-			loginCinemaStaff();
-		else
-			displayMenu();
+		while (this.cinemaStaff == null) {
+			int option = getMenuOption(
+				"Please select an option",
+				"Login",
+				"Exit"
+			);
+			
+			switch (option) {
+				case 1:
+					loginCinemaStaff();
+					break;
+					
+				case 3:
+					exit();
+					return;
+			}
+		}
+		
+		displayMenu();
 	}
 	
 	private void loginCinemaStaff() {
+		System.out.println();
+		
 		System.out.print("Username: ");
 		String username = sc.next();
 		
@@ -22,14 +39,10 @@ public class CinemaStaffView extends View {
 		
 		this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
-		if (this.cinemaStaff != null) {
-			System.out.println("");
-			displayMenu();
-			
-		} else {
+		if (this.cinemaStaff == null)
 			System.out.println("Error: Username or password is wrong");
-			exit();
-		}
+		
+		System.out.println();
 	}
 	
 	private void displayMenu() {

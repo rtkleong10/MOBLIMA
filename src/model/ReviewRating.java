@@ -12,7 +12,12 @@ public class ReviewRating implements Serializable {
 	private MovieGoer movieGoer;
 	private String review;
 	private Integer rating = DEFAULT_RATING;
-	
+	/**
+	 * creates a review rating based on the details listed
+	 * @param movieGoer 
+	 * @param review
+	 * @param rating 
+	 */
 	public ReviewRating(MovieGoer movieGoer, String review, int rating) {
 		this.movieGoer = movieGoer;
 		this.review = review;
@@ -21,14 +26,23 @@ public class ReviewRating implements Serializable {
 			this.rating = rating;
 	} 
 	
+	/**
+	 * @return movie goer of type MovieGoer class
+	 */
 	public MovieGoer getMovieGoer() {
 		return movieGoer;
 	}
 	
+	/**
+	 * @return review provided
+	 */
 	public String getReview() {
 		return review;
 	}
 	
+	/**
+	 * @return rating 
+	 */
 	public int getRating() {
 		return rating;
 	}
