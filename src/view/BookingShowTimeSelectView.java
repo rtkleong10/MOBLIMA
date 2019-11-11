@@ -38,7 +38,7 @@ public class BookingShowTimeSelectView extends View {
 		option--;
 		
 		if (option != size)
-			load(new BookingSeatSelectView(movieGoer, showTimeList.get(option)));
+			loadWithoutSave(new BookingSeatSelectView(movieGoer, showTimeList.get(option)));
 		else
 			exit();
 	}

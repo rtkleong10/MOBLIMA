@@ -1,7 +1,7 @@
 package view;
 
 public abstract class View {
-	public View previousView;
+	protected View previousView;
 	
 	public abstract void start();
 	
@@ -15,6 +15,12 @@ public abstract class View {
 	protected void load(View nextView) {
 		System.out.println();
 		nextView.previousView = this;
+		nextView.start();
+	}
+	
+	protected void loadWithoutSave(View nextView) {
+		System.out.println();
+		nextView.previousView = this.previousView;
 		nextView.start();
 	}
 }
