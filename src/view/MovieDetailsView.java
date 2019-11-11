@@ -1,5 +1,6 @@
 package view;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import model.Movie;
@@ -48,10 +49,14 @@ public class MovieDetailsView extends View {
 	private void printMovieDetails() {
 		System.out.println();
 		
+		Duration duration = movie.getDuration();
+		String durationString = String.format("%dh %02dmin", duration.toHoursPart(), duration.toMinutesPart());
+		
 		System.out.println(
 			"Title: " + movie.getTitle() + "\n" +
 			"Synopsis: " + movie.getSynopsis() + "\n" +
 			"Director: " + movie.getDirector() + "\n" +
+			"Duration: " + durationString + "\n" +
 			"Showing Status: " + movie.getShowingStatus().getLabel() + "\n" +
 			"Release Rating: " + movie.getReleaseRating() + "\n" +
 			"Movie Type: " + movie.getMovieType().getLabel()
@@ -96,10 +101,15 @@ public class MovieDetailsView extends View {
 		System.out.print("Rating: ");
 		int rating = sc.nextInt();
 		
-		ReviewRating reviewRating = new ReviewRating(movieGoer, review, rating);
-		movie.getReviewRatings().add(reviewRating);
+		ReviewRating reviewRating = ReviewRating.createReviewRating(movieGoer, review, rating);
 		
-		System.out.println("Review & rating added");
+		if (reviewRating != null) {
+			movie.getReviewRatings().add(reviewRating);
+			System.out.println("Review & rating added");
+			
+		} else {
+			System.out.println("Error: Rating out of range (ratings must be between " + ReviewRating.MIN_RATING + " and " + ReviewRating.MAX_RATING + ")");
+		}
 		
 		System.out.println();
 	}
