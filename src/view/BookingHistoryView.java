@@ -16,6 +16,11 @@ public class BookingHistoryView extends View {
 	}
 	
 	public void start() {
+		displayBookingHistory();
+		exit();
+	}
+	
+	private void displayBookingHistory() {
 		System.out.println("Booking history: ");
 		
 		boolean empty = true;
@@ -44,6 +49,6 @@ public class BookingHistoryView extends View {
 		if (empty)
 			System.out.println("No bookings made");
 		
-		exit();
+		pressEnterToContinue();
 	}
 }
