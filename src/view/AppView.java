@@ -1,10 +1,9 @@
 package view;
 
-
 public class AppView extends View {
 	
 	public void start() {
-		int option = getMenuOption(
+		int option = IOController.getMenuOption(
 			"Welcome to MOBLIMA!\nPlease select a portal",
 			"Movie Goer",
 			"Cinema Staff",

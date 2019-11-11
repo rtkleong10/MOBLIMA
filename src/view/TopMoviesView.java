@@ -11,7 +11,7 @@ public class TopMoviesView extends View {
 	
 	public void start() {
 		while (true) {
-			int option = getMenuOption(
+			int option = IOController.getMenuOption(
 				"Top 5 movies by...",
 				"Ticket sales",
 				"Overall reviewer's rating",
@@ -57,7 +57,7 @@ public class TopMoviesView extends View {
 			System.out.println((i + 1) + ". " + movie.getTitle() + " ($" + String.format("%.02f", movie.getTotalSales()) + ")");
 		}
 		
-		pressEnterToContinue();
+		IOController.pressEnterToContinue();
 		System.out.println();
 	}
 	
@@ -87,7 +87,7 @@ public class TopMoviesView extends View {
 			System.out.println((i + 1) + ". " + movie.getTitle() + " (" + movie.getOverallRating() + ")");
 		}
 		
-		pressEnterToContinue();
+		IOController.pressEnterToContinue();
 		System.out.println();
 	}
 }
