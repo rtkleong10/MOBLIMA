@@ -32,7 +32,7 @@ public class BookingCineplexSelectView extends View {
 		option--;
 		
 		if (option != size)
-			load(new BookingMovieSelectView(movieGoer, cineplexList.get(option)));
+			loadWithoutSave(new BookingMovieSelectView(movieGoer, cineplexList.get(option)));
 		else
 			exit();
 	}
