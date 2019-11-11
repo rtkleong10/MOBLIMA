@@ -8,7 +8,7 @@ public class MovieGoerView extends View {
 	
 	public void start() {
 		while (this.movieGoer == null) {
-			int option = getMenuOption(
+			int option = IOController.getMenuOption(
 				"Please select an option",
 				"Sign up",
 				"Login",
@@ -37,7 +37,7 @@ public class MovieGoerView extends View {
 		System.out.println();
 		
 		System.out.print("Username: ");
-		String username = sc.next();
+		String username = IOController.readLine();
 		
 		if (DataManager.getDataStore().checkMovieGoerUsername(username)) {
 			System.out.println("Error: User with that username already exists");
@@ -46,23 +46,22 @@ public class MovieGoerView extends View {
 		}
 		
 		System.out.print("Name: ");
-		sc.skip("((?<!(?>\\R))\\s)*");
-		String name = sc.nextLine();
+		String name = IOController.readLine();
 		
 		System.out.print("Mobile Number: ");
-		int mobileNumber = sc.nextInt();
+		int mobileNumber = IOController.readInt();
 		
 		System.out.print("Email Address: ");
-		String emailAddress = sc.next();
+		String emailAddress = IOController.readLine();
 		
 		String password1 = "", password2;
 		
 		while (true) {
 			System.out.print("Password: ");
-			password1 = sc.next();
+			password1 = IOController.readLine();
 			
 			System.out.print("Confirm Password: ");
-			password2 = sc.next();
+			password2 = IOController.readLine();
 			
 			if (password1.equals(password2))
 				break;
@@ -82,7 +81,7 @@ public class MovieGoerView extends View {
 		System.out.println();
 		
 		System.out.print("Username: ");
-		String username = sc.next();
+		String username = IOController.readLine();
 		
 		if (!DataManager.getDataStore().checkMovieGoerUsername(username)) {
 			System.out.println("Error: User with that that username doesn't exist");
@@ -91,7 +90,7 @@ public class MovieGoerView extends View {
 		}
 		
 		System.out.print("Password: ");
-		String password = sc.next();
+		String password = IOController.readLine();
 		
 		this.movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
 		
@@ -102,7 +101,7 @@ public class MovieGoerView extends View {
 	}
 	
 	private void displayMenu() {
-		int option = getMenuOption(
+		int option = IOController.getMenuOption(
 			"Welcome " + movieGoer.getName() + "!",
 			"View movie showtimes",
 			"Book a ticket",
@@ -117,6 +116,7 @@ public class MovieGoerView extends View {
 				break;
 				
 			case 2:
+				load(new BookingCineplexSelectView(movieGoer));
 				break;
 				
 			case 3:

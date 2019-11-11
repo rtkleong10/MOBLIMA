@@ -8,7 +8,7 @@ public class CinemaStaffView extends View {
 	
 	public void start() {
 		while (this.cinemaStaff == null) {
-			int option = getMenuOption(
+			int option = IOController.getMenuOption(
 				"Please select an option",
 				"Login",
 				"Exit"
@@ -32,7 +32,7 @@ public class CinemaStaffView extends View {
 		System.out.println();
 		
 		System.out.print("Username: ");
-		String username = sc.next();
+		String username = IOController.readLine();
 		
 		if (!DataManager.getDataStore().checkCinemaStaffUsername(username)) {
 			System.out.println("Error: User with that that username doesn't exist");
@@ -41,7 +41,7 @@ public class CinemaStaffView extends View {
 		}
 		
 		System.out.print("Password: ");
-		String password = sc.next();
+		String password = IOController.readLine();
 		
 		this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
@@ -52,7 +52,7 @@ public class CinemaStaffView extends View {
 	}
 	
 	private void displayMenu() {
-		int option = getMenuOption(
+		int option = IOController.getMenuOption(
 			"What would you like to modify?",
 			"Movie Listings",
 			"Cineam Showtimes",

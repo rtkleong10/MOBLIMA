@@ -18,7 +18,7 @@ public class MovieDetailsView extends View {
 	
 	public void start() {
 		while (true) {
-			int option = getMenuOption(
+			int option = IOController.getMenuOption(
 				this.movie.getTitle(),
 				"View movie details",
 				"View past reviews",
@@ -68,7 +68,7 @@ public class MovieDetailsView extends View {
 		
 		System.out.println("Overall Reviewer Rating: " + (movie.getOverallRating() != null ? movie.getOverallRating() : "Not Available"));
 		
-		pressEnterToContinue();
+		IOController.pressEnterToContinue();
 		System.out.println();
 	}
 	
@@ -87,7 +87,7 @@ public class MovieDetailsView extends View {
 				System.out.println(reviewRating.getReview() + " (" + reviewRating.getRating() + "/5) —— " + reviewRating.getMovieGoer().getName());
 		}
 		
-		pressEnterToContinue();
+		IOController.pressEnterToContinue();
 		System.out.println();
 	}
 	
@@ -95,11 +95,10 @@ public class MovieDetailsView extends View {
 		System.out.println();
 		
 		System.out.print("Review: ");
-		sc.skip("((?<!(?>\\R))\\s)*");
-		String review = sc.nextLine();
+		String review = IOController.readLine();
 		
 		System.out.print("Rating: ");
-		int rating = sc.nextInt();
+		int rating = IOController.readInt();
 		
 		ReviewRating reviewRating = ReviewRating.createReviewRating(movieGoer, review, rating);
 		
