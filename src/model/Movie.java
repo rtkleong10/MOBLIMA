@@ -136,4 +136,8 @@ public class Movie implements Serializable {
 	public ShowingStatus getShowingStatus() {
 		return showingStatus;
 	}
+	
+	public Duration getDuration() {
+		return duration;
+	}
 }

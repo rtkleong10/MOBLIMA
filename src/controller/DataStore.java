@@ -21,6 +21,10 @@ public class DataStore implements Serializable {
 	private ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
 	private ArrayList<Movie> movieList = new ArrayList<Movie>();
 	
+	public boolean checkCinemaStaffUsername(String username) {
+		return cinemaStaffList.containsKey(username);
+	}
+	
 	public CinemaStaff getCinemaStaff(String username, String password) {
 		CinemaStaff cinemaStaff = cinemaStaffList.get(username);
 		

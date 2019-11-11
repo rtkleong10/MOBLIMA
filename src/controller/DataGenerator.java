@@ -17,8 +17,8 @@ public class DataGenerator {
 		DataStore dataStore = DataManager.getDataStore();
 		
 		CinemaStaff cinemaStaffList[] = {
-			new CinemaStaff("cathy", "cathyishappy"),
-			new CinemaStaff("bob", "bobishappy")
+			new CinemaStaff("cathy", "cathyworkshard"),
+			new CinemaStaff("bob", "bobworkshard")
 		};
 		
 		MovieGoer movieGoerList[] = {
@@ -154,20 +154,11 @@ public class DataGenerator {
 		}
 		
 		ArrayList<Cineplex> cineplexList = dataStore.getCineplexList();
-		/*String[] cinplexNames = {"Golden Village", "Cathay Cineplex", "Shaw Theatres"};
-		String[] cinName = {"Screen 1", "Screen 2", "Screen 3"};
-		
-		for (int i = 0; i < cinplexNames.length; i++) {
-			Cineplex cineplex = new Cineplex(cinplexNames[i]);
-			cineplex.createCinema(cinName[0], Arrays.copyOf(layout1, layout1.length), CinemaClass.NORMAL);
-			cineplex.createCinema(cinName[1], Arrays.copyOf(layout2, layout2.length), CinemaClass.PLATINUM_MOVIE_SUITE);
-			cineplex.createCinema(cinName[2], Arrays.copyOf(layout3, layout3.length), CinemaClass.NORMAL);
-			cineplexList.add(cineplex);
-		}*/
 		
 		String[] cinplexNames = {"Golden Village", "Cathay Cineplex", "Shaw Theatres"};
 		String[] cinName = {"GV1", "GV2", "GV3","CC1","CC2","CC3","ST1","ST2","ST3"};
-		int c=0;
+		
+		int c = 0;
 		for (int i = 0; i < cinplexNames.length; i++) {
 			Cineplex cineplex = new Cineplex(cinplexNames[i]);
 			cineplex.createCinema(cinName[c++], Arrays.copyOf(layout1, layout1.length), CinemaClass.NORMAL);
@@ -207,23 +198,23 @@ public class DataGenerator {
 			if(fullMovieList.get(i).getShowingStatus() == ShowingStatus.NOW_SHOWING)
 				showingMovies.add(fullMovieList.get(i));
 		}
+		
 		//Generate ShowTimes
-		int [] minute = {0,0,15,30,0,45} ;
-		int [] hour = {9, 10, 11, 12, 13, 14, 15, 16, 17};
+		int minute[] = {0, 0, 15, 30, 0, 45};
+		int hour[] = {9, 10, 11, 12, 13, 14, 15, 16, 17};
 		LocalDateTime schedule ;
 		int n =0;
-		for(int i =0; i< cineplexList.size(); i++ ) {
-			ArrayList <Cinema> cinemas = new ArrayList <Cinema>();
+		for (int i = 0; i < cineplexList.size(); i++ ) {
+			ArrayList <Cinema> cinemas = new ArrayList<Cinema>();
 			cinemas = cineplexList.get(i).getCinemas();
-			for(int j=0; j< cinemas.size() ; j++ ) {
-				for (int k=0 ; k< MAX_SHOWDAYS; k++) {
-					for(int l=0; l<MAX_SHOWTIMES; l++) {
-						
-						schedule = LocalDateTime.of(2019, 12, k+1, hour[n%(hour.length)],minute[n%(minute.length)]);
+			
+			for (int j = 0; j < cinemas.size(); j++ ) {
+				for (int k = 0; k < MAX_SHOWDAYS; k++) {
+					for (int l = 0; l < MAX_SHOWTIMES; l++) {
+						schedule = LocalDateTime.of(2019, 12, k + 1, hour[n % (hour.length)], minute[n % (minute.length)]);
 						cinemas.get(j).createShowTime( schedule, showingMovies.get(n%(showingMovies.size())));
 						n++;
 					}
-			
 				}
 			}
 		}

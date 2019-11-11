@@ -40,7 +40,8 @@ public class MovieGoerView extends View {
 		String username = sc.next();
 		
 		if (DataManager.getDataStore().checkMovieGoerUsername(username)) {
-			System.out.println("Error: User already exists");
+			System.out.println("Error: User with that username already exists");
+			System.out.println();
 			return;
 		}
 		
@@ -83,13 +84,19 @@ public class MovieGoerView extends View {
 		System.out.print("Username: ");
 		String username = sc.next();
 		
+		if (!DataManager.getDataStore().checkMovieGoerUsername(username)) {
+			System.out.println("Error: User with that that username doesn't exist");
+			System.out.println();
+			return;
+		}
+		
 		System.out.print("Password: ");
 		String password = sc.next();
 		
 		this.movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
 		
 		if (this.movieGoer == null)
-			System.out.println("Error: Username or password is wrong");
+			System.out.println("Error: Incorrect password");
 		
 		System.out.println();
 	}

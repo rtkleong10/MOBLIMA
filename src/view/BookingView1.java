@@ -37,7 +37,7 @@ public class BookingView1 {
 		for (int i=0; i<possibleShow.size(); i++) {
 			Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartTime);
 			possibleShow.sort(dateComparator);
-			System.out.println( i+1 +") "+ possibleShow.get(i).getStartTime().toLocalDate()+"  "+ 
+			System.out.println( i+1 +") "+ possibleShow.get(i).getDate() +"  "+ 
 								possibleShow.get(i).getStartTime().toLocalTime());
 		}
 		System.out.print("Option: ");

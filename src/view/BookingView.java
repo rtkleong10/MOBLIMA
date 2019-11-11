@@ -55,7 +55,7 @@ public class BookingView {
 	
 	private double calculatePrice(int n) {
 		PricingScheme pricingScheme = DataManager.getDataStore().getPricingScheme();
-		LocalDate date = showTime.getStartTime().toLocalDate();
+		LocalDate date = showTime.getDate();
 		CinemaClass cinemaClass = cinema.getCinemaClass();
 		MovieType movieType = showTime.getMovie().getMovieType();
 		

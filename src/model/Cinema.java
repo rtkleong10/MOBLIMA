@@ -1,10 +1,8 @@
 package model;
 
 import java.io.Serializable;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cinema implements Serializable{
 	private static final long serialVersionUID = -3543551736448152076L;
@@ -20,8 +18,8 @@ public class Cinema implements Serializable{
 		this.cinemaClass = cinemaClass;
 	}
 	
-	public void createShowTime( LocalDateTime startTime,  Movie movie) {
-		ShowTime showTime = new ShowTime(this, startTime,  movie);
+	public void createShowTime(LocalDateTime startTime, Movie movie) {
+		ShowTime showTime = new ShowTime(this, startTime, movie);
 		this.showTimes.add(showTime);
 		
 	}

@@ -34,13 +34,19 @@ public class CinemaStaffView extends View {
 		System.out.print("Username: ");
 		String username = sc.next();
 		
+		if (!DataManager.getDataStore().checkCinemaStaffUsername(username)) {
+			System.out.println("Error: User with that that username doesn't exist");
+			System.out.println();
+			return;
+		}
+		
 		System.out.print("Password: ");
 		String password = sc.next();
 		
 		this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
 		if (this.cinemaStaff == null)
-			System.out.println("Error: Username or password is wrong");
+			System.out.println("Error: Incorrect password");
 		
 		System.out.println();
 	}
