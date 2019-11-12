@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ShowTime implements Serializable{
 	private static final long serialVersionUID = 8096921810451802218L;
@@ -34,9 +35,10 @@ public class ShowTime implements Serializable{
 	 * @param selectedSeats seats selected by user to book
 	 * @param price price of the booking transaction 
 	 */
-	public void createBooking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
-		Booking newBooking = new Booking(transactionId, movieGoer, selectedSeats, price);
-		this.bookings.add(newBooking);	
+	public Booking createBooking(MovieGoer movieGoer, boolean[][] selectedSeats, double price ){
+		Booking newBooking = new Booking(createTransactionId(), movieGoer, selectedSeats, price);
+		this.bookings.add(newBooking);
+		return newBooking;
 	}
 	/**
 	 * Gets all seat available for the showtime
@@ -113,6 +115,16 @@ public class ShowTime implements Serializable{
 			totalSales += booking.getPrice();
 		
 		return totalSales;
+	}
+	
+	/**
+	 * Generates transaction id
+	 * @return booking transaction id 
+	 */
+	public String createTransactionId() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+		String transaction = cinema.getCinemaCode() + LocalDateTime.now().format(formatter);
+		return transaction;
 	}
 	
 	/**

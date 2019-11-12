@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.time.Duration;
-import model.*;
 
 public class DataGenerator {
 	public static final int MAX_SHOWTIMES = 4; //max showtime per day = 4
@@ -68,7 +67,7 @@ public class DataGenerator {
 		holidays.put(LocalDate.of(2019, 10, 27), "Diwali");
 		holidays.put(LocalDate.of(2019, 12, 25), "Christmas Day");
 		
-		System.out.println(dataStore.getCinemaStaff("cathy", "cathyishappy").getUsername());
+		System.out.println(dataStore.getCinemaStaff("cathy", "cathyworkshard").getUsername());
 		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());
 
 		System.out.println(pricingScheme.getPrice(LocalDate.of(2019, 1, 1), CinemaClass.NORMAL, AgeGroup.ADULT, MovieType.REGULAR));

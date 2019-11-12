@@ -1,10 +1,20 @@
 package model;
 
-public enum ReleaseRating {
-	G,
-	PG,
-	PG13,
-	NC16,
-	M18,
-	R21;
+public enum ReleaseRating implements LabelledItem {
+	G("G"),
+	PG("PG"),
+	PG13("PG13"),
+	NC16("NC16"),
+	M18("M18"),
+	R21("R21");
+	
+	public final String label;
+
+	private ReleaseRating(String label) {
+		this.label = label;
+	}
+	
+	public String getLabel() {
+		return label;
+	}
 }

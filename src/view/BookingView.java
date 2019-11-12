@@ -3,57 +3,11 @@ package view;
 import java.util.Arrays;
 import java.util.EnumMap;
 
-import controller.BookingController;
 import model.*;
 
-public class BookingSeatSelectView extends View {
-	private MovieGoer movieGoer;
-	private ShowTime showTime;
+public class BookingView {
 	
-	public BookingSeatSelectView(MovieGoer movieGoer, ShowTime showTime) {
-		this.movieGoer = movieGoer;
-		this.showTime = showTime;
-	}
-	
-	public void start() {
-		displaySeats();
-		
-		if (showTime.checkFull()) {
-			System.out.println("Sorry, this show time is fully booked");
-			exit();
-			return;
-		}
-		
-		System.out.print("How many seats would you like to book: ");
-		int n = IOController.readInt();
-		
-		boolean[][] selectedSeat = getSeats(n);
-		double totalPrice = calculatePrice(n);
-		
-		boolean confirm = confirmBooking();
-		
-		if (confirm) {
-			String transactionId = BookingController.getTid(showTime.getCinema());
-			showTime.createBooking(transactionId, movieGoer, selectedSeat, totalPrice);
-			System.out.println("\nBooking Successful");
-			System.out.println("Transaction ID: " + transactionId);
-			
-		} else {
-			System.out.println("Booking Cancelled");
-		}
-		
-		displaySeats();
-		
-		exit();
-	}
-	
-	private boolean confirmBooking() {
-		System.out.print("Confirm Booking [y/n]: ");
-		char confirm = IOController.readLine().charAt(0);
-		return confirm == 'y';
-	}
-	
-	private boolean[][] getSeats(int n) {
+	public static boolean[][] getSeats(int n, ShowTime showTime) {
 		boolean[][] layout = showTime.getLayout();
 		boolean[][] selectedSeat = new boolean[layout.length][];
 		
@@ -75,7 +29,7 @@ public class BookingSeatSelectView extends View {
 				selectedSeat[row][col-1] = true;
 			}
 			
-			if (showTime.checkAvail(selectedSeat))
+			if (showTime.checkAvail(selectedSeat) != -1)
 				break;
 			else {
 				System.out.println("Unavailable seats selected");
@@ -86,7 +40,7 @@ public class BookingSeatSelectView extends View {
 		return selectedSeat;
 	}
 	
-	private double calculatePrice(int n) {
+	public static EnumMap<AgeGroup, Integer> getAgeGroupCount(int n) {
 		System.out.println("How many of each age group?");
 		
 		EnumMap<AgeGroup, Integer> ageGroupCount = new EnumMap<AgeGroup, Integer>(AgeGroup.class);
@@ -107,15 +61,11 @@ public class BookingSeatSelectView extends View {
 				System.out.println("Error! Total doesn't add up to " + n);
 		}
 		
-		double totalPrice = BookingController.calculatePrice(showTime, ageGroupCount);
-		
-		printBookInfo(ageGroupCount, totalPrice);
-		
-		return totalPrice;
+		return ageGroupCount;
 	}
 
 
-	private void displaySeats() {
+	public static void displaySeats(ShowTime showTime) {
 		char row= 'A';
 		int col =1;
 		SeatStatus[][] availSeat = showTime.getSeatAvailabilities();
@@ -186,15 +136,20 @@ public class BookingSeatSelectView extends View {
 		for (int i =0; i< (5*(availSeat[0].length)/2)-3; i++)
 			System.out.print(" ");
 		System.out.println("ENTRANCE");	
+		
+		IOController.pressEnterToContinue();
+		System.out.println();
 	}
 	
-	private void printBookInfo(EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
+	public static void printBookInfo(ShowTime showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
 		System.out.println("   === Booking Information ===");
 		ShowTimeView.displayShowTime(Arrays.asList(showTime));
 		
 		for (AgeGroup ageGroup: AgeGroup.values()) 
-		    System.out.print(ageGroup + ": " + ageGroupCount.get(ageGroup));
+		    System.out.println(ageGroup + ": " + ageGroupCount.get(ageGroup));
 		
 		System.out.printf("Price : $%.2f\n", totalPrice);
+		IOController.pressEnterToContinue();
+		System.out.println();
 	}
 }

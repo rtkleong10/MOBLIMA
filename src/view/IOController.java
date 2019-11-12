@@ -3,30 +3,13 @@ package view;
 import java.util.Scanner;
 
 @SuppressWarnings("resource")
-public class IOController {	
-	public static int getMenuOption(String title, String... options) {
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println(title);
-		System.out.println("———————————————————————");
-		
-		for (int i = 0; i < options.length; i++) {
-			System.out.println((i + 1) + ": " + options[i]);
-		}
-		
-		int option;
-		
-		while (true) {
-			System.out.print("Option: ");
-			option = sc.nextInt();
-			
-			if (option >= 1 && option <= options.length + 1)
-				break;
-			else
-				System.out.println("Invalid option selected!");
-		}
-		
-		return option;
+public class IOController {
+	public static void displayMessageInline(String message) {
+		System.out.print(message);
+	}
+	
+	public static void displayMessage(String message) {
+		System.out.println(message);
 	}
 	
 	public static String readLine() {
@@ -34,9 +17,37 @@ public class IOController {
 		return sc.nextLine();
 	}
 	
+	public static String readLine(String message) {
+		displayMessageInline(message);
+		return readLine();
+	}
+	
 	public static int readInt() {
 		Scanner sc = new Scanner(System.in);
 		return sc.nextInt();
+	}
+	
+	public static int readInt(String message) {
+		displayMessageInline(message);
+		return readInt();
+	}
+	
+	public static boolean readBoolean(String yesString, String noString) {
+		String input = readLine();
+		
+		while (true) {
+			if (input.equals(yesString))
+				return true;
+			else if (input.equals(noString))
+				return false;
+			
+			displayMessage("Error: Invalid input (input should be " + yesString + " or " + noString + ")");
+		}
+	}
+	
+	public static boolean readBoolean(String message, String yesString, String noString) {
+		displayMessageInline(message);
+		return readBoolean(yesString, noString);
 	}
 	
 	public static void pressEnterToContinue() {
