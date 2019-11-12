@@ -5,30 +5,52 @@ import java.io.Serializable;
 public class ReviewRating implements Serializable {
 	private static final long serialVersionUID = 1725162345547776214L;
 	
-	private static final int MIN_RATING = 1;
-	private static final int MAX_RATING = 5;
-	private static final int DEFAULT_RATING = 3;
+	public static final int MIN_RATING = 1;
+	public static final int MAX_RATING = 5;
 	
 	private MovieGoer movieGoer;
 	private String review;
-	private Integer rating = DEFAULT_RATING;
+	private Integer rating;
 	
-	public ReviewRating(MovieGoer movieGoer, String review, int rating) {
-		this.movieGoer = movieGoer;
-		this.review = review;
+	private ReviewRating() {}
+	
+	/**
+	 * creates a review rating based on the details listed
+	 * @param movieGoer 
+	 * @param review
+	 * @param rating 
+	 * @return A ReviewRating object if valid, null otherwise
+	 */
+	public static ReviewRating createReviewRating(MovieGoer movieGoer, String review, int rating) {
+		ReviewRating reviewRating = new ReviewRating();
+		
+		reviewRating.movieGoer = movieGoer;
+		reviewRating.review = review;
+		reviewRating.rating = rating;
 		
 		if (rating >= MIN_RATING && rating <= MAX_RATING)
-			this.rating = rating;
+			return reviewRating;
+		else
+			return null; 
 	} 
 	
+	/**
+	 * @return movie goer of type MovieGoer class
+	 */
 	public MovieGoer getMovieGoer() {
 		return movieGoer;
 	}
 	
+	/**
+	 * @return review provided
+	 */
 	public String getReview() {
 		return review;
 	}
 	
+	/**
+	 * @return rating 
+	 */
 	public int getRating() {
 		return rating;
 	}

@@ -7,84 +7,49 @@ public class MovieGoerView extends View {
 	private MovieGoer movieGoer;
 	
 	public void start() {
-		if (this.movieGoer == null)
-			displayLoginMenu();
-		else
-			displayMenu();
-	}
-	
-	private void displayLoginMenu() {
-		int option = getMenuOption(
-			"Please select an option",
-			"Sign up",
-			"Login",
-			"Exit"
-		);
-		
-		switch (option) {
-			case 1:
-				signupMovieGoer();
-				break;
-				
-			case 2:
-				loginMovieGoer();
-				break;
-				
-			case 3:
-				exit();
-				break;
+		while (this.movieGoer == null) {
+			int option = getMenuOption(
+				"Please select an option",
+				"Sign up",
+				"Login",
+				"Exit"
+			);
+			
+			switch (option) {
+				case 1:
+					signupMovieGoer();
+					break;
+					
+				case 2:
+					loginMovieGoer();
+					break;
+					
+				case 3:
+					exit();
+					return;
+			}
 		}
-	}
-	
-	private void displayMenu() {
-		int option = getMenuOption(
-			"Welcome " + movieGoer.getName() + "!",
-			"Search for a movie",
-			"View movie details",
-			"Check seat availabilities",
-			"Book a ticket",
-			"View booking history",
-			"List Top 5 Movies",
-			"Exit"
-		);
 		
-		switch (option) {
-			case 1:
-				break;
-				
-			case 2:
-				break;
-				
-			case 3:
-				break;
-				
-			case 4:
-				load(new CineplexSelectView(movieGoer));
-				break;
-				
-			case 5:
-				load(new BookingHistoryView(movieGoer));
-				break;
-				
-			case 6:
-				load(new TopMoviesView());
-				break;
-				
-			case 7:
-				exit();
-				break;
-		}
+		displayMenu();
 	}
 	
 	private void signupMovieGoer() {
+		System.out.println();
+		
 		System.out.print("Username: ");
 		String username = sc.next();
 		
+		if (DataManager.getDataStore().checkMovieGoerUsername(username)) {
+			System.out.println("Error: User with that username already exists");
+			System.out.println();
+			return;
+		}
+		
 		System.out.print("Name: ");
-		sc.nextLine();
+		sc.skip("((?<!(?>\\R))\\s)*");
 		String name = sc.nextLine();
 		
-		System.out.print("MobileNumber: ");
+		System.out.print("Mobile Number: ");
 		int mobileNumber = sc.nextInt();
 		
 		System.out.print("Email Address: ");
@@ -107,32 +72,69 @@ public class MovieGoerView extends View {
 		
 		this.movieGoer = new MovieGoer(username, name, mobileNumber, emailAddress, password1);
 		
-		if (DataManager.getDataStore().addMovieGoer(this.movieGoer)) {
-			System.out.println("");
-			displayMenu();
-			
-		} else {
-			System.out.println("Error: User already exists");
-			exit();
-		}
+		if (!DataManager.getDataStore().addMovieGoer(this.movieGoer))
+			System.out.println("Error: Unable to add movie goer");
+		
+		System.out.println();
 	}
 	
 	private void loginMovieGoer() {
+		System.out.println();
+		
 		System.out.print("Username: ");
 		String username = sc.next();
+		
+		if (!DataManager.getDataStore().checkMovieGoerUsername(username)) {
+			System.out.println("Error: User with that that username doesn't exist");
+			System.out.println();
+			return;
+		}
 		
 		System.out.print("Password: ");
 		String password = sc.next();
 		
 		this.movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
 		
-		if (this.movieGoer != null) {
-			System.out.println("");
-			displayMenu();
-			
-		} else {
-			System.out.println("Error: Username or password is wrong");
-			exit();
+		if (this.movieGoer == null)
+			System.out.println("Error: Incorrect password");
+		
+		System.out.println();
+	}
+	
+	private void displayMenu() {
+		int option = getMenuOption(
+			"Welcome " + movieGoer.getName() + "!",
+			"View movie showtimes",
+			"Book a ticket",
+			"View movie details",
+			"List top 5 movies",
+			"View booking history",
+			"Exit"
+		);
+		
+		switch (option) {
+			case 1:
+				break;
+				
+			case 2:
+				break;
+				
+			case 3:
+				load(new MovieSelectView(movieGoer));
+				break;
+				
+				
+			case 4:
+				load(new TopMoviesView());
+				break;
+				
+			case 5:
+				load(new BookingHistoryView(movieGoer));
+				break;
+				
+			case 6:
+				exit();
+				break;
 		}
 	}
 }

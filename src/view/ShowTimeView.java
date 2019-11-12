@@ -19,7 +19,7 @@ public class ShowTimeView {
 		displayAllShowTimes(cineplexList);
 	}
 	/**
-	 * Displays all ShowTimes from all Cineplexes
+	 * Displays all available showtime for all cineplexes
 	 * @param cineplexes
 	 */
 	public static void displayAllShowTimes(List <Cineplex> cineplexes)
@@ -28,34 +28,18 @@ public class ShowTimeView {
 		for (int i=0; i<cineplexes.size(); i++) {
 			List <ShowTime> allShowTime = new ArrayList <>();
 			System.out.println("   ===="+cineplexes.get(i).getName()+"===");
-			allShowTime = getShowTimes(cineplexes.get(i));
+			allShowTime = cineplexes.get(i).getShowTimes();
 			ShowTimeView.displayShowTime(allShowTime);
 			}
 			
 	}
-	/**
-	 * Gets all showtimes from the cineplex
-	 * @param cineplex
-	 * @return
-	 */
-	public static List <ShowTime> getShowTimes(Cineplex cineplex) {
-		List <Cinema> cin = cineplex.getCinemas();
-		List <ShowTime> allShowTime = new ArrayList <>();
-		for (int j =0; j<cin.size(); j++) {
-			List <ShowTime> showtime = new ArrayList <>();
-			showtime = cin.get(j).getShowTimes();
-			for (int k=0; k< showtime.size(); k++) {
-				allShowTime.add(showtime.get(k));
-			}
-		}
-		return allShowTime;
-	}
+	
 	/**
 	 * Displays a list of showtimes
-	 * @param s
+	 * @param show list of showtimes to be displayed
 	 */
-	public static void displayShowTime (List <ShowTime> s) {
-		Map<Movie, List <ShowTime>> byMovie = s.stream()
+	public static void displayShowTime (List <ShowTime> show) {
+		Map<Movie, List <ShowTime>> byMovie = show.stream()
 				.collect(Collectors.groupingBy(ShowTime::getMovie));    
 	
 	

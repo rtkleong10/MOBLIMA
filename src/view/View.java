@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public abstract class View {
 	protected Scanner sc = new Scanner(System.in);
-	
 	public View previousView;
 	
 	public abstract void start();
@@ -22,8 +21,17 @@ public abstract class View {
 		nextView.start();
 	}
 	
+	protected void pressEnterToContinue() {
+		System.out.print("Press enter to continue...");
+		
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		sc.nextLine();
+	}
+	
 	protected int getMenuOption(String title, String... options) {
 		System.out.println(title);
+		System.out.println("———————————————————————");
 		
 		for (int i = 0; i < options.length; i++) {
 			System.out.println((i + 1) + ": " + options[i]);
