@@ -56,7 +56,7 @@ public class CinemaStaffView extends View {
 			"What would you like to do?",
 			"Modify Movie Listings",
 			"Modify Cinema Showtimes",
-			"Modify  Ticket Pricing Scheme",
+			"Modify Ticket Pricing Scheme",
 			"List Top 5 Movies",
 			"Exit"
 		);
@@ -67,6 +67,7 @@ public class CinemaStaffView extends View {
 				break;
 				
 			case 2:
+				load(new CinemaShowtimesView());
 				break;
 				
 			case 3:
@@ -82,3 +83,4 @@ public class CinemaStaffView extends View {
 		}
 	}
 }
+

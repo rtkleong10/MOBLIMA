@@ -39,6 +39,9 @@ public class Cinema implements Serializable{
 	public ArrayList<ShowTime> getShowTimes() {
 		return this.showTimes;
 	}
+	public void removeShowTime(ShowTime s) {
+		showTimes.remove(s);
+	}
 }
 
 
