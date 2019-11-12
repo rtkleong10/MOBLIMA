@@ -1,34 +1,11 @@
 package view;
 
-import controller.DataManager;
 import model.CinemaStaff;
+import model.DataManager;
 
-public class CinemaStaffView extends View {
-	private CinemaStaff cinemaStaff;
+public class CinemaStaffView {
 	
-	public void start() {
-		while (this.cinemaStaff == null) {
-			int option = IOController.getMenuOption(
-				"Please select an option",
-				"Login",
-				"Exit"
-			);
-			
-			switch (option) {
-				case 1:
-					loginCinemaStaff();
-					break;
-					
-				case 3:
-					exit();
-					return;
-			}
-		}
-		
-		displayMenu();
-	}
-	
-	private void loginCinemaStaff() {
+	public static CinemaStaff loginCinemaStaff() {
 		System.out.println();
 		
 		System.out.print("Username: ");
@@ -37,47 +14,19 @@ public class CinemaStaffView extends View {
 		if (!DataManager.getDataStore().checkCinemaStaffUsername(username)) {
 			System.out.println("Error: User with that that username doesn't exist");
 			System.out.println();
-			return;
+			return null;
 		}
 		
 		System.out.print("Password: ");
 		String password = IOController.readLine();
 		
-		this.cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
+		CinemaStaff cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
-		if (this.cinemaStaff == null)
+		if (cinemaStaff == null)
 			System.out.println("Error: Incorrect password");
 		
 		System.out.println();
-	}
-	
-	private void displayMenu() {
-		int option = IOController.getMenuOption(
-			"What would you like to modify?",
-			"Movie Listings",
-			"Cineam Showtimes",
-			"Ticket Pricing Scheme",
-			"List Top 5 Movies",
-			"Exit"
-		);
 		
-		switch (option) {
-			case 1:
-				break;
-				
-			case 2:
-				break;
-				
-			case 3:
-				break;
-				
-			case 4:
-				load(new TopMoviesView());
-				break;
-				
-			case 5:
-				exit();
-				break;
-		}
+		return cinemaStaff;
 	}
 }

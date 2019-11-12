@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import model.AgeGroup;
 import model.Cinema;
 import model.Cineplex;
+import model.DataManager;
 import model.Movie;
 import model.PricingScheme;
 import model.ShowTime;

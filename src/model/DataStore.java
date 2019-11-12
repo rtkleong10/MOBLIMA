@@ -1,15 +1,8 @@
-package controller;
+package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import model.CinemaStaff;
-import model.Cineplex;
-import model.Movie;
-import model.MovieGoer;
-import model.PricingScheme;
-import model.ShowingStatus;
 
 public class DataStore implements Serializable {
 	private static final long serialVersionUID = -9165821480078981092L;

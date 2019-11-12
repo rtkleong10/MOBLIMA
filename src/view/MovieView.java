@@ -7,46 +7,9 @@ import model.Movie;
 import model.MovieGoer;
 import model.ReviewRating;
 
-public class MovieDetailsView extends View {
-	private MovieGoer movieGoer;
-	private Movie movie;
+public class MovieView {
 	
-	public MovieDetailsView(MovieGoer movieGoer, Movie movie) {
-		this.movieGoer = movieGoer;
-		this.movie = movie;
-	}
-	
-	public void start() {
-		while (true) {
-			int option = IOController.getMenuOption(
-				this.movie.getTitle(),
-				"View movie details",
-				"View past reviews",
-				"Add a review",
-				"Exit"
-			);
-		
-			switch (option) {
-				case 1:
-					printMovieDetails();
-					break;
-					
-				case 2:
-					printMovieReviews();
-					break;
-					
-				case 3:
-					addMovieReview();
-					break;
-					
-				case 4:
-					exit();
-					return;
-			}
-		}
-	}
-	
-	private void printMovieDetails() {
+	public static void printMovieDetails(Movie movie) {
 		System.out.println();
 		
 		Duration duration = movie.getDuration();
@@ -72,26 +35,7 @@ public class MovieDetailsView extends View {
 		System.out.println();
 	}
 	
-	private void printMovieReviews() {
-		System.out.println();
-		
-		System.out.println("Past Reviews & Reviewer's Ratings:");
-		
-		ArrayList<ReviewRating> reviewRatingsList = movie.getReviewRatings();
-		
-		if (reviewRatingsList.size() == 0) {
-			System.out.println("No reviews available");
-			
-		} else {
-			for (ReviewRating reviewRating: reviewRatingsList)
-				System.out.println(reviewRating.getReview() + " (" + reviewRating.getRating() + "/5) —— " + reviewRating.getMovieGoer().getName());
-		}
-		
-		IOController.pressEnterToContinue();
-		System.out.println();
-	}
-	
-	private void addMovieReview() {
+	public static void addMovieReview(Movie movie, MovieGoer movieGoer) {
 		System.out.println();
 		
 		System.out.print("Review: ");
