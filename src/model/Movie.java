@@ -140,4 +140,37 @@ public class Movie implements Serializable {
 	public Duration getDuration() {
 		return duration;
 	}
+
+	public void setTitle(String title){
+		this.title=title;
+	}
+	
+	public void setSynopsis(String synopsis){  
+		this.synopsis=synopsis;
+		
+	}
+	
+	public void setDirector(String director){  
+		this.director=director;
+		
+	}
+	public void setCast(String[] cast) {
+		this.cast=cast;
+	}
+	
+	public void setReleaseRating(ReleaseRating releaserating) {
+		this.releaseRating= releaserating;	
+	}
+	
+	public void setMovieType(MovieType movietype) {
+		this.movieType = movietype;
+	}
+	public void setDuration(Duration duration) {
+		this.duration=duration;
+	}
+
+	public void setShowingStatus(ShowingStatus s)
+	{   this.showingStatus =s;
+		
+	}
 }

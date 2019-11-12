@@ -55,6 +55,23 @@ public class PricingScheme implements Serializable {
 	}
 	
 	/**
+     * Removes the holiday corresponding to the holiday date.
+     * @param holidayDate the date of the holiday to remove
+     */
+	public void removeHolidayDate(LocalDate holidayDate) {
+		this.holidays.remove(holidayDate);
+	}
+	
+	/**
+     * Adds the holiday with its date and name specified.
+     * @param holidayDate the date of the holiday to add
+     * @param holidayName the name of the holiday to add
+     */
+	public void addHolidayDates(LocalDate holidayDate, String holidayName) {
+		this.holidays.put(holidayDate, holidayName);
+	}
+	
+	/**
      * Returns true if the given date is a holiday.
      * @param holiday the password to test against the password the movie goer
      * @return true if the password was correct, false if not
