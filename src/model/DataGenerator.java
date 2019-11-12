@@ -11,6 +11,7 @@ public class DataGenerator {
 	public static final int MAX_SHOWTIMES = 4; //max showtime per day = 4
 	public static final int MAX_SHOWDAYS = 3; //showtimes are made for 3 days
 	
+	
 	public static void main(String[] args) {
 		DataManager.initialise();
 		DataStore dataStore = DataManager.getDataStore();
