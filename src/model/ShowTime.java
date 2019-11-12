@@ -19,7 +19,7 @@ public class ShowTime implements Serializable{
 	 * @param startTime starting time of the show
 	 * @param movie movie of the showtime
 	 */
-	public ShowTime(Cinema cinema, LocalDateTime startTime,  Movie movie) {
+	public ShowTime(Cinema cinema, LocalDateTime startTime, Movie movie) {
 		this.cinema = cinema;
 		this.bookings = new ArrayList<Booking>();
 		this.startTime = startTime;
@@ -93,21 +93,28 @@ public class ShowTime implements Serializable{
 	 */
 	public boolean checkFull() {
 		SeatStatus[][] availSeat = this.getSeatAvailabilities();
-		for (int i =0; i<availSeat.length ; i++) {
-			for (int j=0; j<availSeat[i].length; j++) {
-				if(availSeat[i][j] == SeatStatus.EMPTY )
+		for (int i = 0; i < availSeat.length; i++) {
+			for (int j = 0; j < availSeat[i].length; j++) {
+				if(availSeat[i][j] == SeatStatus.EMPTY)
 					return false;
 			}
 		}
 		return  true;
 	}
+	
 	/**
 	 * 
-	 * @return date of the showtime
+	 * @return total sales of the showtime
 	 */
-	public LocalDate getDate() {
-		return getStartTime().toLocalDate();
+	public double getTotalSales() {
+		double totalSales = 0;
+		
+		for (Booking booking: bookings)
+			totalSales += booking.getPrice();
+		
+		return totalSales;
 	}
+	
 	/**
 	 * 
 	 * @return layout of the cinema of the showtime
@@ -115,6 +122,15 @@ public class ShowTime implements Serializable{
 	public boolean[][] getLayout() {
 		return cinema.getLayout();
 	}
+	
+	/**
+	 * 
+	 * @return date of the showtime
+	 */
+	public LocalDate getDate() {
+		return startTime.toLocalDate();
+	}
+	
 	/**
 	 * 
 	 * @return date and time of the showtime
@@ -144,18 +160,5 @@ public class ShowTime implements Serializable{
 	 */
 	public Cinema getCinema() {
 		return cinema;
-	}
-	
-	/**
-	 * 
-	 * @return total sales of the showtime
-	 */
-	public double getTotalSales() {
-		double totalSales = 0;
-		
-		for (Booking booking: bookings)
-			totalSales += booking.getPrice();
-		
-		return totalSales;
 	}
 }

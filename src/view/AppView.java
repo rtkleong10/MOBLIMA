@@ -1,11 +1,10 @@
 package view;
 
-
 public class AppView extends View {
 	
 	public void start() {
-		int option = getMenuOption(
-			"Welcome to MOBLIMA\nPlease select a portal",
+		int option = IOController.getMenuOption(
+			"Welcome to MOBLIMA!\nPlease select a portal",
 			"Movie Goer",
 			"Cinema Staff",
 			"Exit"
@@ -25,7 +24,5 @@ public class AppView extends View {
 				exit();
 				break;
 		}
-	}
-	
-	
+	}	
 }

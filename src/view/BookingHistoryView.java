@@ -44,6 +44,7 @@ public class BookingHistoryView extends View {
 		if (empty)
 			System.out.println("No bookings made");
 		
+		IOController.pressEnterToContinue();
 		exit();
 	}
 }

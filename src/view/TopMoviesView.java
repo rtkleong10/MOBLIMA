@@ -11,7 +11,7 @@ public class TopMoviesView extends View {
 	
 	public void start() {
 		while (true) {
-			int option = getMenuOption(
+			int option = IOController.getMenuOption(
 				"Top 5 movies by...",
 				"Ticket sales",
 				"Overall reviewer's rating",
@@ -29,17 +29,14 @@ public class TopMoviesView extends View {
 					
 				case 3:
 					exit();
-					break;
+					return;
 			}
-			
-			System.out.println();
-			
-			if (option == 3)
-				break;
 		}
 	}
 	
-	public void printTopMoviesByTicketSales() {
+	private void printTopMoviesByTicketSales() {
+		System.out.println();
+		
 		System.out.println("Top 5 Movies By Ticket Sales");
 		
 		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList();
@@ -57,11 +54,16 @@ public class TopMoviesView extends View {
 		
 		for (int i = 0; i < 5 && i < movieListCopy.size(); i++) {
 			Movie movie = movieListCopy.get(i);
-			System.out.println((i + 1) + ". " + movie.getTitle() + " (" + movie.getTotalSales() + ")");
+			System.out.println((i + 1) + ". " + movie.getTitle() + " ($" + String.format("%.02f", movie.getTotalSales()) + ")");
 		}
+		
+		IOController.pressEnterToContinue();
+		System.out.println();
 	}
 	
-	public void printTopMoviesByOverallRating() {
+	private void printTopMoviesByOverallRating() {
+		System.out.println();
+		
 		System.out.println("Top 5 Movies By Overall Rating");
 		
 		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList();
@@ -84,5 +86,8 @@ public class TopMoviesView extends View {
 			Movie movie = moviesWithRatings.get(i);
 			System.out.println((i + 1) + ". " + movie.getTitle() + " (" + movie.getOverallRating() + ")");
 		}
+		
+		IOController.pressEnterToContinue();
+		System.out.println();
 	}
 }

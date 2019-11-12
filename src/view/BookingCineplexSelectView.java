@@ -3,14 +3,13 @@ package view;
 import java.util.ArrayList;
 
 import controller.DataManager;
-import model.MovieGoer;
 import model.Cineplex;
+import model.MovieGoer;
 
-public class CineplexSelectView extends View {
-	
+public class BookingCineplexSelectView extends View {
 	private MovieGoer movieGoer;
 	
-	public CineplexSelectView(MovieGoer movieGoer) {
+	public BookingCineplexSelectView(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	
@@ -25,13 +24,15 @@ public class CineplexSelectView extends View {
 		
 		cineplexStrings[size] = "Exit";
 		
-		int option = getMenuOption(
-			"Select a Cinema",
+		int option = IOController.getMenuOption(
+			"Select a cineplex",
 			cineplexStrings
 		);
 		
+		option--;
+		
 		if (option != size)
-			load(new CineplexView(movieGoer, cineplexList.get(option)));
+			loadWithoutSave(new BookingMovieSelectView(movieGoer, cineplexList.get(option)));
 		else
 			exit();
 	}
