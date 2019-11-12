@@ -1,7 +1,14 @@
 package view;
 
 import model.Cineplex;
+import model.Movie;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import controller.DataManager;
+import controller.DataStore;
+import controller.ShowTimeManager;
 import model.Cinema;
 import model.ShowTime;
 public class CinemaShowtimesView extends View {
@@ -10,56 +17,65 @@ public class CinemaShowtimesView extends View {
 		displayMenu();
 	}
 	public void displayMenu() {
+		DataManager.initialise();
+		DataStore dataStore = DataManager.getDataStore();
+		ArrayList<Movie> fullMovieList = dataStore.getMovieList();
+		ArrayList<Cineplex> cineplexList = dataStore.getCineplexList();
+		while (1) {
 		int option=getMenuOption("What would you like to do?",
 				"Add Showtimes",
 				"Update Showtimes",
 				"Remove Showtimes",
 				"Exit");
+		System.out.println("Enter cineplex: ");
+		String cineplexName=sc.nextLine();
+		Cineplex c;
+		for(Cineplex cin:cineplexList)
+		{
+			if(cineplexName.compareTo(cin.getName())==0) {
+				c=cin;
+				break;
+			}
+		}
+		if(c==null)
+		{
+			System.out.println("Cineplex does not exist!");
+			continue;
+		}
+		System.out.println("Enter cinema code: ");
+		String cinemaCode=sc.nextLine();
+		ArrayList<Cinema> cinemas=c.getCinemas();
+		Cinema cin;
+		for(Cinema c1:cinemas)
+		{
+			if(cinemaCode.compareTo(c1.getCinemaCode())==0) {
+				cin=c1;
+				break;
+		}
+		}
+		if(cin==null)
+		{
+		System.out.println("Cinema code not in cineplex!");
+		continue;
+		}
+		
 		switch(option)
 		{
 			case 1:
-				System.out.println("Enter cineplex: ");
-				String cineplexName=sc.nextLine();
+				ShowTimeManager.addShowTime(cin,fullMovieList);
+				break;
 				
-				int x;
-				Cineplex c;
-				for(Cineplex cin1:CineplexList)
-				{
-					x=cineplexName.compareTo(cin1.getName());
-					if(x==0) {
-						c=cin1;
-						break;
-					}
-				}
-				if(x != 0)
-				{
-					System.out.println("Cineplex does not exist!");
-					break;
-				}
-				System.out.println("Enter cinema code: ");
-				String cinemaName=sc.nextLine();
-				ArrayList<Cinema> cins=c.getCinemas();
-				Cinema s;
-				for(Cinema c1:cins)
-				{
-					x=cinemaName.compareTo(c1.getCinemaCode());
-					if(x==0) {
-						s=c1;
-						break;
-				}
-				}
-				if(x != 0)
-				{
-				System.out.println("Cinema code not in cineplex!");
-				}
-				ArrayList<ShowTime> st= s.getShowTimes();
-				System.out.println("Current Show")
 			case 2:
+				ShowTimeManager.updateShowTime(cin,fullMovieList);
 				break;
 			case 3:
+				ShowTimeManager.deleteShowTime(cin);
+				
+				break;
 			case 4:
 			default:
 				c
+		}
 		}
 	}
 	
