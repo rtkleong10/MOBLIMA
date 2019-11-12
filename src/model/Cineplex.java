@@ -25,4 +25,13 @@ public class Cineplex implements Serializable{
 	public String getName() {
 		return name;
 	}
+	
+	public ArrayList<ShowTime> getShowTimes() {
+		ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
+		
+		for (Cinema cinema: cinemas)
+			showTimes.addAll(cinema.getShowTimes());
+
+		return showTimes;
+	}
 }

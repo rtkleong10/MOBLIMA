@@ -9,6 +9,7 @@ import model.Cineplex;
 import model.Movie;
 import model.MovieGoer;
 import model.PricingScheme;
+import model.ShowingStatus;
 
 public class DataStore implements Serializable {
 	private static final long serialVersionUID = -9165821480078981092L;
@@ -19,6 +20,10 @@ public class DataStore implements Serializable {
 	private PricingScheme pricingScheme = new PricingScheme();
 	private ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
 	private ArrayList<Movie> movieList = new ArrayList<Movie>();
+	
+	public boolean checkCinemaStaffUsername(String username) {
+		return cinemaStaffList.containsKey(username);
+	}
 	
 	public CinemaStaff getCinemaStaff(String username, String password) {
 		CinemaStaff cinemaStaff = cinemaStaffList.get(username);
@@ -39,6 +44,10 @@ public class DataStore implements Serializable {
 			cinemaStaffList.put(username, cinemaStaff);
 			return true;
 		}
+	}
+	
+	public boolean checkMovieGoerUsername(String username) {
+		return movieGoerList.containsKey(username);
 	}
 
 	public MovieGoer getMovieGoer(String username, String password) {
@@ -72,5 +81,16 @@ public class DataStore implements Serializable {
 	
 	public ArrayList<Movie> getMovieList() {
 		return movieList;
+	}
+	
+	public ArrayList<Movie> getBookableMovieList() {
+		 ArrayList<Movie> bookableMovieList = new ArrayList<Movie>();
+		 
+		 for (Movie movie: movieList) {
+			 if (movie.getShowingStatus() != ShowingStatus.END_OF_SHOWING)
+				 bookableMovieList.add(movie);
+		 }
+		 
+		return bookableMovieList;
 	}
 }
