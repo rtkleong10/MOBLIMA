@@ -19,12 +19,10 @@ public class MovieController implements Controller {
 	}
 	
 	public void start() {
-		selectMovie();
-		
-		if (this.movie == null) {
-			NavigationController.goBack();
-			return;
-		}
+		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList(); 
+		Movie[] movieArr = new Movie[movieList.size()];
+		movieList.toArray(movieArr);
+		this.movie = (Movie) MenuView.getLabelledItem("Select a Movie", movieArr);
 		
 		while (true) {
 			int option = MenuView.getMenuOption(
@@ -53,28 +51,6 @@ public class MovieController implements Controller {
 					return;
 			}
 		}
-	}
-	
-	private void selectMovie() {
-		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList();
-		int size = movieList.size();
-		String[] movieStrings = new String[size + 1];
-		
-		for (int i = 0; i < size; i++) {
-			movieStrings[i] = movieList.get(i).getTitle();
-		}
-		
-		movieStrings[size] = "Exit";
-		
-		int option = MenuView.getMenuOption(
-			"Select a movie",
-			movieStrings
-		);
-		
-		option--;
-		
-		if (option != size)
-			this.movie = movieList.get(option);
 	}
 	
 	private ArrayList<String> getReviewRatings() {
