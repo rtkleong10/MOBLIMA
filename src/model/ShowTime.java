@@ -72,19 +72,22 @@ public class ShowTime implements Serializable{
 	/**
 	 * Checks the availability of the seats selected by user
 	 * @param selectedSeat 2D boolean array indicating seat selected by user
-	 * @return true if all seats selected is available; otherwise false
+	 * @return total number of seats selected by users if all seat is available; otherwise -1
 	 */
-	public boolean checkAvail( boolean [][] selectedSeat ) {
+	public int checkAvail( boolean [][] selectedSeat ) {
 		SeatStatus[][] availSeat = this.getSeatAvailabilities();
+		int count =0;
 		for (int i =0; i<availSeat.length ; i++) {
 			for (int j=0; j<availSeat[i].length; j++) {
 				if(availSeat[i][j] == SeatStatus.TAKEN && selectedSeat[i][j] == true )
-					return false;
-				if(availSeat[i][j] == SeatStatus.NO_SEAT && selectedSeat[i][j] == true )
-					return false;
+					return -1;
+				else if(availSeat[i][j] == SeatStatus.NO_SEAT && selectedSeat[i][j] == true )
+					return -1;
+				else if(availSeat[i][j] == SeatStatus.EMPTY && selectedSeat[i][j] == true )
+					count++;
 			}
 		}
-		return true;
+		return count;
 	}
 	/**
 	 * Check if the showtime is already fully booked
