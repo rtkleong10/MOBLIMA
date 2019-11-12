@@ -54,7 +54,7 @@ public class MovieGoerController implements Controller {
 				break;
 				
 			case 3:
-				NavigationController.load(new MovieListController(movieGoer));
+				NavigationController.load(new MovieController(movieGoer));
 				break;
 				
 				

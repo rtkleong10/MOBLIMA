@@ -10,11 +10,11 @@ import view.ListView;
 import view.MenuView;
 import view.MovieView;
 
-public class MovieListController implements Controller {
+public class MovieController implements Controller {
 	MovieGoer movieGoer;
 	Movie movie;
 	
-	public MovieListController(MovieGoer movieGoer) {
+	public MovieController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	

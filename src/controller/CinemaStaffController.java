@@ -1,7 +1,7 @@
 package controller;
 
 import model.CinemaStaff;
-import view.CinemaStaffView;
+import view.CinemaStaffLoginView;
 import view.MenuView;
 
 public class CinemaStaffController implements Controller {
@@ -17,7 +17,7 @@ public class CinemaStaffController implements Controller {
 			
 			switch (option) {
 				case 1:
-					this.cinemaStaff = CinemaStaffView.loginCinemaStaff();
+					this.cinemaStaff = CinemaStaffLoginView.loginCinemaStaff();
 					break;
 					
 				case 3:
@@ -41,12 +41,15 @@ public class CinemaStaffController implements Controller {
 		
 		switch (option) {
 			case 1:
+				NavigationController.load(new MovieListingController());
 				break;
 				
 			case 2:
+				NavigationController.load(new ShowTimeController());
 				break;
 				
 			case 3:
+				NavigationController.load(new PricingSchemeController());
 				break;
 				
 			case 4:

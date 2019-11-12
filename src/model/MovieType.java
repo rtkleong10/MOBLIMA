@@ -1,6 +1,6 @@
 package model;
 
-public enum MovieType {
+public enum MovieType implements LabelledItem {
 	REGULAR("Regular"),
 	BLOCKBUSTER("Blockbuster"),
 	_3D("3D"); 

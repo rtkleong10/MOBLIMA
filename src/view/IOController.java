@@ -3,7 +3,11 @@ package view;
 import java.util.Scanner;
 
 @SuppressWarnings("resource")
-public class IOController {	
+public class IOController {
+	public static void displayMessageInline(String message) {
+		System.out.print(message);
+	}
+	
 	public static void displayMessage(String message) {
 		System.out.println(message);
 	}
@@ -14,7 +18,7 @@ public class IOController {
 	}
 	
 	public static String readLine(String message) {
-		displayMessage(message);
+		displayMessageInline(message);
 		return readLine();
 	}
 	
@@ -24,7 +28,7 @@ public class IOController {
 	}
 	
 	public static int readInt(String message) {
-		displayMessage(message);
+		displayMessageInline(message);
 		return readInt();
 	}
 	
@@ -42,7 +46,7 @@ public class IOController {
 	}
 	
 	public static boolean readBoolean(String message, String yesString, String noString) {
-		displayMessage(message);
+		displayMessageInline(message);
 		return readBoolean(yesString, noString);
 	}
 	

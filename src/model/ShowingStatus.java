@@ -1,6 +1,6 @@
 package model;
 
-public enum ShowingStatus {
+public enum ShowingStatus implements LabelledItem {
 	COMING_SOON("Coming Soon"),
 	PREVIEW("Preview"),
 	NOW_SHOWING("Now Showing"),

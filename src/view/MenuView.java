@@ -2,6 +2,8 @@ package view;
 
 import java.util.Scanner;
 
+import model.LabelledItem;
+
 @SuppressWarnings("resource")
 public class MenuView {
 	
@@ -29,5 +31,16 @@ public class MenuView {
 		}
 		
 		return option;
+	}
+	
+	public static LabelledItem getLabelledItem(String title, LabelledItem[] labelledItems) {
+		String[] options = new String[labelledItems.length];
+		
+		for (int i = 0; i < labelledItems.length; i++)
+			options[i] = labelledItems[i].getLabel();
+		
+		int option = getMenuOption(title, options);
+		
+		return labelledItems[option - 1];
 	}
 }

@@ -3,7 +3,6 @@ package view;
 import java.util.Arrays;
 import java.util.EnumMap;
 
-import controller.BookingController;
 import model.*;
 
 public class BookingView {
@@ -30,7 +29,7 @@ public class BookingView {
 				selectedSeat[row][col-1] = true;
 			}
 			
-			if (showTime.checkAvail(selectedSeat))
+			if (showTime.checkAvail(selectedSeat) != -1)
 				break;
 			else {
 				System.out.println("Unavailable seats selected");
