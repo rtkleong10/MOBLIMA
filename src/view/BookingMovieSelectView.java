@@ -2,19 +2,22 @@ package view;
 
 import java.util.ArrayList;
 
-import controller.DataManager;
+import controller.BookingController;
+import model.Cineplex;
 import model.Movie;
 import model.MovieGoer;
 
-public class MovieSelectView extends View {
-private MovieGoer movieGoer;
+public class BookingMovieSelectView extends View {
+	private MovieGoer movieGoer;
+	private Cineplex cineplex;
 	
-	public MovieSelectView(MovieGoer movieGoer) {
+	public BookingMovieSelectView(MovieGoer movieGoer, Cineplex cineplex) {
 		this.movieGoer = movieGoer;
+		this.cineplex = cineplex;
 	}
 	
 	public void start() {
-		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList();
+		ArrayList<Movie> movieList = BookingController.getMovieList(cineplex);
 		int size = movieList.size();
 		String[] movieStrings = new String[size + 1];
 		
@@ -32,7 +35,7 @@ private MovieGoer movieGoer;
 		option--;
 		
 		if (option != size)
-			load(new MovieDetailsView(movieGoer, movieList.get(option)));
+			loadWithoutSave(new BookingShowTimeSelectView(movieGoer, cineplex, movieList.get(option)));
 		else
 			exit();
 	}
