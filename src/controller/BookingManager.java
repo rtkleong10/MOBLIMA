@@ -7,8 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
+import java.util.stream.*;
 import model.AgeGroup;
 import model.Cinema;
 import model.Cineplex;
@@ -26,14 +25,12 @@ public class BookingManager {
 		
 		int choice;
 		Scanner sc = new Scanner (System.in);
-		
 		BookingView1 bookView = new BookingView1();
 		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
 		
-		bookView.printCineplex(cineplexList);
-		choice = sc.nextInt();
 		
-		System.out.println("");
+		choice = bookView.printCineplex(cineplexList);
+		
 		
 		List<ShowTime> showList = new ArrayList<>();
 		List<Cineplex> selectedCineplex =  new ArrayList<>();
@@ -47,8 +44,7 @@ public class BookingManager {
 		for (Map.Entry<Movie, List <ShowTime>> entry: byMovie.entrySet()) {
 			 movieNames.add(entry.getKey().getTitle());
 		}
-		bookView.printMovieNames(movieNames);
-		choice = sc.nextInt();
+		choice =bookView.getMovieNames(movieNames);
 		
 		List <ShowTime> possibleShow = new ArrayList <>();
 		int count = 1;
@@ -60,10 +56,9 @@ public class BookingManager {
 			count++;
 		}
 		
-		bookView.printShowTime(possibleShow);
-		choice = sc.nextInt();
-		ShowTime selectedShow = possibleShow.get(choice-1);
 		
+		choice = bookView.getShowTime(possibleShow);
+		ShowTime selectedShow = possibleShow.get(choice-1);
 		Cinema selectedCinema = selectedShow.getCinema();
 		bookView.displaySeat(selectedShow);
 		boolean[][] selectedSeat = new boolean[selectedShow.getLayout().length][];
@@ -75,23 +70,26 @@ public class BookingManager {
 		}
 
 		selectedSeat = bookView.getSeat(selectedShow);
-
+		int numSeat;
 		do {
-			if(selectedShow.checkAvail(selectedSeat)) {
-				done = true;
-			}
-			else {
+			numSeat = selectedShow.checkAvail(selectedSeat);
+			
+			if(numSeat == -1) {
 				System.out.println("Unavailable seat selected");
 				System.out.println("Select seat again");
 				selectedSeat = bookView.getSeat(selectedShow);
 			}
-		}while(!done);
+		}while(numSeat==-1);
 		
 		int [] ageGrp = new int[3];
-		System.out.println("How many of each age group [Child Adult Elderly]:");
-		for(int i=0; i<ageGrp.length; i++) {
-			ageGrp[i] = sc.nextInt();
-		}
+		do {
+			System.out.println("How many of each age group [Child Adult Elderly]:");
+			for(int i=0; i<ageGrp.length; i++) {
+				ageGrp[i] = sc.nextInt();
+			}
+		}while(IntStream.of(ageGrp).sum() != numSeat);
+		
+		PricingScheme p = new PricingScheme();
 		
 		double price = calPrice(selectedShow,selectedCinema, ageGrp);
 		
@@ -119,7 +117,7 @@ public class BookingManager {
 	 * @return price of booking transaction
 	 */
 	private static double calPrice(ShowTime selectedShow, Cinema selectedCinema, int ageGrp[]) {
-		PricingScheme p = new PricingScheme();
+		PricingScheme p = DataManager.getDataStore().getPricingScheme();
 		double price=0;
 		price += ageGrp[0]*p.getPrice(selectedShow.getDate(), selectedCinema.getCinemaClass(), AgeGroup.CHILD, selectedShow.getMovie().getMovieType());
 		price += ageGrp[1]*p.getPrice(selectedShow.getDate(), selectedCinema.getCinemaClass(), AgeGroup.ADULT, selectedShow.getMovie().getMovieType());

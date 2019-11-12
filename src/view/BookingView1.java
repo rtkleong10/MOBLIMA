@@ -1,38 +1,51 @@
 package view;
 
 import model.*;
+import java.util.stream.*;
 import controller.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BookingView1 {
+	Scanner sc = new Scanner(System.in);
+	private int getInput() {
+		int choice = sc.nextInt();
+		return choice;
+	}
 	/**
-	 * Displays list of cineplexes for user to select for booking
-	 * @param cineplexes ArrayList of all cineplexes
+	 * Displays list of cineplexes for user to select for booking and get user choice of cineplex
+	 * @return index of the cineplex user wants to book
 	 */
-	public void printCineplex(ArrayList <Cineplex> cineplexes) {
+	public int printCineplex(ArrayList <Cineplex> cineplexes) {
 		System.out.println("Select Cineplex: ");
 		for (int i=0; i<cineplexes.size(); i++) {
 			System.out.println(i+1+") " +cineplexes.get(i).getName());
 		}
 		System.out.print("Option: ");
+		return getInput();
 	}
 	/**
-	 * Displays list of movie names for user to select for booking
-	 * @param movieNames List of all movies names available in the selected cineplex
+	 * Displays list of movie names and get the movie index that the user wants to book
+	 * @param movieNamesmovieNames List of all movies names available in the selected cineplex
+	 * @return index of movie that the user wants to book
 	 */
-	public void printMovieNames(List <String> movieNames) {
+	public int getMovieNames(List <String> movieNames) {
+		System.out.println("");
 		System.out.println("Select Movie:");
 		for (int i=0; i<movieNames.size(); i++) {
 			System.out.println( i+1 +") "+ movieNames.get(i));
 		}
 		System.out.print("Option: ");
+		return getInput();
+		
 	}
 	/**
 	 *  Displays list of showtimes for user to select for booking
 	 * @param possibleShow List of all available showtimes for the selected movie 
+	 * @return index of showtime that the user wants to book
 	 */
-	public void printShowTime(List <ShowTime> possibleShow) {
+	public int getShowTime(List <ShowTime> possibleShow) {
 		System.out.println("\nSelect Showtime :");
 		for (int i=0; i<possibleShow.size(); i++) {
 			Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartTime);
@@ -41,6 +54,7 @@ public class BookingView1 {
 								possibleShow.get(i).getStartTime().toLocalTime());
 		}
 		System.out.print("Option: ");
+		return getInput();
 	}
 	/**
 	 * Displays available seats for user to select for booking
@@ -157,7 +171,25 @@ public class BookingView1 {
 		ShowTimeView.displayShowTime(Arrays.asList(selectedShow));
 		System.out.println("Child: "+ ageGrp[0]);
 		System.out.println("Adult: "+ ageGrp[1]);
-		System.out.println("Child: "+ ageGrp[2]);
+		System.out.println("Senior Citizen: "+ ageGrp[2]);
 		System.out.printf("Price : $%.2f\n",price);
 	}
+	/**
+	 * Get input from user for number of tickets for each age group
+	 * @param count
+	 * @return 1D integer array of number of tickets for each age group
+	 */
+	public int[] getAgeGroup(int count) {
+		int []ageGrp = new int[3] ;
+		Scanner sc = new Scanner( System.in ) ;
+		do {
+		System.out.println("How many of each age group [Child Adult Senior Citizen]:");
+		for(int i=0; i<ageGrp.length; i++)
+			ageGrp[i] = sc.nextInt() ;
+			
+		}while(IntStream.of(ageGrp).sum()!= count);
+		
+		return ageGrp ;
+		}
+	
 }
