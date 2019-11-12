@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class Movie implements Serializable {
+public class Movie implements Serializable, LabelledItem {
 	private static final long serialVersionUID = 5822630624504041207L;
 	
 	private String title;
@@ -81,6 +81,10 @@ public class Movie implements Serializable {
 		return totalSales;
 	}
 
+	public String getLabel() {
+		return title;
+	}
+	
 	/**
 	 * @return title of the Movie
 	 */
