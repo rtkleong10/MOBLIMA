@@ -9,6 +9,7 @@ import controller.DataManager;
 import controller.DataStore;
 import model.Movie;
 import model.ReleaseRating;
+import model.ShowingStatus;
 import model.MovieType;
 public class MovieListingsView extends View {
 	public void start() {
@@ -47,7 +48,7 @@ public class MovieListingsView extends View {
 				long due;
 				due=sc.nextLong();
 				Duration d = Duration.ofHours(due);
-				Movie m= new Movie(moviename,synopsis,directorname,castnames, ReleaseRating.values()[movierating-1], MovieType.values()[movietype-1],d );
+				Movie m= new Movie(moviename,synopsis,directorname,castnames, ShowingStatus.COMING_SOON, ReleaseRating.values()[movierating-1], MovieType.values()[movietype-1],d );
 				fullMovieList.add(m);
 				DataManager.update();
 				break;

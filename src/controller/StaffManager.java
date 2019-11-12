@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
 	import java.io.PrintStream;
 
 
-
+public class StaffManager {
 		
   public static void main (String args[]) {
 	  
