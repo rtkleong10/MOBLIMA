@@ -53,7 +53,7 @@ public class TopMoviesController implements Controller{
 		
 		for (int i = 0; i < 5 && i < movieListCopy.size(); i++) {
 			Movie movie = movieListCopy.get(i);
-			movieStrings.add((i + 1) + ". " + movie.getTitle() + " ($" + String.format("%.02f", movie.getTotalSales()) + ")");
+			movieStrings.add((i + 1) + ". " + movie.getTitle() + " ($" + String.format("%.2f", movie.getTotalSales()) + ")");
 		}
 		
 		return movieStrings;
@@ -75,7 +75,7 @@ public class TopMoviesController implements Controller{
 		
 		for (int i = 0; i < 5 && i < moviesWithRatings.size(); i++) {
 			Movie movie = moviesWithRatings.get(i);
-			movieStrings.add((i + 1) + ". " + movie.getTitle() + " (" + movie.getOverallRating() + ")");
+			movieStrings.add((i + 1) + ". " + movie.getTitle() + " (" + String.format("%.2f", movie.getOverallRating()) + ")");
 		}
 		
 		return movieStrings;

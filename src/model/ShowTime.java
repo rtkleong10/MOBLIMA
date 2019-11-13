@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ShowTime implements Serializable{
+public class ShowTime implements Serializable, LabelledItem {
 	private static final long serialVersionUID = 8096921810451802218L;
 	
 	private Cinema cinema;
@@ -125,6 +125,10 @@ public class ShowTime implements Serializable{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
 		String transaction = cinema.getCinemaCode() + LocalDateTime.now().format(formatter);
 		return transaction;
+	}
+	
+	public String getLabel() {
+		return this.getDate() + "  " + this.getStartTime().toLocalTime();
 	}
 	
 	/**

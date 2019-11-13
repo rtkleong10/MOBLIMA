@@ -26,27 +26,10 @@ public class BookingController implements Controller {
 		this.movieGoer = movieGoer;
 	}
 	
-	public void start() {
-		selectCineplex();
-		
-		if (this.cineplex == null) {
-			NavigationController.goBack();
-			return;
-		}
-		
-		selectMovie();
-		
-		if (this.movie == null) {
-			NavigationController.goBack();
-			return;
-		}
-		
-		selectShowTime();
-		
-		if (this.showTime == null) {
-			NavigationController.goBack();
-			return;
-		}
+	public void start() {		
+		this.cineplex = selectCineplex();
+		this.movie = selectMovie();		
+		this.showTime = selectShowTime();
 		
 		if (showTime.checkFull()) {
 			IOController.displayMessage("Sorry, this show time is fully booked");
@@ -79,70 +62,25 @@ public class BookingController implements Controller {
 		NavigationController.goBack();
 	}
 	
-	private void selectCineplex() {
+	private Cineplex selectCineplex() {
 		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
-		int size = cineplexList.size();
-		String[] cineplexStrings = new String[size + 1];
-		
-		for (int i = 0; i < size; i++) {
-			cineplexStrings[i] = cineplexList.get(i).getName();
-		}
-		
-		cineplexStrings[size] = "Exit";
-		
-		int option = MenuView.getMenuOption(
-			"Select a cineplex",
-			cineplexStrings
-		);
-		
-		option--;
-		
-		if (option != size)
-			this.cineplex = cineplexList.get(option);
+		Cineplex[] cineplexArr = new Cineplex[cineplexList.size()];
+		cineplexList.toArray(cineplexArr);
+		return MenuView.getLabelledItem("Select a Cineplex", cineplexArr);
 	}
 	
-	private void selectMovie() {
+	private Movie selectMovie() {
 		ArrayList<Movie> movieList = getMovieList();
-		int size = movieList.size();
-		String[] movieStrings = new String[size + 1];
-		
-		for (int i = 0; i < size; i++) {
-			movieStrings[i] = movieList.get(i).getTitle();
-		}
-		
-		movieStrings[size] = "Exit";
-		
-		int option = MenuView.getMenuOption(
-			"Select a movie",
-			movieStrings
-		);
-		
-		option--;
-		
-		if (option != size)
-			this.movie = movieList.get(option);
+		Movie[] movieArr = new Movie[movieList.size()];
+		movieList.toArray(movieArr);
+		return MenuView.getLabelledItem("Select a Movie", movieArr);
 	}
 	
-	private void selectShowTime() {
+	private ShowTime selectShowTime() {
 		ArrayList<ShowTime> showTimeList = getShowTimeList();
-		int size = showTimeList.size();
-		String[] showTimeStrings = new String[size + 1];
-		
-		for (int i = 0; i < size; i++) {
-			showTimeStrings[i] = showTimeList.get(i).getDate() + "  " + showTimeList.get(i).getStartTime().toLocalTime();
-		}
-		
-		showTimeStrings[size] = "Exit";
-		
-		int option = MenuView.getMenuOption(
-			"Select a movie",
-			showTimeStrings
-		);
-		
-		option--;
-		
-		if (option != size)
-			this.showTime = showTimeList.get(option);
+		ShowTime[] showTimeArr = new ShowTime[showTimeList.size()];
+		showTimeList.toArray(showTimeArr);
+		return MenuView.getLabelledItem("Select a Show Time", showTimeArr);
 	}
 	
 	public ArrayList<Movie> getMovieList() {

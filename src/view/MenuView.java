@@ -12,7 +12,7 @@ public class MenuView {
 		
 		System.out.println();
 		System.out.println(title);
-		System.out.println("———————————————————————");
+		IOController.displayLine(title.length());
 		
 		for (int i = 0; i < options.length; i++) {
 			System.out.println((i + 1) + ": " + options[i]);
@@ -30,10 +30,12 @@ public class MenuView {
 				System.out.println("Invalid option selected!");
 		}
 		
+		System.out.println();
+		
 		return option;
 	}
 	
-	public static LabelledItem getLabelledItem(String title, LabelledItem[] labelledItems) {
+	public static <T extends LabelledItem> T getLabelledItem(String title, T[] labelledItems) {
 		String[] options = new String[labelledItems.length];
 		
 		for (int i = 0; i < labelledItems.length; i++)

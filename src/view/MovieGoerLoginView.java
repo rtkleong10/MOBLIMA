@@ -4,8 +4,6 @@ import model.*;
 
 public class MovieGoerLoginView {
 	public static MovieGoer signupMovieGoer() {
-		System.out.println();
-		
 		System.out.print("Username: ");
 		String username = IOController.readLine();
 		
@@ -44,14 +42,10 @@ public class MovieGoerLoginView {
 		if (!DataManager.getDataStore().addMovieGoer(movieGoer))
 			System.out.println("Error: Unable to add movie goer");
 		
-		System.out.println();
-		
 		return movieGoer;
 	}
 	
 	public static MovieGoer loginMovieGoer() {
-		System.out.println();
-		
 		System.out.print("Username: ");
 		String username = IOController.readLine();
 		
@@ -68,8 +62,6 @@ public class MovieGoerLoginView {
 		
 		if (movieGoer == null)
 			System.out.println("Error: Incorrect password");
-		
-		System.out.println();
 		
 		return movieGoer;
 	}

@@ -4,9 +4,10 @@ import view.IOController;
 import view.MenuView;
 
 public class UserController implements Controller {
-	public void start() {		
+	public void start() {
+		IOController.displayMessage("Welcome to MOBLIMA!");
 		int option = MenuView.getMenuOption(
-			"Welcome to MOBLIMA!\nPlease select a portal",
+			"Please select a portal",
 			"Movie Goer",
 			"Cinema Staff",
 			"Exit"

@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 @SuppressWarnings("resource")
 public class IOController {
+	public static void displayLine(int length) {
+		for (int i = 0; i < length; i++)
+			System.out.print("-");
+		
+		System.out.println();
+	}
+	
 	public static void displayMessageInline(String message) {
 		System.out.print(message);
 	}
@@ -33,9 +40,9 @@ public class IOController {
 	}
 	
 	public static boolean readBoolean(String yesString, String noString) {
-		String input = readLine();
-		
 		while (true) {
+			String input = readLine();
+			
 			if (input.equals(yesString))
 				return true;
 			else if (input.equals(noString))

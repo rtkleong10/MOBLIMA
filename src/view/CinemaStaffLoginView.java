@@ -6,8 +6,6 @@ import model.DataManager;
 public class CinemaStaffLoginView {
 	
 	public static CinemaStaff loginCinemaStaff() {
-		System.out.println();
-		
 		System.out.print("Username: ");
 		String username = IOController.readLine();
 		
@@ -24,8 +22,6 @@ public class CinemaStaffLoginView {
 		
 		if (cinemaStaff == null)
 			System.out.println("Error: Incorrect password");
-		
-		System.out.println();
 
 		return cinemaStaff;
 	}

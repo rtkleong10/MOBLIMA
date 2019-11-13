@@ -10,34 +10,30 @@ import model.ReviewRating;
 public class MovieView {
 	
 	public static void printMovieDetails(Movie movie) {
-		System.out.println();
-		
 		Duration duration = movie.getDuration();
 		String durationString = String.format("%dh %02dmin", duration.toHoursPart(), duration.toMinutesPart());
 		
-		System.out.println(
+		IOController.displayMessage(
 			"Title: " + movie.getTitle() + "\n" +
 			"Synopsis: " + movie.getSynopsis() + "\n" +
 			"Director: " + movie.getDirector() + "\n" +
 			"Duration: " + durationString + "\n" +
 			"Showing Status: " + movie.getShowingStatus().getLabel() + "\n" +
-			"Release Rating: " + movie.getReleaseRating() + "\n" +
+			"Release Rating: " + movie.getReleaseRating().getLabel() + "\n" +
 			"Movie Type: " + movie.getMovieType().getLabel()
 		);
 		
-		System.out.println("Cast:");
+		IOController.displayMessage("Cast:");
 		for (String castName: movie.getCast())
-			System.out.println("• " + castName);
+			IOController.displayMessage("• " + castName);
 		
-		System.out.println("Overall Reviewer Rating: " + (movie.getOverallRating() != null ? movie.getOverallRating() : "Not Available"));
+		String overallRating = (movie.getOverallRating() != null) ? String.format("%.1f", movie.getOverallRating()) : "Not Available";
+		IOController.displayMessage("Overall Reviewer Rating: " + overallRating);
 		
 		IOController.pressEnterToContinue();
-		System.out.println();
 	}
 	
 	public static void addMovieReview(Movie movie, MovieGoer movieGoer) {
-		System.out.println();
-		
 		System.out.print("Review: ");
 		String review = IOController.readLine();
 		

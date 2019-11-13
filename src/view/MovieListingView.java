@@ -38,15 +38,15 @@ public class MovieListingView {
 	}
 	
 	public static ShowingStatus readShowingStatus() {
-		return (ShowingStatus) MenuView.getLabelledItem("Select a showing status", ShowingStatus.values());
+		return MenuView.getLabelledItem("Select a showing status", ShowingStatus.values());
 	}
 	
 	public static ReleaseRating readReleaseRating() {
-		return (ReleaseRating) MenuView.getLabelledItem("Select a release rating", ReleaseRating.values());
+		return MenuView.getLabelledItem("Select a release rating", ReleaseRating.values());
 	}
 	
 	public static MovieType readMovieType() {
-		return (MovieType) MenuView.getLabelledItem("Select a movie type", MovieType.values());
+		return MenuView.getLabelledItem("Select a movie type", MovieType.values());
 	}
 	
 	public static String[] readCast() {
