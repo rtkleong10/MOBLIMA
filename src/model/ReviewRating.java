@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class ReviewRating implements Serializable {
+public class ReviewRating implements Serializable, LabelledItem {
 	private static final long serialVersionUID = 1725162345547776214L;
 	
 	public static final int MIN_RATING = 1;
@@ -53,5 +53,9 @@ public class ReviewRating implements Serializable {
 	 */
 	public int getRating() {
 		return rating;
+	}
+	
+	public String getLabel() {
+		return review + " (" + rating + "/5) —— " + movieGoer.getName();
 	}
 }
