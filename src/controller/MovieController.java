@@ -19,16 +19,13 @@ public class MovieController implements Controller {
 	}
 	
 	public void start() {
-		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList(); 
-		Movie[] movieArr = new Movie[movieList.size()];
-		movieList.toArray(movieArr);
-		this.movie = (Movie) MenuView.getLabelledItem("Select a Movie", movieArr);
+		this.movie = selectMovie();
 		
 		while (true) {
 			int option = MenuView.getMenuOption(
 				this.movie.getTitle(),
 				"View movie details",
-				"View past reviews",
+				"View past reviews & ratings",
 				"Add a review",
 				"Exit"
 			);
@@ -39,7 +36,7 @@ public class MovieController implements Controller {
 					break;
 					
 				case 2:
-					ListView.displayList("Past Reviews & Reviewer's Ratings", getReviewRatings(), "No reviews available");
+					ListView.displayList("Past Reviews & Ratings", getReviewRatingStrings(), "No reviews & ratings available");
 					break;
 					
 				case 3:
@@ -53,13 +50,20 @@ public class MovieController implements Controller {
 		}
 	}
 	
-	private ArrayList<String> getReviewRatings() {
+	private Movie selectMovie() {
+		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList(); 
+		Movie[] movieArr = new Movie[movieList.size()];
+		movieList.toArray(movieArr);
+		return MenuView.getLabelledItem("Select a Movie", movieArr);
+	}
+	
+	private ArrayList<String> getReviewRatingStrings() {
 		ArrayList<ReviewRating> reviewRatingsList = movie.getReviewRatings();
 			
-		ArrayList<String> reviewRatingsString = new ArrayList<String>();
+		ArrayList<String> reviewRatingStrings = new ArrayList<String>();
 		for (ReviewRating reviewRating: reviewRatingsList)
-			reviewRatingsString.add(reviewRating.getReview() + " (" + reviewRating.getRating() + "/5) —— " + reviewRating.getMovieGoer().getName());
+			reviewRatingStrings.add(reviewRating.getReview() + " (" + reviewRating.getRating() + "/5) —— " + reviewRating.getMovieGoer().getName());
 		
-		return reviewRatingsString;
+		return reviewRatingStrings;
 	}
 }

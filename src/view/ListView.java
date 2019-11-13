@@ -7,6 +7,7 @@ public class ListView {
 		System.out.println();
 		
 		System.out.println(title);
+		IOController.displayLine(title.length());
 		
 		if (stringList.size() == 0) {
 			System.out.println(emptyString);

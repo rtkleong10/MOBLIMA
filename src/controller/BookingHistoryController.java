@@ -19,7 +19,7 @@ public class BookingHistoryController implements Controller {
 	}
 	
 	public void start() {
-		ListView.displayList("Booking history", getBookingHistory(), "No bookings made");
+		ListView.displayList("Booking History", getBookingHistory(), "No bookings made");
 		NavigationController.goBack();
 	}
 	
@@ -33,9 +33,9 @@ public class BookingHistoryController implements Controller {
 						if (booking.getMovieGoer() == movieGoer) {
 							bookingHistoryStrings.add(
 								"Booking: " + booking.getTransactionId() + "\n" +
-								"Price: $" + booking.getPrice() + "\n" +
-								"Movie: " + showTime.getMovie() + "\n" +
-								"Date & Time: " + showTime.getStartTime().toString() + "\n" +
+								"Price: $" + String.format("%.2f", booking.getPrice()) + "\n" +
+								"Movie: " + showTime.getMovie().getTitle() + "\n" +
+								"Date & Time: " + showTime.getLabel() + "\n" +
 								"Cinema: " + cinema.getCinemaCode() + "\n" +
 								"Cineplex: " + cineplex.getName() + "\n"
 							);

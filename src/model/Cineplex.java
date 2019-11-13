@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cineplex implements Serializable{
+public class Cineplex implements Serializable, LabelledItem {
 	private static final long serialVersionUID = 2510448747911179290L;
 	
 	private ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
@@ -16,6 +16,10 @@ public class Cineplex implements Serializable{
 	public void createCinema(String cinemaCode, boolean[][] layout, CinemaClass cinemaClass) {
 		Cinema cinema = new Cinema(cinemaCode, layout, cinemaClass);
 		this.cinemas.add(cinema);
+	}
+	
+	public String getLabel() {
+		return name;
 	}
 	
 	public ArrayList<Cinema> getCinemas() {

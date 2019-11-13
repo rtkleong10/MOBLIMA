@@ -146,7 +146,7 @@ public class BookingView {
 		ShowTimeView.displayShowTime(Arrays.asList(showTime));
 		
 		for (AgeGroup ageGroup: AgeGroup.values()) 
-		    System.out.println(ageGroup + ": " + ageGroupCount.get(ageGroup));
+		    System.out.println(ageGroup.getLabel() + ": " + ageGroupCount.get(ageGroup));
 		
 		System.out.printf("Price : $%.2f\n", totalPrice);
 		IOController.pressEnterToContinue();
