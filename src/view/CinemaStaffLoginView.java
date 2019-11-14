@@ -13,7 +13,7 @@ public class CinemaStaffLoginView {
 			return null;
 		}
 		
-		String password = IOController.readLine("Password: ");
+		String password = IOController.readPassword("Password: ");
 		
 		CinemaStaff cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
