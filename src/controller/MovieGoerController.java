@@ -6,7 +6,8 @@ import view.MovieGoerLoginView;
 
 public class MovieGoerController implements Controller {
 	private MovieGoer movieGoer;
-		
+	
+	@Override
 	public void start() {
 		while (this.movieGoer == null) {
 			int option = MenuView.getMenuOption(
@@ -47,6 +48,7 @@ public class MovieGoerController implements Controller {
 		
 		switch (option) {
 			case 1:
+				NavigationController.load(new ShowTimeController());
 				break;
 				
 			case 2:

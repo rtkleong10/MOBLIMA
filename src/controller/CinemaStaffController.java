@@ -7,6 +7,7 @@ import view.MenuView;
 public class CinemaStaffController implements Controller {
 	CinemaStaff cinemaStaff;
 	
+	@Override
 	public void start() {
 		while (this.cinemaStaff == null) {
 			int option = MenuView.getMenuOption(
@@ -31,25 +32,25 @@ public class CinemaStaffController implements Controller {
 	
 	private void displayMenu() {
 		int option = MenuView.getMenuOption(
-			"What would you like to modify?",
-			"Movie Listings",
-			"Cineam Showtimes",
-			"Ticket Pricing Scheme",
+			"What would you like to do?",
+			"Modify Movie Listings",
+			"Modify Cinema Showtimes",
+			"Modify Ticket Pricing Scheme",
 			"List Top 5 Movies",
 			"Exit"
 		);
 		
 		switch (option) {
 			case 1:
-				NavigationController.load(new MovieListingController());
+				NavigationController.load(new MovieEditController());
 				break;
 				
 			case 2:
-				NavigationController.load(new ShowTimeController());
+				NavigationController.load(new ShowTimeEditController());
 				break;
 				
 			case 3:
-				NavigationController.load(new PricingSchemeController());
+				NavigationController.load(new PricingSchemeEditController());
 				break;
 				
 			case 4:

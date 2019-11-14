@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Cinema implements Serializable{
+public class Cinema implements Serializable, LabelledItem {
 	private static final long serialVersionUID = -3543551736448152076L;
 	
 	private String cinemaCode;
@@ -18,10 +18,14 @@ public class Cinema implements Serializable{
 		this.cinemaClass = cinemaClass;
 	}
 	
-	public void createShowTime(LocalDateTime startTime, Movie movie) {
-		ShowTime showTime = new ShowTime(this, startTime, movie);
+	public void createShowTime(LocalDateTime startDateTime, Movie movie) {
+		ShowTime showTime = new ShowTime(this, startDateTime, movie);
 		this.showTimes.add(showTime);
 		
+	}
+	
+	public String getLabel() {
+		return cinemaCode;
 	}
 	
 	public String getCinemaCode() {
