@@ -49,6 +49,10 @@ public class Movie implements Serializable, LabelledItem {
 		this.showTimes.add(showTime);
 	}
 	
+	public ArrayList<ShowTime> getShowTimes() {
+		return showTimes;
+	}
+	
 	/**
 	 * calculates the overallRating by summing up all the ratings and
 	 * dividing the sum by the number of users who rated it 
@@ -145,36 +149,36 @@ public class Movie implements Serializable, LabelledItem {
 		return duration;
 	}
 
-	public void setTitle(String title){
-		this.title=title;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
-	public void setSynopsis(String synopsis){  
-		this.synopsis=synopsis;
+	public void setSynopsis(String synopsis) {  
+		this.synopsis = synopsis;
+	}
+	
+	public void setDirector(String director) {  
+		this.director = director;
 		
-	}
-	
-	public void setDirector(String director){  
-		this.director=director;
-		
-	}
-	public void setCast(String[] cast) {
-		this.cast=cast;
-	}
-	
-	public void setReleaseRating(ReleaseRating releaserating) {
-		this.releaseRating= releaserating;	
-	}
-	
-	public void setMovieType(MovieType movietype) {
-		this.movieType = movietype;
-	}
-	public void setDuration(Duration duration) {
-		this.duration=duration;
 	}
 
-	public void setShowingStatus(ShowingStatus s)
-	{   this.showingStatus =s;
-		
+	public void setCast(String[] cast) {
+		this.cast = cast;
+	}
+	
+	public void setReleaseRating(ReleaseRating releaseRating) {
+		this.releaseRating = releaseRating;	
+	}
+	
+	public void setMovieType(MovieType movieType) {
+		this.movieType = movieType;
+	}
+	
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	public void setShowingStatus(ShowingStatus showingStatus) {
+		this.showingStatus = showingStatus;
 	}
 }

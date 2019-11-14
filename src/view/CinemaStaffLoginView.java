@@ -6,22 +6,19 @@ import model.DataManager;
 public class CinemaStaffLoginView {
 	
 	public static CinemaStaff loginCinemaStaff() {
-		System.out.print("Username: ");
-		String username = IOController.readLine();
+		String username = IOController.readLine("Username: ");
 		
 		if (!DataManager.getDataStore().checkCinemaStaffUsername(username)) {
-			System.out.println("Error: User with that that username doesn't exist");
-			System.out.println();
+			IOController.displayMessage("Error: User with that that username doesn't exist");
 			return null;
 		}
 		
-		System.out.print("Password: ");
-		String password = IOController.readLine();
+		String password = IOController.readLine("Password: ");
 		
 		CinemaStaff cinemaStaff = DataManager.getDataStore().getCinemaStaff(username, password);
 		
 		if (cinemaStaff == null)
-			System.out.println("Error: Incorrect password");
+			IOController.displayMessage("Error: Incorrect password");
 
 		return cinemaStaff;
 	}

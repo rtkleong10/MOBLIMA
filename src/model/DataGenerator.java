@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.time.Duration;
 
 public class DataGenerator {
@@ -53,19 +52,19 @@ public class DataGenerator {
 		pricingScheme.setMovieMultiplier(MovieType.BLOCKBUSTER, 1.2);
 		pricingScheme.setMovieMultiplier(MovieType._3D, 1.5);
 		
-		HashMap<LocalDate, String> holidays = pricingScheme.getHolidays();
+		ArrayList<LocalDate> holidayDates = pricingScheme.getHolidayDates();
 
-		holidays.put(LocalDate.of(2019, 1, 1), "New Year's Day");
-		holidays.put(LocalDate.of(2019, 2, 5), "Chinese New Year");
-		holidays.put(LocalDate.of(2019, 2, 6), "Chinese New Year");
-		holidays.put(LocalDate.of(2019, 4, 19), "Good Friday");
-		holidays.put(LocalDate.of(2019, 5, 1), "Labour Day");
-		holidays.put(LocalDate.of(2019, 5, 19), "Vesak");
-		holidays.put(LocalDate.of(2019, 6, 5), "Hari Raya Puasa");
-		holidays.put(LocalDate.of(2019, 8, 9), "National Day of Singapore");
-		holidays.put(LocalDate.of(2019, 8, 11), "Hari Raya Haji");
-		holidays.put(LocalDate.of(2019, 10, 27), "Diwali");
-		holidays.put(LocalDate.of(2019, 12, 25), "Christmas Day");
+		holidayDates.add(LocalDate.of(2019, 1, 1));
+		holidayDates.add(LocalDate.of(2019, 2, 5));
+		holidayDates.add(LocalDate.of(2019, 2, 6));
+		holidayDates.add(LocalDate.of(2019, 4, 19));
+		holidayDates.add(LocalDate.of(2019, 5, 1));
+		holidayDates.add(LocalDate.of(2019, 5, 19));
+		holidayDates.add(LocalDate.of(2019, 6, 5));
+		holidayDates.add(LocalDate.of(2019, 8, 9));
+		holidayDates.add(LocalDate.of(2019, 8, 11));
+		holidayDates.add(LocalDate.of(2019, 10, 27));
+		holidayDates.add(LocalDate.of(2019, 12, 25));
 		
 		System.out.println(dataStore.getCinemaStaff("cathy", "cathyworkshard").getUsername());
 		System.out.println(dataStore.getMovieGoer("sally", "sallylikesmovies").getName());

@@ -1,8 +1,11 @@
 package controller;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import model.AgeGroup;
 import model.Booking;
@@ -12,23 +15,21 @@ import model.Movie;
 import model.MovieGoer;
 import model.PricingScheme;
 import model.ShowTime;
+import model.ShowingStatus;
 import view.BookingView;
 import view.IOController;
 import view.MenuView;
 
 public class BookingController implements Controller {
 	private MovieGoer movieGoer;
-	private Cineplex cineplex;
-	private Movie movie;
 	private ShowTime showTime;
 
 	public BookingController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	
+	@Override
 	public void start() {		
-		this.cineplex = selectCineplex();
-		this.movie = selectMovie();		
 		this.showTime = selectShowTime();
 		
 		if (showTime.checkFull()) {
@@ -44,70 +45,49 @@ public class BookingController implements Controller {
 		EnumMap<AgeGroup, Integer> ageGroupCount = BookingView.getAgeGroupCount(number);
 		double totalPrice = calculatePrice(ageGroupCount);
 		
-		boolean confirm = IOController.readBoolean("Confirm Booking [y/n]: ", "y", "n");
+		boolean confirm = IOController.readBoolean("Confirm booking (y/n): ", "y", "n");
 		
 		if (confirm) {
 			Booking booking = showTime.createBooking(movieGoer, selectedSeats, totalPrice);
-			IOController.displayMessage("\nBooking Successful");
+			IOController.displayMessage("Booking successful!");
 			IOController.displayMessage("Transaction ID: " + booking.getTransactionId());
+			BookingView.displaySeats(showTime);
+			BookingView.printBookInfo(showTime, ageGroupCount, totalPrice);
 			
 		} else {
-			IOController.displayMessage("Booking Cancelled");
+			IOController.displayMessage("Booking cancelled");
 		}
-		
-		BookingView.displaySeats(showTime);
-		
-		BookingView.printBookInfo(showTime, ageGroupCount, totalPrice);
 		
 		NavigationController.goBack();
 	}
 	
-	private Cineplex selectCineplex() {
-		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
-		Cineplex[] cineplexArr = new Cineplex[cineplexList.size()];
-		cineplexList.toArray(cineplexArr);
-		return MenuView.getLabelledItem("Select a Cineplex", cineplexArr);
-	}
-	
-	private Movie selectMovie() {
-		ArrayList<Movie> movieList = getMovieList();
-		Movie[] movieArr = new Movie[movieList.size()];
-		movieList.toArray(movieArr);
-		return MenuView.getLabelledItem("Select a Movie", movieArr);
-	}
-	
 	private ShowTime selectShowTime() {
-		ArrayList<ShowTime> showTimeList = getShowTimeList();
-		ShowTime[] showTimeArr = new ShowTime[showTimeList.size()];
-		showTimeList.toArray(showTimeArr);
-		return MenuView.getLabelledItem("Select a Show Time", showTimeArr);
-	}
+		// Select a cineplex
+		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
+		Cineplex cineplex = MenuView.getLabelledItem("Select a Cineplex", cineplexList);
 	
-	public ArrayList<Movie> getMovieList() {
-		ArrayList<ShowTime> showTimeList = cineplex.getShowTimes();    
-		ArrayList<Movie> movieList = new ArrayList<Movie>();
-				
-		for (ShowTime showTime: showTimeList) {
-			Movie movie = showTime.getMovie();
-			if (!movieList.contains(movie))
+		// Group show times by movie
+		List<ShowTime> showTimeList = cineplex.getShowTimes();
+		Map<Movie, List<ShowTime>> showTimesByMovie = showTimeList.stream().collect(Collectors.groupingBy(ShowTime::getMovie));
+		
+		// Select a movie
+		List<Movie> movieList = new ArrayList<Movie>();
+		
+		for (Movie movie: showTimesByMovie.keySet()) {
+			ShowingStatus showingStatus = movie.getShowingStatus();
+			if (showingStatus == ShowingStatus.PREVIEW || showingStatus == ShowingStatus.NOW_SHOWING)
 				movieList.add(movie);
 		}
 		
-		return movieList;
-	}
-	
-	public ArrayList<ShowTime> getShowTimeList() {
-		ArrayList<ShowTime> showTimeList = cineplex.getShowTimes();    
-		ArrayList<ShowTime> movieShowTimeList = new ArrayList<ShowTime>();
-				
-		for (ShowTime showTime: showTimeList)
-			if (showTime.getMovie() == movie)
-				movieShowTimeList.add(showTime);
+		Movie movie = MenuView.getLabelledItem("Select a movie", movieList);
 		
-		Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartTime);
+		// Select a show time
+		List<ShowTime> movieShowTimeList = showTimesByMovie.get(movie);
+		Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartDateTime);
 		movieShowTimeList.sort(dateComparator);
+		ShowTime showTime = MenuView.getLabelledItem("Select a Show Time", movieShowTimeList);
 		
-		return movieShowTimeList;
+		return showTime;
 	}
 	
 	/**

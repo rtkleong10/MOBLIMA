@@ -1,11 +1,12 @@
 package controller;
 
+import view.ShowTimeView;
+
 public class ShowTimeController implements Controller {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
+		ShowTimeView.displayAllShowTimes();
+		NavigationController.goBack();
 	}
-
 }

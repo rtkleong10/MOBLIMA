@@ -10,20 +10,20 @@ public class ShowTime implements Serializable, LabelledItem {
 	private static final long serialVersionUID = 8096921810451802218L;
 	
 	private Cinema cinema;
-	private LocalDateTime startTime;
+	private LocalDateTime startDateTime;
 	private Movie movie;
 	private ArrayList <Booking> bookings;
 
 	/**
 	 * Creates ShowTime instance
 	 * @param cinema cinema which the showtime belongs to
-	 * @param startTime starting time of the show
+	 * @param startDateTime starting time of the show
 	 * @param movie movie of the showtime
 	 */
-	public ShowTime(Cinema cinema, LocalDateTime startTime, Movie movie) {
+	protected ShowTime(Cinema cinema, LocalDateTime startDateTime, Movie movie) {
 		this.cinema = cinema;
 		this.bookings = new ArrayList<Booking>();
-		this.startTime = startTime;
+		this.startDateTime = startDateTime;
 		this.movie = movie;
 		movie.addShowTime(this);
 	}
@@ -72,23 +72,23 @@ public class ShowTime implements Serializable, LabelledItem {
 	/**
 	 * Checks the availability of the seats selected by user
 	 * @param selectedSeat 2D boolean array indicating seat selected by user
-	 * @return total number of seats selected by users if all seat is available; otherwise -1
+	 * @return true if all seats are available, otherwise false
 	 */
-	public int checkAvail( boolean [][] selectedSeat ) {
+	public boolean checkAvail( boolean [][] selectedSeat ) {
 		SeatStatus[][] availSeat = this.getSeatAvailabilities();
-		int count =0;
-		for (int i =0; i<availSeat.length ; i++) {
-			for (int j=0; j<availSeat[i].length; j++) {
-				if(availSeat[i][j] == SeatStatus.TAKEN && selectedSeat[i][j] == true )
-					return -1;
-				else if(availSeat[i][j] == SeatStatus.NO_SEAT && selectedSeat[i][j] == true )
-					return -1;
-				else if(availSeat[i][j] == SeatStatus.EMPTY && selectedSeat[i][j] == true )
-					count++;
+		
+		for (int i = 0; i < availSeat.length; i++) {
+			for (int j = 0; j < availSeat[i].length; j++) {
+				SeatStatus seatStatus = availSeat[i][j];
+				
+				if (selectedSeat[i][j] == true && (seatStatus == SeatStatus.TAKEN || seatStatus == SeatStatus.NO_SEAT))
+					return false;
 			}
 		}
-		return count;
+		
+		return true;
 	}
+
 	/**
 	 * Check if the showtime is already fully booked
 	 * @return true if the showtime is already fully booked; otherwise false
@@ -101,7 +101,8 @@ public class ShowTime implements Serializable, LabelledItem {
 					return false;
 			}
 		}
-		return  true;
+		
+		return true;
 	}
 	
 	/**
@@ -128,7 +129,7 @@ public class ShowTime implements Serializable, LabelledItem {
 	}
 	
 	public String getLabel() {
-		return this.getDate() + "  " + this.getStartTime().toLocalTime();
+		return this.getDate() + "  " + this.getStartDateTime().toLocalTime();
 	}
 	
 	/**
@@ -144,15 +145,15 @@ public class ShowTime implements Serializable, LabelledItem {
 	 * @return date of the showtime
 	 */
 	public LocalDate getDate() {
-		return startTime.toLocalDate();
+		return startDateTime.toLocalDate();
 	}
 	
 	/**
 	 * 
 	 * @return date and time of the showtime
 	 */
-	public LocalDateTime getStartTime() {
-		return startTime;
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
 	}
 
 	/**
@@ -176,5 +177,20 @@ public class ShowTime implements Serializable, LabelledItem {
 	 */
 	public Cinema getCinema() {
 		return cinema;
+	}
+	
+	public void setMovie(Movie movie) {
+		this.movie.getShowTimes().remove(this);
+		this.movie = movie;
+		movie.addShowTime(this);
+	}
+	
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+	
+	public void remove() {
+		this.movie.getShowTimes().remove(this);
+		this.cinema.getShowTimes().remove(this);
 	}
 }

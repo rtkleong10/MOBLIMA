@@ -1,36 +1,31 @@
 package view;
 
-import java.util.Scanner;
+import java.util.List;
 
 import model.LabelledItem;
 
-@SuppressWarnings("resource")
 public class MenuView {
 	
 	public static int getMenuOption(String title, String... options) {
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println();
-		System.out.println(title);
-		IOController.displayLine(title.length());
+		IOController.displayMessage("");
+		IOController.displayTitle(title);
 		
 		for (int i = 0; i < options.length; i++) {
-			System.out.println((i + 1) + ": " + options[i]);
+			IOController.displayMessage((i + 1) + ": " + options[i]);
 		}
 		
 		int option;
 		
 		while (true) {
-			System.out.print("Option: ");
-			option = sc.nextInt();
+			option = IOController.readInt("Option: ");
 			
 			if (option >= 1 && option <= options.length + 1)
 				break;
 			else
-				System.out.println("Invalid option selected!");
+				IOController.displayMessage("Invalid option selected!");
 		}
 		
-		System.out.println();
+		IOController.displayMessage("");
 		
 		return option;
 	}
@@ -44,5 +39,21 @@ public class MenuView {
 		int option = getMenuOption(title, options);
 		
 		return labelledItems[option - 1];
+	}
+	
+	public static <T extends LabelledItem> T getLabelledItem(String title, List<T> labelledItems) {
+		int size = labelledItems.size();
+		String[] options = new String[size];
+		
+		int i = 0;
+		
+		for (T labelledItem: labelledItems) {
+			options[i] = labelledItem.getLabel();
+			i++;
+		}
+		
+		int option = getMenuOption(title, options);
+		
+		return labelledItems.get(option - 1);
 	}
 }

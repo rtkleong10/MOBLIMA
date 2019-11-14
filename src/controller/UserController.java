@@ -4,6 +4,8 @@ import view.IOController;
 import view.MenuView;
 
 public class UserController implements Controller {
+	
+	@Override
 	public void start() {
 		IOController.displayMessage("Welcome to MOBLIMA!");
 		int option = MenuView.getMenuOption(

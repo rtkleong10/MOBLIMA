@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import model.DataManager;
 import model.Movie;
@@ -50,9 +50,7 @@ public class MovieController implements Controller {
 	}
 	
 	private Movie selectMovie() {
-		ArrayList<Movie> movieList = DataManager.getDataStore().getMovieList(); 
-		Movie[] movieArr = new Movie[movieList.size()];
-		movieList.toArray(movieArr);
-		return MenuView.getLabelledItem("Select a Movie", movieArr);
+		List<Movie> movieList = DataManager.getDataStore().getMovieList();
+		return MenuView.getLabelledItem("Select a Movie", movieList);
 	}
 }
