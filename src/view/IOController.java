@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @SuppressWarnings("resource")
@@ -56,19 +58,34 @@ public class IOController {
 	}
 	
 	public static int readInt(String message) {
-		displayMessageInline(message);
-		Scanner sc = new Scanner(System.in);
-		return sc.nextInt();
+		while (true) {
+			try {
+				displayMessageInline(message);
+				Scanner sc = new Scanner(System.in);
+				return sc.nextInt();
+				
+			} catch (InputMismatchException e) {
+				displayMessage("Please enter an integer");
+			}
+		}
 	}
 	
 	public static double readDouble(String message) {
-		displayMessageInline(message);
-		Scanner sc = new Scanner(System.in);
-		return sc.nextDouble();
+		while (true) {
+			try {
+				displayMessageInline(message);
+				Scanner sc = new Scanner(System.in);
+				return sc.nextDouble();
+				
+			} catch (InputMismatchException e) {
+				displayMessage("Please enter a number");
+			}
+		}
 	}
 	
-	public static boolean readBoolean(String yesString, String noString) {
+	public static boolean readBoolean(String message, String yesString, String noString) {
 		while (true) {
+			displayMessageInline(message);
 			String input = readLine("");
 			
 			if (input.equals(yesString))
@@ -80,25 +97,36 @@ public class IOController {
 		}
 	}
 	
-	public static boolean readBoolean(String message, String yesString, String noString) {
-		displayMessageInline(message);
-		return readBoolean(yesString, noString);
-	}
-	
 	public static LocalDateTime readDateTime(String message) {
-		String dateTimeString = readLine(message);
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		return LocalDateTime.parse(dateTimeString, formatter);
+	    
+	    while (true) {
+		    try {
+		    	String dateTimeString = readLine(message);
+		    	return LocalDateTime.parse(dateTimeString, formatter);
+		    	
+		    } catch (DateTimeParseException e) {
+		    	displayMessage("Please enter a valid date time of format: dd/mm/yyyy hh:mm");
+		    }
+	    }
 	}
 	
 	public static LocalDate readDate(String message) {
-		String dateString = readLine(message);
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		return LocalDate.parse(dateString, formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		while (true) {
+		    try {
+		    	String dateString = readLine(message);
+		    	return LocalDate.parse(dateString, formatter);
+		    	
+		    } catch (DateTimeParseException e) {
+		    	displayMessage("Please enter a valid date of format: dd/mm/yyyy");
+		    }
+	    }
 	}
 	
 	public static Duration readDuration(String message) {
-		int durationMinutes = IOController.readInt(message);
+		int durationMinutes = readInt(message);
 		return Duration.ofMinutes(durationMinutes);
 	}
 	

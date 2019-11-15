@@ -36,8 +36,7 @@ public class BookingHistoryController implements Controller {
 								"Transaction ID: " + booking.getTransactionId() + "\n" +
 								"Price: $" + String.format("%.2f", booking.getPrice()) + "\n" +
 								"Movie: " + showTime.getMovie().getTitle() + "\n" +
-								"Date & Time: " + showTime.getLabel() + "\n" +
-								"Cinema: " + cinema.getCinemaCode() + "\n" +
+								"Show time: " + showTime.getLabel() + "\n" +
 								"Cineplex: " + cineplex.getName() + "\n"
 							);
 						}

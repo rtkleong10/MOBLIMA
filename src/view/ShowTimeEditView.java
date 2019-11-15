@@ -26,7 +26,7 @@ public class ShowTimeEditView {
 	
 	public static void updateShowTime() {
 		Cinema cinema = readCinema();
-		ShowTime showTime = MenuView.getLabelledItem("Select a show Ttme", cinema.getShowTimes());
+		ShowTime showTime = MenuView.getLabelledItem("Select a show time", cinema.getShowTimes());
 		
 		int option = MenuView.getMenuOption(
 			"What would you want to update",

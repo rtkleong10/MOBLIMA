@@ -37,7 +37,7 @@ public class Cinema implements Serializable, LabelledItem {
 	}
 	
 	public String getLabel() {
-		return cinemaCode;
+		return cinemaCode + " (" + cinemaClass.getLabel() + ")";
 	}
 	
 	/**

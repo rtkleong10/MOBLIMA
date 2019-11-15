@@ -48,7 +48,7 @@ public class PricingSchemeEditView {
 	
 	public static void updateHolidays(PricingScheme pricingScheme) {
 		int option = MenuView.getMenuOption(
-			"Select a type of multiplier",
+			"What would you like to do?",
 			"Add holiday",
 			"Remove holiday"
 		);
