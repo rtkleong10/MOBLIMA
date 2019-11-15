@@ -19,8 +19,8 @@ public class MovieGoerLoginView {
 		String password1 = "", password2;
 		
 		while (true) {
-			password1 = IOController.readLine("Password: ");
-			password2 = IOController.readLine("Confirm Password: ");
+			password1 = IOController.readPassword("Password: ");
+			password2 = IOController.readPassword("Confirm Password: ");
 			
 			if (password1.equals(password2))
 				break;
@@ -44,7 +44,7 @@ public class MovieGoerLoginView {
 			return null;
 		}
 		
-		String password = IOController.readLine("Password: ");
+		String password = IOController.readPassword("Password: ");
 		
 		MovieGoer movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
 		

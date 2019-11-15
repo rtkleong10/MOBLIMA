@@ -4,7 +4,7 @@ import java.util.EnumMap;
 
 import model.AgeGroup;
 import model.SeatStatus;
-import model.ShowTime;
+import model.BookShow;
 
 public class BookingView {
 	
@@ -14,7 +14,7 @@ public class BookingView {
 	 * @return 2D boolean array; if the seat is selected by user, the value of the seat is true. Otherwise, false.
 	 * 
 	 */
-	public static boolean[][] getSeats(int n, ShowTime showTime) {
+	public static boolean[][] getSeats(int n, BookShow showTime) {
 		boolean[][] layout = showTime.getLayout();
 		boolean[][] selectedSeat = new boolean[layout.length][];
 		
@@ -75,7 +75,7 @@ public class BookingView {
 	 * Displays available seats for user to select for booking
 	 * @param showtime selected by user
 	 */
-	public static void displaySeats(ShowTime showTime) {
+	public static void displaySeats(BookShow showTime) {
 		SeatStatus[][] availSeats = showTime.getSeatAvailabilities();
 		int textWidth = availSeats[0].length * 5 + 4;
 		
@@ -136,12 +136,8 @@ public class BookingView {
 		IOController.pressEnterToContinue();
 	}
 	
-	public static void printBookInfo(ShowTime showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
+	public static void printBookInfo(BookShow showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
 		IOController.displayTitle("Booking Information");
-		IOController.displayMessage("Movie: " + showTime.getMovie().getTitle());
-		IOController.displayMessage("Show Time: " + showTime.getLabel());
-		IOController.displayMessage("");
-		
 		for (AgeGroup ageGroup: AgeGroup.values()) 
 			IOController.displayMessage(ageGroup.getLabel() + ": " + ageGroupCount.get(ageGroup));
 		

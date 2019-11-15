@@ -1,5 +1,6 @@
 package view;
 
+import java.io.Console;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +40,19 @@ public class IOController {
 		displayMessageInline(message);
 		Scanner sc = new Scanner(System.in);
 		return sc.nextLine();
+	}
+	
+	public static String readPassword(String message) {
+		Console console = System.console();
+		
+        if (console != null) {
+        	char[] passwordArray = console.readPassword(message);
+            return new String(passwordArray);
+            
+        } else {
+        	// Fallback
+        	return readLine(message);
+        }
 	}
 	
 	public static int readInt(String message) {
