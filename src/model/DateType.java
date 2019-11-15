@@ -5,7 +5,7 @@ public enum DateType implements LabelledItem {
 	WEEKEND("Weekend"),
 	HOLIDAY("Holiday");
 	
-	String label;
+	private String label;
 	
 	private DateType(String label) {
 		this.label = label;

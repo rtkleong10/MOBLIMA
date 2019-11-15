@@ -5,7 +5,7 @@ public enum AgeGroup implements LabelledItem {
 	ADULT("Adult"),
 	SENIOR_CITIZEN("Senior Citizen");
 	
-	String label;
+	private String label;
 	
 	private AgeGroup(String label) {
 		this.label = label;

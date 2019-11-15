@@ -8,7 +8,7 @@ public enum ReleaseRating implements LabelledItem {
 	M18("M18"),
 	R21("R21");
 	
-	public final String label;
+	private final String label;
 
 	private ReleaseRating(String label) {
 		this.label = label;

@@ -12,7 +12,7 @@ public enum CinemaClass implements LabelledItem {
      */
 	PLATINUM_MOVIE_SUITE("Platinum Movie Suite");
 	
-	String label;
+	private String label;
 	/**
      * Constructor for each enum
      * @param label the name of the cinema class

@@ -5,7 +5,7 @@ public enum MovieType implements LabelledItem {
 	BLOCKBUSTER("Blockbuster"),
 	_3D("3D"); 
 	
-	public final String label;
+	private final String label;
 
 	private MovieType(String label) {
 		this.label = label;
