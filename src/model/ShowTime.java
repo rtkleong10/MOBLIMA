@@ -129,7 +129,7 @@ public class ShowTime implements Serializable, LabelledItem, BookShow {
 	}
 	
 	public String getLabel() {
-		return this.getDate() + "  " + this.getStartDateTime().toLocalTime();
+		return this.getDate() + "  " + this.getStartDateTime().toLocalTime() + " (" + this.getCinema().getCinemaCode() + ")";
 	}
 	
 	/**

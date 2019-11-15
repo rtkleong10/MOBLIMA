@@ -53,7 +53,7 @@ public class ShowTimeEditView {
 	public static void removeShowTime() {
 		Cinema cinema = readCinema();
 		List<ShowTime> showTimeList = cinema.getShowTimes();
-		ShowTime showTime = MenuView.getLabelledItem("Select a show Ttme", showTimeList);
+		ShowTime showTime = MenuView.getLabelledItem("Select a show time", showTimeList);
 		showTime.remove();
 	}
 	

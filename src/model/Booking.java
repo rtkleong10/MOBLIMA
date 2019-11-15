@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Booking implements Serializable{
+public class Booking implements Serializable {
 	private static final long serialVersionUID = 3967681838005218902L;
 	
 	private String transactionId; 

@@ -12,7 +12,7 @@ import model.ShowTime;
 import view.ListView;
 
 public class BookingHistoryController implements Controller {
-	MovieGoer movieGoer;
+	private MovieGoer movieGoer;
 	
 	public BookingHistoryController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;

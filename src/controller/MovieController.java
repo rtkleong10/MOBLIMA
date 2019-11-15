@@ -10,8 +10,8 @@ import view.MenuView;
 import view.MovieView;
 
 public class MovieController implements Controller {
-	MovieGoer movieGoer;
-	Movie movie;
+	private MovieGoer movieGoer;
+	private Movie movie;
 	
 	public MovieController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;

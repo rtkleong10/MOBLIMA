@@ -5,7 +5,7 @@ import view.CinemaStaffLoginView;
 import view.MenuView;
 
 public class CinemaStaffController implements Controller {
-	CinemaStaff cinemaStaff;
+	private CinemaStaff cinemaStaff;
 	
 	@Override
 	public void start() {
@@ -21,7 +21,7 @@ public class CinemaStaffController implements Controller {
 					this.cinemaStaff = CinemaStaffLoginView.loginCinemaStaff();
 					break;
 					
-				case 3:
+				case 2:
 					NavigationController.goBack();
 					return;
 			}

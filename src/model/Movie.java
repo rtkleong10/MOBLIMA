@@ -45,7 +45,7 @@ public class Movie implements Serializable, LabelledItem {
 	 * assigns showtime
 	 * @param showTime adds showtime of movie
 	 */
-	public void addShowTime(ShowTime showTime) {
+	protected void addShowTime(ShowTime showTime) {
 		this.showTimes.add(showTime);
 	}
 	

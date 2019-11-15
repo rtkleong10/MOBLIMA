@@ -9,6 +9,7 @@ import model.Cineplex;
 import model.DataManager;
 import model.Movie;
 import model.ShowTime;
+import model.ShowingStatus;
 
 public class ShowTimeView {
 	
@@ -24,17 +25,21 @@ public class ShowTimeView {
 			
 			for (Map.Entry<Movie, List<ShowTime>> movieShowTimes: showTimesByMovie.entrySet()) {
 				Movie movie = movieShowTimes.getKey();
-				List<ShowTime> movieShowTimeList = movieShowTimes.getValue();
 				
-				IOController.displayMessage(movie.getTitle());
-				
-				Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartDateTime);
-				movieShowTimeList.sort(dateComparator);
-				
-				for (ShowTime showTime: movieShowTimeList)
-					IOController.displayMessage(showTime.getLabel());
-				
-				IOController.displayMessage("");
+				ShowingStatus showingStatus = movie.getShowingStatus();
+				if (showingStatus == ShowingStatus.PREVIEW || showingStatus == ShowingStatus.NOW_SHOWING) {
+					List<ShowTime> movieShowTimeList = movieShowTimes.getValue();
+					
+					IOController.displayMessage(movie.getTitle());
+					
+					Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartDateTime);
+					movieShowTimeList.sort(dateComparator);
+					
+					for (ShowTime showTime: movieShowTimeList)
+						IOController.displayMessage(showTime.getLabel());
+					
+					IOController.displayMessage("");
+				}
 			}
 		}
 		

@@ -19,7 +19,7 @@ public class MenuView {
 		while (true) {
 			option = IOController.readInt("Option: ");
 			
-			if (option >= 1 && option <= options.length + 1)
+			if (option >= 1 && option <= options.length)
 				break;
 			else
 				IOController.displayMessage("Invalid option selected!");

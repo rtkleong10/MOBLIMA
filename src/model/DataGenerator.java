@@ -218,6 +218,31 @@ public class DataGenerator {
 			}
 		}
 		
+		ArrayList<ReviewRating> reviewRatingList = movieList[0].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Too much magic", 1));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "I don't really likes wizards", 1));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "This is the best movie ever!", 5));
+		
+		reviewRatingList = movieList[1].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Anti-climatic", 1));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Why didn't Thanos win?", 2));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Not bad", 4));
+		
+		reviewRatingList = movieList[2].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "I want to be a jedi too!", 5));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "I love Kylo Ren!!!", 5));
+		
+		reviewRatingList = movieList[4].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "I don't want rats cooking my food", 1));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Rats caused the bubonic plague", 1));
+		
+		reviewRatingList = movieList[6].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "It's so cute", 5));
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "I loved the sloth part", 4));
+		
+		reviewRatingList = movieList[7].getReviewRatings();
+		reviewRatingList.add(ReviewRating.createReviewRating(movieGoerList[0], "Too scary", 1));
+		
 		DataManager.update();
 	}
 }
