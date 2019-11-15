@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ShowTime implements Serializable, LabelledItem {
+public class ShowTime implements Serializable, LabelledItem, BookShow {
 	private static final long serialVersionUID = 8096921810451802218L;
 	
 	private Cinema cinema;

@@ -49,9 +49,9 @@ public class BookingController implements Controller {
 		
 		if (confirm) {
 			Booking booking = showTime.createBooking(movieGoer, selectedSeats, totalPrice);
+			BookingView.displaySeats(showTime);
 			IOController.displayMessage("Booking successful!");
 			IOController.displayMessage("Transaction ID: " + booking.getTransactionId());
-			BookingView.displaySeats(showTime);
 			BookingView.printBookInfo(showTime, ageGroupCount, totalPrice);
 			
 		} else {
