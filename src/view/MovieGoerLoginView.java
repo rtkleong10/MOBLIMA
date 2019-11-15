@@ -4,64 +4,52 @@ import model.*;
 
 public class MovieGoerLoginView {
 	public static MovieGoer signupMovieGoer() {
-		System.out.print("Username: ");
-		String username = IOController.readLine();
+		String username = IOController.readLine("Username: ");
 		
 		if (DataManager.getDataStore().checkMovieGoerUsername(username)) {
-			System.out.println("Error: User with that username already exists");
-			System.out.println();
+			IOController.displayMessage("Error: User with that username already exists");
 			return null;
 		}
 		
-		System.out.print("Name: ");
-		String name = IOController.readLine();
+		String name = IOController.readLine("Name: ");
 		
-		System.out.print("Mobile Number: ");
-		int mobileNumber = IOController.readInt();
-		
-		System.out.print("Email Address: ");
-		String emailAddress = IOController.readLine();
+		int mobileNumber = IOController.readInt("Mobile Number: ");
+		String emailAddress = IOController.readLine("Email Address: ");
 		
 		String password1 = "", password2;
 		
 		while (true) {
-			System.out.print("Password: ");
-			password1 = IOController.readLine();
-			
-			System.out.print("Confirm Password: ");
-			password2 = IOController.readLine();
+			password1 = IOController.readLine("Password: ");
+			password2 = IOController.readLine("Confirm Password: ");
 			
 			if (password1.equals(password2))
 				break;
 			else
-				System.out.println("Error: Password mismatch");
+				IOController.displayMessage("Error: Password mismatch");
 		}
 		
 		MovieGoer movieGoer = new MovieGoer(username, name, mobileNumber, emailAddress, password1);
 		
 		if (!DataManager.getDataStore().addMovieGoer(movieGoer))
-			System.out.println("Error: Unable to add movie goer");
+			IOController.displayMessage("Error: Unable to add movie goer");
 		
 		return movieGoer;
 	}
 	
 	public static MovieGoer loginMovieGoer() {
-		System.out.print("Username: ");
-		String username = IOController.readLine();
+		String username = IOController.readLine("Username: ");
 		
 		if (!DataManager.getDataStore().checkMovieGoerUsername(username)) {
-			System.out.println("Error: User with that that username doesn't exist");
-			System.out.println();
+			IOController.displayMessage("Error: User with that that username doesn't exist");
 			return null;
 		}
 		
-		System.out.print("Password: ");
-		String password = IOController.readLine();
+		String password = IOController.readLine("Password: ");
 		
 		MovieGoer movieGoer = DataManager.getDataStore().getMovieGoer(username, password);
 		
 		if (movieGoer == null)
-			System.out.println("Error: Incorrect password");
+			IOController.displayMessage("Error: Incorrect password");
 		
 		return movieGoer;
 	}

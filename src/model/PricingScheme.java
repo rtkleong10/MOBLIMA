@@ -3,6 +3,7 @@ package model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 
@@ -10,7 +11,7 @@ public class PricingScheme implements Serializable {
 	private static final long serialVersionUID = 5342648434933852012L;
 
 	private double basePrice;
-	private HashMap<LocalDate, String> holidays = new HashMap<LocalDate, String>();
+	private ArrayList<LocalDate> holidayDates = new ArrayList<LocalDate>();
 	private EnumMap<CinemaClass, Double> cinemaMultipliers = new EnumMap<CinemaClass, Double>(CinemaClass.class);
 	private EnumMap<AgeGroup, Double> ageMultipliers = new EnumMap<AgeGroup, Double>(AgeGroup.class);
 	private EnumMap<MovieType, Double> movieMultipliers = new EnumMap<MovieType, Double>(MovieType.class);
@@ -47,28 +48,11 @@ public class PricingScheme implements Serializable {
 	}
 	
 	/**
-     * Returns the hash map of the holidays.
-     * @return the hash map of the holidays
+     * Returns the array list of holidays.
+     * @return the array list of holidays
      */
-	public HashMap<LocalDate, String> getHolidays() {
-		return this.holidays;
-	}
-	
-	/**
-     * Removes the holiday corresponding to the holiday date.
-     * @param holidayDate the date of the holiday to remove
-     */
-	public void removeHolidayDate(LocalDate holidayDate) {
-		this.holidays.remove(holidayDate);
-	}
-	
-	/**
-     * Adds the holiday with its date and name specified.
-     * @param holidayDate the date of the holiday to add
-     * @param holidayName the name of the holiday to add
-     */
-	public void addHolidayDates(LocalDate holidayDate, String holidayName) {
-		this.holidays.put(holidayDate, holidayName);
+	public ArrayList<LocalDate> getHolidayDates() {
+		return this.holidayDates;
 	}
 	
 	/**
@@ -77,7 +61,7 @@ public class PricingScheme implements Serializable {
      * @return true if the password was correct, false if not
      */
 	private boolean isHoliday(LocalDate date) {
-		for (LocalDate holidayDate: holidays.keySet()) {
+		for (LocalDate holidayDate: holidayDates) {
 			if (date.equals(holidayDate))
 				return true;
 		}
@@ -179,6 +163,10 @@ public class PricingScheme implements Serializable {
      */
 	public Double getDateMultiplier(LocalDate date) {
 		return this.dateMultipliers.get(getDateType(date));
+	}
+	
+	public Double getDateMultiplier(DateType dateType) {
+		return this.dateMultipliers.get(dateType);
 	}
 	
 	/**

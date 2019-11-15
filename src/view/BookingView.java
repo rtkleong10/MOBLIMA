@@ -1,12 +1,19 @@
 package view;
 
-import java.util.Arrays;
 import java.util.EnumMap;
 
-import model.*;
+import model.AgeGroup;
+import model.SeatStatus;
+import model.ShowTime;
 
 public class BookingView {
 	
+	/**
+	 * Get seats user wants to book
+	 * @param show showtime selected by user
+	 * @return 2D boolean array; if the seat is selected by user, the value of the seat is true. Otherwise, false.
+	 * 
+	 */
 	public static boolean[][] getSeats(int n, ShowTime showTime) {
 		boolean[][] layout = showTime.getLayout();
 		boolean[][] selectedSeat = new boolean[layout.length][];
@@ -20,20 +27,21 @@ public class BookingView {
 					selectedSeat[i][j] = false;
 			}
 			
-			System.out.print("Please enter the seat no.s (e.g. A1 A2 A3): ");
-			String line = IOController.readLine();
-			String[] inputs = line.split("\\s+");
+			IOController.displayMessage("Enter the seat no.s (e.g. A1): ");
+			
 			for (int i = 0; i < n; i++) {
-				int row = inputs[i].charAt(0) - 'A';
-				int col = Integer.parseInt(inputs[i].substring(1));
-				selectedSeat[row][col-1] = true;
+				String input = IOController.readLine("");
+				int row = input.charAt(0) - 'A';
+				int col = Integer.parseInt(input.substring(1));
+				selectedSeat[row][col - 1] = true;
 			}
 			
-			if (showTime.checkAvail(selectedSeat) != -1)
+			if (showTime.checkAvail(selectedSeat)) { 
 				break;
-			else {
-				System.out.println("Unavailable seats selected");
-				System.out.println("Select seats again");
+				
+			} else {
+				IOController.displayMessage("Unavailable seats selected");
+				IOController.displayMessage("Select seats again");
 			}
 		}
 		
@@ -41,7 +49,7 @@ public class BookingView {
 	}
 	
 	public static EnumMap<AgeGroup, Integer> getAgeGroupCount(int n) {
-		System.out.println("How many of each age group?");
+		IOController.displayMessage("How many of each age group?");
 		
 		EnumMap<AgeGroup, Integer> ageGroupCount = new EnumMap<AgeGroup, Integer>(AgeGroup.class);
 		
@@ -49,8 +57,7 @@ public class BookingView {
 			int totalCount = 0;
 			
 			for (AgeGroup ageGroup: AgeGroup.values()) { 
-			    System.out.print(ageGroup + ": ");
-			    int count = IOController.readInt();
+			    int count = IOController.readInt(ageGroup.getLabel() + ": ");
 			    totalCount += count;
 			    ageGroupCount.put(ageGroup, count);
 			}
@@ -58,98 +65,89 @@ public class BookingView {
 			if (totalCount == n)
 				break;
 			else
-				System.out.println("Error! Total doesn't add up to " + n);
+				IOController.displayMessage("Error! Total doesn't add up to " + n);
 		}
 		
 		return ageGroupCount;
 	}
 
-
+	/**
+	 * Displays available seats for user to select for booking
+	 * @param showtime selected by user
+	 */
 	public static void displaySeats(ShowTime showTime) {
-		char row= 'A';
-		int col =1;
-		SeatStatus[][] availSeat = showTime.getSeatAvailabilities();
+		SeatStatus[][] availSeats = showTime.getSeatAvailabilities();
+		int textWidth = availSeats[0].length * 5 + 4;
 		
-		for (int i =0; i< (5*(availSeat[0].length)/2)-2; i++)
-			System.out.print(" ");
-		System.out.println("SCREEN");
+		// Create Line String
+		String line = "";
+		for (int i =0; i< textWidth; i++)
+			line += "-";
 		
-		for (int i =0; i< 5*(availSeat[0].length)+4; i++)
-			System.out.print("-");
-		System.out.println();
-		System.out.print("  ");
+		// Create column headers
+		String columnHeaders = "  ";
 		
-		for (int i =0; i< (availSeat[0].length); i++)
-		{
-				if(i<10)
-					System.out.print("  "+col+"  ");	
-				else
-					System.out.print(" "+col+"  ");	
-			col++;
+		for (int i = 0; i < availSeats[0].length; i++) {
+			if (i < 10)
+				columnHeaders += "  " + (i + 1) + "  ";	
+			else
+				columnHeaders += " " + (i + 1) + "  ";	
 		}
-		System.out.println();	
-		for (int i =0; i< 5*(availSeat[0].length)+4; i++)
-			System.out.print("-");
 		
-		System.out.println();
-		for (SeatStatus[] i : availSeat)
-		{
-			System.out.print(row+" " );
+		IOController.displayMessageCentred("SCREEN", textWidth);
+		
+		IOController.displayMessage(line);
+		IOController.displayMessage(columnHeaders);
+		IOController.displayMessage(line);
+		
+		// Print rows of seats
+		char row = 'A';
+		
+		for (SeatStatus[] availSeatRow: availSeats) {
+			String rowString = "";
+			rowString += row + " ";
 			
-		   for (SeatStatus j : i)
-		   {
-		        if (j == SeatStatus.TAKEN) 
-		   		System.out.print( "[ x ]");
-		   	else if(j== SeatStatus.EMPTY)
-		   		System.out.print( "[   ]");
-		   	else if(j== SeatStatus.NO_SEAT)
-		   		System.out.print( "     ");
-		   }
-				System.out.print(" "+row );
-		   		row++;
-		   System.out.println();
-		   if(row == availSeat.length) {
-			   System.out.print(" ");
-		   }
+			for (SeatStatus seatStatus: availSeatRow) {
+				switch (seatStatus) {
+					case TAKEN:
+						rowString += "[ x ]";
+						break;
+						
+					case EMPTY:
+						rowString += "[   ]";
+						break;
+						
+					case NO_SEAT:
+						rowString += "     ";
+						break;
+				}
+			}
+			rowString += " " + row;
+			IOController.displayMessage(rowString);
+		   	row++;
 		}
 		
-		for (int i =0; i< 5*(availSeat[0].length)+4; i++)
-			System.out.print("-");
-		System.out.println();
+		IOController.displayMessage(line);
+		IOController.displayMessage(columnHeaders);
+		IOController.displayMessage(line);
 		
-		col =1;
-		System.out.print("  ");
-		
-		for (int i =0; i< (availSeat[0].length); i++)
-		{
-				if(i<10)
-					System.out.print("  "+col+"  ");	
-				else
-					System.out.print(" "+col+"  ");	
-			col++;
-		}
-		
-		System.out.println();	
-		for (int i =0; i< 5*(availSeat[0].length)+4; i++)
-			System.out.print("-");
-		System.out.println();
-		for (int i =0; i< (5*(availSeat[0].length)/2)-3; i++)
-			System.out.print(" ");
-		System.out.println("ENTRANCE");	
+		IOController.displayMessageCentred("ENTRANCE", textWidth);
 		
 		IOController.pressEnterToContinue();
-		System.out.println();
 	}
 	
 	public static void printBookInfo(ShowTime showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
-		System.out.println("   === Booking Information ===");
-		ShowTimeView.displayShowTime(Arrays.asList(showTime));
+		IOController.displayTitle("Booking Information");
+		IOController.displayMessage("Movie: " + showTime.getMovie().getTitle());
+		IOController.displayMessage("Show Time: " + showTime.getLabel());
+		IOController.displayMessage("");
 		
 		for (AgeGroup ageGroup: AgeGroup.values()) 
-		    System.out.println(ageGroup.getLabel() + ": " + ageGroupCount.get(ageGroup));
+			IOController.displayMessage(ageGroup.getLabel() + ": " + ageGroupCount.get(ageGroup));
 		
-		System.out.printf("Price : $%.2f\n", totalPrice);
+		IOController.displayMessage("");
+		IOController.displayMessage("Total Price: $" + String.format("%.2f", totalPrice));
+		
 		IOController.pressEnterToContinue();
-		System.out.println();
 	}
 }

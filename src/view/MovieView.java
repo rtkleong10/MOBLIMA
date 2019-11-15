@@ -1,7 +1,6 @@
 package view;
 
 import java.time.Duration;
-import java.util.ArrayList;
 
 import model.Movie;
 import model.MovieGoer;
@@ -34,22 +33,17 @@ public class MovieView {
 	}
 	
 	public static void addMovieReview(Movie movie, MovieGoer movieGoer) {
-		System.out.print("Review: ");
-		String review = IOController.readLine();
-		
-		System.out.print("Rating: ");
-		int rating = IOController.readInt();
+		String review = IOController.readLine("Review: ");
+		int rating = IOController.readInt("Rating: ");
 		
 		ReviewRating reviewRating = ReviewRating.createReviewRating(movieGoer, review, rating);
 		
 		if (reviewRating != null) {
 			movie.getReviewRatings().add(reviewRating);
-			System.out.println("Review & rating added");
+			IOController.displayMessage("Review & rating added");
 			
 		} else {
-			System.out.println("Error: Rating out of range (ratings must be between " + ReviewRating.MIN_RATING + " and " + ReviewRating.MAX_RATING + ")");
+			IOController.displayMessage("Error: Rating out of range (ratings must be between " + ReviewRating.MIN_RATING + " and " + ReviewRating.MAX_RATING + ")");
 		}
-		
-		System.out.println();
 	}
 }

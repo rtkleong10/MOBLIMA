@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Cinema implements Serializable{
+public class Cinema implements Serializable, LabelledItem {
 	private static final long serialVersionUID = -3543551736448152076L;
 	private String cinemaCode;
 	private boolean[][] layout;
@@ -30,11 +30,16 @@ public class Cinema implements Serializable{
 	 * @param movie instance of Movie specifying movie details. Includes title, synopsis, director,
 	 * cast, showing status, age ratings, movie type, reviews, showtimes, and duration.
 	 */
-	public void createShowTime(LocalDateTime startTime, Movie movie) {
-		ShowTime showTime = new ShowTime(this, startTime, movie);
+	public void createShowTime(LocalDateTime startDateTime, Movie movie) {
+		ShowTime showTime = new ShowTime(this, startDateTime, movie);
 		this.showTimes.add(showTime);
 		
 	}
+	
+	public String getLabel() {
+		return cinemaCode;
+	}
+	
 	/**
 	 * Gets the cinema code for the cinema
 	 * @return this cinema's cinemaCode

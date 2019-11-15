@@ -1,32 +1,32 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.LabelledItem;
 
 public class ListView {
-	public static void displayList(String title, ArrayList<String> stringList, String emptyString) {
-		System.out.println();
+	public static void displayList(String title, List<String> stringList, String emptyString) {
+		IOController.displayMessage("");
 		
-		System.out.println(title);
-		IOController.displayLine(title.length());
+		IOController.displayTitle(title);
 		
 		if (stringList.size() == 0) {
-			System.out.println(emptyString);
+			IOController.displayMessage(emptyString);
 			
 		} else {
 			
 			for (String string: stringList) {
-				System.out.println(string);
+				IOController.displayMessage(string);
 			}
 		}
 		
 		IOController.pressEnterToContinue();
-		System.out.println();
+		IOController.displayMessage("");
 	}
 	
-	public static <T extends LabelledItem> void displayLabelledItemList(String title, ArrayList<T> labelledItemList, String emptyString) {
-		ArrayList<String> stringList = new ArrayList<String>();
+	public static <T extends LabelledItem> void displayLabelledItemList(String title, List<T> labelledItemList, String emptyString) {
+		List<String> stringList = new ArrayList<String>();
 		
 		for (LabelledItem item: labelledItemList)
 			stringList.add(item.getLabel());

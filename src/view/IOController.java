@@ -1,16 +1,13 @@
 package view;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 @SuppressWarnings("resource")
 public class IOController {
-	public static void displayLine(int length) {
-		for (int i = 0; i < length; i++)
-			System.out.print("-");
-		
-		System.out.println();
-	}
-	
 	public static void displayMessageInline(String message) {
 		System.out.print(message);
 	}
@@ -19,29 +16,46 @@ public class IOController {
 		System.out.println(message);
 	}
 	
-	public static String readLine() {
-		Scanner sc = new Scanner(System.in);
-		return sc.nextLine();
+	public static void displayTitle(String title) {
+		displayMessage(title);
+		
+		String line = "";
+		
+		for (int i = 0; i < title.length(); i++)
+			line += "-";
+		
+		displayMessage(line);
+	}
+	
+	public static void displayMessageCentred(String message, int width) {
+		String margin = "";
+		for (int i = 0; i < (width - message.length()) / 2; i++)
+			margin += " ";
+		
+		displayMessage(margin + message);
 	}
 	
 	public static String readLine(String message) {
 		displayMessageInline(message);
-		return readLine();
-	}
-	
-	public static int readInt() {
 		Scanner sc = new Scanner(System.in);
-		return sc.nextInt();
+		return sc.nextLine();
 	}
 	
 	public static int readInt(String message) {
 		displayMessageInline(message);
-		return readInt();
+		Scanner sc = new Scanner(System.in);
+		return sc.nextInt();
+	}
+	
+	public static double readDouble(String message) {
+		displayMessageInline(message);
+		Scanner sc = new Scanner(System.in);
+		return sc.nextDouble();
 	}
 	
 	public static boolean readBoolean(String yesString, String noString) {
 		while (true) {
-			String input = readLine();
+			String input = readLine("");
 			
 			if (input.equals(yesString))
 				return true;
@@ -57,10 +71,26 @@ public class IOController {
 		return readBoolean(yesString, noString);
 	}
 	
+	public static LocalDateTime readDateTime(String message) {
+		String dateTimeString = readLine(message);
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return LocalDateTime.parse(dateTimeString, formatter);
+	}
+	
+	public static LocalDate readDate(String message) {
+		String dateString = readLine(message);
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return LocalDate.parse(dateString, formatter);
+	}
+	
+	public static Duration readDuration(String message) {
+		int durationMinutes = IOController.readInt(message);
+		return Duration.ofMinutes(durationMinutes);
+	}
+	
 	public static void pressEnterToContinue() {
+		displayMessage("Press enter to continue...");
 		Scanner sc = new Scanner(System.in);
-		
-		System.out.print("Press enter to continue...");
 		sc.nextLine();
 	}
 }

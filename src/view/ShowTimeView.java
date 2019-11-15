@@ -1,66 +1,43 @@
 package view;
 
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.*;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import controller.*;
-import model.*;
-import view.*;
-import java.util.*;
+import model.Cineplex;
+import model.DataManager;
+import model.Movie;
+import model.ShowTime;
 
 public class ShowTimeView {
 	
-	
-	public static void main(String [] args) {
-		DataManager.load();
-		ArrayList<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
-		displayAllShowTimes(cineplexList);
-	}
-	/**
-	 * Displays all available showtime for all cineplexes
-	 * @param cineplexes
-	 */
-	public static void displayAllShowTimes(List <Cineplex> cineplexes)
-	{
+	public static void displayAllShowTimes() {
+		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
 		
-		for (int i=0; i<cineplexes.size(); i++) {
-			List <ShowTime> allShowTime = new ArrayList <>();
-			System.out.println("   ===="+cineplexes.get(i).getName()+"===");
-			allShowTime = cineplexes.get(i).getShowTimes();
-			ShowTimeView.displayShowTime(allShowTime);
-			}
+		for (Cineplex cineplex: cineplexList) {
+			IOController.displayTitle(cineplex.getName());
+			List<ShowTime> showTimeList = cineplex.getShowTimes();
 			
-	}
-	
-	/**
-	 * Displays a list of showtimes
-	 * @param show list of showtimes to be displayed
-	 */
-	public static void displayShowTime (List <ShowTime> show) {
-		Map<Movie, List <ShowTime>> byMovie = show.stream()
-				.collect(Collectors.groupingBy(ShowTime::getMovie));    
-	
-	
-	for (Map.Entry<Movie, List <ShowTime>> entry: byMovie.entrySet()) {
-		 System.out.println(entry.getKey().getTitle() +"\t");
-		 List <ShowTime> shows= entry.getValue();
-		 
-		 Map<LocalDate,  List <ShowTime>> byDate = shows.stream()
-					.collect(Collectors.groupingBy(ShowTime::getDate)); 
-		 
-		 for (Map.Entry<LocalDate,  List <ShowTime>> e: byDate.entrySet()) {
-			 
-			 
-			 System.out.print(e.getKey()+"\t");
-			 for (int i =0; i< e.getValue().size(); i++) {
-				 System.out.print(e.getValue().get(i).getStartTime().toLocalTime()+"   ");
-			 }
-			 System.out.println("");
-		 }
-		 System.out.println("");
-	}
-	}
+			// Group show times by their movies
+			Map<Movie, List<ShowTime>> showTimesByMovie = showTimeList.stream().collect(Collectors.groupingBy(ShowTime::getMovie));    
+			
+			for (Map.Entry<Movie, List<ShowTime>> movieShowTimes: showTimesByMovie.entrySet()) {
+				Movie movie = movieShowTimes.getKey();
+				List<ShowTime> movieShowTimeList = movieShowTimes.getValue();
+				
+				IOController.displayMessage(movie.getTitle());
+				
+				Comparator<ShowTime> dateComparator = Comparator.comparing(ShowTime::getStartDateTime);
+				movieShowTimeList.sort(dateComparator);
+				
+				for (ShowTime showTime: movieShowTimeList)
+					IOController.displayMessage(showTime.getLabel());
+				
+				IOController.displayMessage("");
+			}
+		}
 		
+		IOController.pressEnterToContinue();
+	}
 }
