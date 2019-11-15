@@ -11,13 +11,6 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <folder path="/MOBLIMA/doc"/>
         <javaElement handleIdentifier="=MOBLIMA/src"/>
-        <folder path="/MOBLIMA/res"/>
-        <file path="/MOBLIMA/.classpath"/>
-        <file path="/MOBLIMA/MANIFEST.MF"/>
-        <file path="/MOBLIMA/.gitignore"/>
-        <file path="/MOBLIMA/.project"/>
-        <file path="/MOBLIMA/MOBLIMA.jardesc"/>
     </selectedElements>
 </jardesc>
