@@ -139,29 +139,44 @@ public class Movie implements Serializable, LabelledItem {
 	}
 
 	/**
-	 * @return showing status of the Movie
+	 * @return Showing status of the Movie
 	 */
 	public ShowingStatus getShowingStatus() {
 		return showingStatus;
 	}
-	
+	/**
+	 * 
+	 * @return Duration of the movie
+	 */
 	public Duration getDuration() {
 		return duration;
 	}
-
+	/**
+	 * Sets tile for the movie
+	 * @param title title of movie
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+	/**
+	 * Sets synopsis of the movie
+	 * @param synopsis synopsis of movie
+	 */
 	public void setSynopsis(String synopsis) {  
 		this.synopsis = synopsis;
 	}
-	
+	/**
+	 * Sets director of the movie
+	 * @param director name of director of the movie
+	 */
 	public void setDirector(String director) {  
 		this.director = director;
 		
 	}
-
+	/**
+	 * Sets the cast of the movie
+	 * @param cast names of cast of the movie
+	 */
 	public void setCast(String[] cast) {
 		this.cast = cast;
 	}

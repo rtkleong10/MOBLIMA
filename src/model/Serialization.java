@@ -8,6 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Serialization {
+	/**
+	 * Reads serialized object from the file 
+	 * @param fileName name of file containing serialized object to be read
+	 * @return serialized object
+	 */
 	public static Object readSerializedObject(String fileName) {
 		Object obj = null;
 		
@@ -32,7 +37,11 @@ public class Serialization {
 		
 		return obj;
 	}
-
+	/**
+	 * Writes serialized object to file 
+	 * @param fileName name of the file to write serialized object to
+	 * @param obj serialized object 
+	 */
 	public static void writeSerializedObject(String fileName, Object obj) {
 		try {
 			FileOutputStream file = new FileOutputStream(fileName);

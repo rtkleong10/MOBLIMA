@@ -60,7 +60,10 @@ public class BookingController implements Controller {
 		
 		NavigationController.goBack();
 	}
-	
+	/**
+	 * Gets the showtime user wants to book
+	 * @return showtime selected by user
+	 */
 	private ShowTime selectShowTime() {
 		// Select a cineplex
 		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
