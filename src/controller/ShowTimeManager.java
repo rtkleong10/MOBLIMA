@@ -58,7 +58,7 @@ public class ShowTimeManager {
 				System.out.println("Failed to add showtime due to clash!");
 				return;
 			}
-		c.createShowTime(c.getLayout(), startTime, durn, m1);		
+		c.createShowTime(startTime, m1);		
 				
 		}
 	}

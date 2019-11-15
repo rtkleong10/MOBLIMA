@@ -1,6 +1,6 @@
 package model;
 
-public class DataManager {
+public class DataManager{
 	
 	private static final String FILENAME = "res/data/moblima.dat";
 	private static DataStore dataStore;
@@ -11,7 +11,7 @@ public class DataManager {
 		return dataStore;
 	}
 	
-	public static void initialise() {
+	public  static void initialise() {
 		dataStore = new DataStore();
 	}
 	

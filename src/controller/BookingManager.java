@@ -102,7 +102,7 @@ public class BookingManager {
 		String transaction =getTid(selectedCinema);
 		if(confirm == 'y') {
 			//need to input moviegoer
-			selectedShow.createBooking(transaction, null, selectedSeat, price );
+			selectedShow.createBooking( null, selectedSeat, price );
 			System.out.println("\nBooking Successful");
 			System.out.println("Transaction ID: " + transaction);
 			bookView.displaySeat(selectedShow);

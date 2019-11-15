@@ -1,4 +1,4 @@
-package view;
+ package view;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -7,7 +7,7 @@ import model.*;
 
 public class BookingView {
 	
-	public static boolean[][] getSeats(int n, ShowTime showTime) {
+	public static boolean[][] getSeats(int n, Bookshow showTime) {
 		boolean[][] layout = showTime.getLayout();
 		boolean[][] selectedSeat = new boolean[layout.length][];
 		
@@ -65,7 +65,7 @@ public class BookingView {
 	}
 
 
-	public static void displaySeats(ShowTime showTime) {
+	public static void displaySeats(Bookshow showTime) {
 		char row= 'A';
 		int col =1;
 		SeatStatus[][] availSeat = showTime.getSeatAvailabilities();

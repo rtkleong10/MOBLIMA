@@ -1,13 +1,11 @@
 package view;
 
 import model.Cineplex;
+import model.*;
 import model.Movie;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import controller.DataManager;
-import controller.DataStore;
 import controller.ShowTimeManager;
 import model.Cinema;
 import model.ShowTime;
@@ -22,13 +20,13 @@ public class CinemaShowtimesView extends View {
 		ArrayList<Movie> fullMovieList = dataStore.getMovieList();
 		ArrayList<Cineplex> cineplexList = dataStore.getCineplexList();
 		while (1) {
-		int option=getMenuOption("What would you like to do?",
+		int option= getMenuOption("What would you like to do?",
 				"Add Showtimes",
 				"Update Showtimes",
 				"Remove Showtimes",
 				"Exit");
 		System.out.println("Enter cineplex: ");
-		String cineplexName=sc.nextLine();
+		String cineplexName= sc.nextLine();
 		Cineplex c;
 		for(Cineplex cin:cineplexList)
 		{
@@ -43,7 +41,7 @@ public class CinemaShowtimesView extends View {
 			continue;
 		}
 		System.out.println("Enter cinema code: ");
-		String cinemaCode=sc.nextLine();
+		String cinemaCode= sc.nextLine();
 		ArrayList<Cinema> cinemas=c.getCinemas();
 		Cinema cin;
 		for(Cinema c1:cinemas)
