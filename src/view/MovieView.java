@@ -31,7 +31,6 @@ public class MovieView {
 		
 		IOController.pressEnterToContinue();
 	}
-	
 	public static void addMovieReview(Movie movie, MovieGoer movieGoer) {
 		String review = IOController.readLine("Review: ");
 		int rating = IOController.readInt("Rating: ");

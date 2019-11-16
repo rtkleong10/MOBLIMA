@@ -12,7 +12,9 @@ import model.ShowTime;
 import model.ShowingStatus;
 
 public class ShowTimeView {
-	
+	/**
+	 * Displays list of showtimes groupby cineplex, movie name and sort by showing time
+	 */
 	public static void displayAllShowTimes() {
 		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
 		

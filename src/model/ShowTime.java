@@ -178,17 +178,25 @@ public class ShowTime implements Serializable, LabelledItem, BookShow {
 	public Cinema getCinema() {
 		return cinema;
 	}
-	
+	/**
+	 * Removes the current movie from the showtime and replace it with a new movie
+	 * @param movie
+	 */
 	public void setMovie(Movie movie) {
 		this.movie.getShowTimes().remove(this);
 		this.movie = movie;
 		movie.addShowTime(this);
 	}
-	
+	/**
+	 * Sets the start date and time of the showtime
+	 * @param startDateTime
+	 */
 	public void setStartDateTime(LocalDateTime startDateTime) {
 		this.startDateTime = startDateTime;
 	}
-	
+	/**
+	 * Removes the showtime
+	 */
 	public void remove() {
 		this.movie.getShowTimes().remove(this);
 		this.cinema.getShowTimes().remove(this);

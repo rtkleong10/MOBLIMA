@@ -7,12 +7,11 @@ import model.SeatStatus;
 import model.BookShow;
 
 public class BookingView {
-	
 	/**
-	 * Get seats user wants to book
-	 * @param show showtime selected by user
+	 * Get all seats user wants to book
+	 * @param n total number of seats the user wants to book
+	 * @param showTime showtime selected by user
 	 * @return 2D boolean array; if the seat is selected by user, the value of the seat is true. Otherwise, false.
-	 * 
 	 */
 	public static boolean[][] getSeats(int n, BookShow showTime) {
 		boolean[][] layout = showTime.getLayout();
@@ -47,7 +46,11 @@ public class BookingView {
 		
 		return selectedSeat;
 	}
-	
+	/**
+	 * Gets the number of tickets for each age group
+	 * @param n total number of tickets to be booked
+	 * @return number of tickets for each age group
+	 */
 	public static EnumMap<AgeGroup, Integer> getAgeGroupCount(int n) {
 		IOController.displayMessage("How many of each age group?");
 		
@@ -135,7 +138,12 @@ public class BookingView {
 		
 		IOController.pressEnterToContinue();
 	}
-	
+	/**
+	 * Prints booking information for user to confirm payment
+	 * @param showTime showtime selected by user to be booked
+	 * @param ageGroupCount number of tickets for each age group
+	 * @param totalPrice total price of all tickets
+	 */
 	public static void printBookInfo(BookShow showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
 		IOController.displayTitle("Booking Information");
 		for (AgeGroup ageGroup: AgeGroup.values()) 
