@@ -38,7 +38,7 @@ public class ShowTimeEditView {
 		    	
 			case 1:
 				LocalDateTime startDateTime = readStartDateTime();
-				if (checkClash(startDateTime, showTime.getMovie().getDuration(), cinema))
+				if (checkClash(startDateTime, showTime.getMovie().getDuration(), cinema, showTime))
 					IOController.displayMessage("Error: This show time clashes with another show time in the same cinema");
 				else
 					showTime.setStartDateTime(startDateTime);
@@ -78,12 +78,22 @@ public class ShowTimeEditView {
 	}
 	
 	public static boolean checkClash(LocalDateTime startDateTime, Duration duration, Cinema cinema) {
+		return checkClash(startDateTime, duration, cinema, null);
+	}
+	
+	public static boolean checkClash(LocalDateTime startDateTime, Duration duration, Cinema cinema, ShowTime currentShowTime) {
 		for (ShowTime showTime: cinema.getShowTimes()) {
 			LocalDateTime endDateTime = startDateTime.plus(duration);
 			LocalDateTime oldShowTimeStart = showTime.getStartDateTime();
 			LocalDateTime oldShowTimeEnd = oldShowTimeStart.plus(showTime.getMovie().getDuration());
 			
-			if (oldShowTimeStart.isBefore(endDateTime) && startDateTime.isBefore(oldShowTimeEnd))
+			boolean isClash = (
+				(oldShowTimeStart.isBefore(endDateTime) && !oldShowTimeStart.isEqual(endDateTime)) &&
+				(startDateTime.isBefore(oldShowTimeEnd) && !startDateTime.isEqual(oldShowTimeEnd)) &&
+				showTime != currentShowTime
+			);
+			
+			if (isClash)
 				return true;
 		}
 		

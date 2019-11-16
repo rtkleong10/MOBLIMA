@@ -84,14 +84,14 @@ public class DataGenerator {
 		};
 		
 		Movie movieList[] = {
-				new Movie("Harry Potter and the Goblet of Fire", "This movie sees Harry, Ron and Hermione returning for their 4th year in Hogwarts. There is an upcoming tournament between 3 schools where one partipant must from each school must compete in a dangerous quest.", "Mike Newell", cast[0], ShowingStatus.NOW_SHOWING, ReleaseRating.PG, MovieType.BLOCKBUSTER, Duration.ofMinutes(120)),
-				new Movie("Avengers: Endgame", "The final movie of the Avengers Franchise where the remaining Avengers must figure out a way to defeat Thanos, and save the world and their other superhero friends", "Anthony Russo", cast[1], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.BLOCKBUSTER, Duration.ofMinutes(90)),
-				new Movie("Starwars: The Force Awakens", "A new order threatens to destroy the New Republic. Finn,  Rey and Poe,  backed by the Resistance and the Republic,  must find a way to stop them and find Luke,  the last surviving Jedi.", "J.J. Abrahams", cast[2], ShowingStatus.COMING_SOON, ReleaseRating.PG13, MovieType._3D, Duration.ofMinutes(105)),
-				new Movie("Napolean Dynamite", "Napoleon,  a socially awkward teenager,  gets caught up in his dysfunctional family's misadventures while trying to help a friend win the class presidency.", "Jared Hess", cast[3], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.REGULAR, Duration.ofMinutes(130)),
-				new Movie("Ratatouille", "Remy,  a rat,  aspires to become a renowned French chef. He doesn't realise that people despise rodents and will never enjoy a meal cooked by him.", "Brad Bird", cast[4], ShowingStatus.PREVIEW, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(135)),
-				new Movie("The Godfather", "Don Vito Corleone, head of a mafia family, decides to handover his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger.", "Francis Coppola", cast[5],ShowingStatus.NOW_SHOWING,  ReleaseRating.NC16, MovieType.REGULAR, Duration.ofMinutes(150)),
-				new Movie("Zootopia", "Judy Hopps and Nick Wilde team up to uncover the mystery behind the fourteen missing predators. They end up finding out that the conspiracy is larger than it seems.", "Rich Moore", cast[6], ShowingStatus.NOW_SHOWING, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(165)),
-				new Movie("Annabelle", "John and Mia are attacked by a couple, who are worshippers of Satan. However, before the cops kill them, the couple use a doll as a conduit to make John and Mia's life miserable.", "John Leonetti", cast[7], ShowingStatus.END_OF_SHOWING, ReleaseRating.NC16, MovieType.BLOCKBUSTER, Duration.ofMinutes(125))		
+				new Movie("Harry Potter and the Goblet of Fire", "This movie sees Harry, Ron and Hermione returning for their 4th year in Hogwarts. There is an upcoming tournament between 3 schools where one partipant must from each school must compete in a dangerous quest.", "Mike Newell", cast[0], ShowingStatus.NOW_SHOWING, ReleaseRating.PG, MovieType.BLOCKBUSTER, Duration.ofMinutes(60)),
+				new Movie("Avengers: Endgame", "The final movie of the Avengers Franchise where the remaining Avengers must figure out a way to defeat Thanos, and save the world and their other superhero friends", "Anthony Russo", cast[1], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.BLOCKBUSTER, Duration.ofMinutes(60)),
+				new Movie("Starwars: The Force Awakens", "A new order threatens to destroy the New Republic. Finn,  Rey and Poe,  backed by the Resistance and the Republic,  must find a way to stop them and find Luke,  the last surviving Jedi.", "J.J. Abrahams", cast[2], ShowingStatus.COMING_SOON, ReleaseRating.PG13, MovieType._3D, Duration.ofMinutes(60)),
+				new Movie("Napolean Dynamite", "Napoleon,  a socially awkward teenager,  gets caught up in his dysfunctional family's misadventures while trying to help a friend win the class presidency.", "Jared Hess", cast[3], ShowingStatus.NOW_SHOWING, ReleaseRating.PG13, MovieType.REGULAR, Duration.ofMinutes(60)),
+				new Movie("Ratatouille", "Remy,  a rat,  aspires to become a renowned French chef. He doesn't realise that people despise rodents and will never enjoy a meal cooked by him.", "Brad Bird", cast[4], ShowingStatus.PREVIEW, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(60)),
+				new Movie("The Godfather", "Don Vito Corleone, head of a mafia family, decides to handover his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger.", "Francis Coppola", cast[5],ShowingStatus.NOW_SHOWING,  ReleaseRating.NC16, MovieType.REGULAR, Duration.ofMinutes(60)),
+				new Movie("Zootopia", "Judy Hopps and Nick Wilde team up to uncover the mystery behind the fourteen missing predators. They end up finding out that the conspiracy is larger than it seems.", "Rich Moore", cast[6], ShowingStatus.NOW_SHOWING, ReleaseRating.G, MovieType.REGULAR, Duration.ofMinutes(60)),
+				new Movie("Annabelle", "John and Mia are attacked by a couple, who are worshippers of Satan. However, before the cops kill them, the couple use a doll as a conduit to make John and Mia's life miserable.", "John Leonetti", cast[7], ShowingStatus.END_OF_SHOWING, ReleaseRating.NC16, MovieType.BLOCKBUSTER, Duration.ofMinutes(60))		
 		};
 		
 		ArrayList<Movie> fullMovieList = dataStore.getMovieList();
@@ -200,7 +200,7 @@ public class DataGenerator {
 		
 		//Generate ShowTimes
 		int minute[] = {0, 0, 15, 30, 0, 45};
-		int hour[] = {9, 10, 11, 12, 13, 14, 15, 16, 17};
+		int hour[] = {9, 11, 13, 15, 17};
 		LocalDateTime schedule ;
 		int n =0;
 		for (int i = 0; i < cineplexList.size(); i++ ) {
