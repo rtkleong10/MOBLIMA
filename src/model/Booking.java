@@ -11,7 +11,7 @@ public class Booking implements Serializable {
 	private ArrayList<Ticket> tickets;
 	private double price;
 	
-	public Booking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price) {
+	protected Booking(String transactionId, MovieGoer movieGoer, boolean[][] selectedSeats, double price) {
 		this.transactionId = transactionId;
 		this.movieGoer = movieGoer;
 		this.price = price;

@@ -8,7 +8,7 @@ public class Ticket implements Serializable {
 	private int row;
 	private int col;
 	
-	public Ticket(int row, int col) {
+	protected Ticket(int row, int col) {
 		this.row = row;
 		this.col = col;
 	}
