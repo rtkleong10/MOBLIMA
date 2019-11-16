@@ -4,9 +4,18 @@ import model.CinemaStaff;
 import view.CinemaStaffLoginView;
 import view.MenuView;
 
+/**
+ * This class controls the login and main menu for the cinema staff
+ */
 public class CinemaStaffController implements Controller {
+	/**
+	 * The currently logged in cinema staff
+	 */
 	private CinemaStaff cinemaStaff;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		while (this.cinemaStaff == null) {
@@ -30,6 +39,9 @@ public class CinemaStaffController implements Controller {
 		displayMenu();
 	}
 	
+	/**
+	 * This methods controls the display of the main menu for cinema staff
+	 */
 	private void displayMenu() {
 		int option = MenuView.getMenuOption(
 			"What would you like to do?",

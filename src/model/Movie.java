@@ -4,30 +4,66 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 
+/**
+ * This class contains all the information of a movie
+ */
 public class Movie implements Serializable, LabelledItem {
+	/**
+	 * The serialisation version number
+	 */
 	private static final long serialVersionUID = 5822630624504041207L;
 	
+	/**
+	 * The title of the movie
+	 */
 	private String title;
+	/**
+	 * The synopsis of the movie
+	 */
 	private String synopsis;
+	/**
+	 * The director of the movie
+	 */
 	private String director;
+	/**
+	 * The list of cast names of the movie
+	 */
 	private String[] cast;
+	/**
+	 * The showing status of the movie
+	 */
 	private ShowingStatus showingStatus;
+	/**
+	 * The release rating of the movie
+	 */
 	private ReleaseRating releaseRating;
+	/**
+	 * The movie type of the movie
+	 */
 	private MovieType movieType;
+	/**
+	 * The list of review ratings of the movie
+	 */
 	private ArrayList<ReviewRating> reviewRatings = new ArrayList<ReviewRating>();
+	/**
+	 * The list of show times of the movie
+	 */
 	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
+	/**
+	 * The duration of the movie
+	 */
 	private Duration duration;
 	
 	/**
-	 * creates a new Movie with the provided details
-	 * it includes title, director, case, rating and 
-	 * movie type
-	 * @param title Movie title
-	 * @param synopsis Movie synopsis
-	 * @param director Movie director
-	 * @param cast  Movie cast
-	 * @param releaseRating Movie rating
-	 * @param movieType  Movie type/genre
+	 * Creates a {@code Movie} object with the given title, synopsis, director, cast, showing status, release rating, movie type
+	 * @param title the title of the movie
+	 * @param synopsis the synopsis of the movie
+	 * @param director the director of the movie
+	 * @param cast the cast of the movie
+	 * @param showingStatus the showing status of the movie
+	 * @param releaseRating the release rating of the movie
+	 * @param movieType the movie type of the movie
+	 * @param duration the duration of the movie
 	 */
 	public Movie(String title, String synopsis, String director, String[] cast, ShowingStatus showingStatus, ReleaseRating releaseRating,
 			MovieType movieType, Duration duration) {
@@ -42,21 +78,24 @@ public class Movie implements Serializable, LabelledItem {
 	}
 	
 	/**
-	 * assigns showtime
-	 * @param showTime adds showtime of movie
+	 * This method adds a showtime to the movie
+	 * @param showTime the show time to be added
 	 */
 	protected void addShowTime(ShowTime showTime) {
 		this.showTimes.add(showTime);
 	}
 	
+	/**
+	 * This method returns the list of showtimes of a movie
+	 * @return the list of showtimes of a movie
+	 */
 	public ArrayList<ShowTime> getShowTimes() {
 		return showTimes;
 	}
 	
 	/**
-	 * calculates the overallRating by summing up all the ratings and
-	 * dividing the sum by the number of users who rated it 
-	 * @return overallRating that is calculated
+	 * This method calculates the overallRating by summing up all the ratings and dividing the sum by the number of users who rated it 
+	 * @return the calculated overall rating
 	 */
 	public Double getOverallRating() {
 		int noOfReviews = reviewRatings.size();
@@ -73,8 +112,8 @@ public class Movie implements Serializable, LabelledItem {
 	}
 	
 	/**
-	 * sums up the totalsales of the movie by through showTime class
-	 * @return totalSales of the Movie
+	 * This method sums up the total ticket sales of the movies from all its show times
+	 * @return the total ticket sales of the movie
 	 */
 	public double getTotalSales() {
 		double totalSales = 0;
@@ -85,114 +124,146 @@ public class Movie implements Serializable, LabelledItem {
 		return totalSales;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getLabel() {
 		return title;
 	}
 	
 	/**
-	 * @return title of the Movie
+	 * This method returns the title of the movie
+	 * @return the title of the movie
 	 */
-
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * @return synopsis of the Movie
+	 * This method returns the synopsis of the movie
+	 * @return the synopsis of the movie
 	 */
 	public String getSynopsis() {
 		return synopsis;
 	}
 	/**
-	 * @return director of the Movie
+	 * This method returns the director of the movie
+	 * @return the director of the movie
 	 */
 	public String getDirector() {
 		return director;
 	}
 	
 	/**
-	 * @return cast names of the Movie
+	 * This method returns the list of cast names of the movie
+	 * @return the list of cast names of the movie
 	 */
 	public String[] getCast() {
 		return cast;
 	}
 
 	/**
-	 * @return released rating of the Movie 
+	 * This method returns the release rating of the movie
+	 * @return the release rating of the movie
 	 */
 	public ReleaseRating getReleaseRating() {
 		return releaseRating;
 	}
 
 	/**
-	 * @return movie type of the Movie
+	 * This method returns the movie type of the movie
+	 * @return the movie type of the movie
 	 */
 	public MovieType getMovieType() {
 		return movieType;
 	}
 
 	/**
-	 * @return review ratings of the Movie
+	 * This method returns the list of review ratings of the movie
+	 * @return the list of review ratings of the movie
 	 */
 	public ArrayList<ReviewRating> getReviewRatings() {
 		return reviewRatings;
 	}
 
 	/**
-	 * @return Showing status of the Movie
+	 * This method returns the showing status of the movie
+	 * @return the showing status of the movie
 	 */
 	public ShowingStatus getShowingStatus() {
 		return showingStatus;
 	}
+	
 	/**
-	 * 
-	 * @return Duration of the movie
+	 * This method returns the duration of the movie
+	 * @return the duration of the movie
 	 */
 	public Duration getDuration() {
 		return duration;
 	}
+
 	/**
-	 * Sets tile for the movie
-	 * @param title title of movie
+	 * This method sets the title for the movie
+	 * @param title the new title of the movie
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	/**
-	 * Sets synopsis of the movie
-	 * @param synopsis synopsis of movie
+	 * This method sets the synopsis of the movie
+	 * @param synopsis the new synopsis of the movie
 	 */
 	public void setSynopsis(String synopsis) {  
 		this.synopsis = synopsis;
 	}
+
 	/**
-	 * Sets director of the movie
-	 * @param director name of director of the movie
+	 * This method sets director of the movie
+	 * @param director the new director of the movie
 	 */
 	public void setDirector(String director) {  
 		this.director = director;
 		
 	}
+
 	/**
-	 * Sets the cast of the movie
-	 * @param cast names of cast of the movie
+	 * This method sets the list of cast names of the movie
+	 * @param cast the new list of cast names of the movie
 	 */
 	public void setCast(String[] cast) {
 		this.cast = cast;
 	}
 	
+	/**
+	 * This method sets the release rating of the movie
+	 * @param releaseRating the new release rating of the movie
+	 */
 	public void setReleaseRating(ReleaseRating releaseRating) {
 		this.releaseRating = releaseRating;	
 	}
-	
+
+	/**
+	 * This method sets the movie type of the movie
+	 * @param movieType the new movie type of the movie
+	 */
 	public void setMovieType(MovieType movieType) {
 		this.movieType = movieType;
 	}
-	
+
+	/**
+	 * This method sets the duration of the movie
+	 * @param duration the new duration of the movie
+	 */
 	public void setDuration(Duration duration) {
 		this.duration = duration;
 	}
 
+	/**
+	 * This method sets the showing status of the movie
+	 * @param showingStatus the new showing status of the movie
+	 */
 	public void setShowingStatus(ShowingStatus showingStatus) {
 		this.showingStatus = showingStatus;
 	}

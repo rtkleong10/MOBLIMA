@@ -9,14 +9,30 @@ import view.ListView;
 import view.MenuView;
 import view.MovieView;
 
+/**
+ * This class controls the display of the movies and their details and reviews.
+ */
 public class MovieController implements Controller {
+	/**
+	 * The movie goer that wants to view the movie
+	 */
 	private MovieGoer movieGoer;
+	/**
+	 * The selected movie
+	 */
 	private Movie movie;
 	
+	/**
+	 * Creates a new {@code MovieController} object for the given movie goer
+	 * @param movieGoer the movie goer that wants to view the movie
+	 */
 	public MovieController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void start() {
 		this.movie = selectMovie();
 		
@@ -49,6 +65,10 @@ public class MovieController implements Controller {
 		}
 	}
 	
+	/**
+	 * This method controls the selection of the movie
+	 * @return the selected movie
+	 */
 	private Movie selectMovie() {
 		List<Movie> movieList = DataManager.getDataStore().getMovieList();
 		return MenuView.getLabelledItem("Select a Movie", movieList);

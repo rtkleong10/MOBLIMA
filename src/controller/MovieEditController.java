@@ -8,8 +8,14 @@ import view.MenuView;
 import view.MovieEditView;
 import view.MovieView;
 
+/**
+ * This class controls the creation, modification and removal of movies
+ */
 public class MovieEditController implements Controller {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		List<Movie> movieList = DataManager.getDataStore().getMovieList();

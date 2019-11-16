@@ -4,8 +4,17 @@ import java.util.List;
 
 import model.LabelledItem;
 
+/**
+ * This class handles the menu display and input
+ */
 public class MenuView {
 	
+	/**
+	 * This method display the numbered list of options and prompts the user choose an option. The numbering starts from 1.
+	 * @param title the title of the menu
+	 * @param options the options
+	 * @return the selected option
+	 */
 	public static int getMenuOption(String title, String... options) {
 		IOController.displayMessage("");
 		IOController.displayTitle(title);
@@ -30,6 +39,13 @@ public class MenuView {
 		return option;
 	}
 	
+	/**
+	 * This method display the numbered list of options and prompts the user choose an option. The numbering starts from 1.
+	 * @param <T> a class that implements the {@code LabelledItem} interface
+	 * @param title the title of the menu
+	 * @param labelledItems the options of type {@code T}
+	 * @return the selected {@code T} object
+	 */
 	public static <T extends LabelledItem> T getLabelledItem(String title, T[] labelledItems) {
 		String[] options = new String[labelledItems.length];
 		
@@ -41,6 +57,13 @@ public class MenuView {
 		return labelledItems[option - 1];
 	}
 	
+	/**
+	 * This method display the numbered list of options and prompts the user choose an option. The numbering starts from 1.
+	 * @param <T> a class that implements the {@code LabelledItem} interface
+	 * @param title the title of the menu
+	 * @param labelledItems the options of type {@code T}
+	 * @return the selected {@code T} object
+	 */
 	public static <T extends LabelledItem> T getLabelledItem(String title, List<T> labelledItems) {
 		int size = labelledItems.size();
 		String[] options = new String[size];

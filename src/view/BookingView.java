@@ -6,12 +6,15 @@ import model.AgeGroup;
 import model.SeatStatus;
 import model.BookShow;
 
+/**
+ * This class handles the display of the booking information and the retrieval of details from the movie goer
+ */
 public class BookingView {
 	/**
-	 * Get all seats user wants to book
-	 * @param n total number of seats the user wants to book
-	 * @param showTime showtime selected by user
-	 * @return 2D boolean array; if the seat is selected by user, the value of the seat is true. Otherwise, false.
+	 * This method gets all the seats the movie goer wants to book
+	 * @param n the total number of tickets to be booked
+	 * @param showTime the selected show time
+	 * @return a 2D boolean array representing the selected seats. If the seat is selected, the value is true, otherwise it's false.
 	 */
 	public static boolean[][] getSeats(int n, BookShow showTime) {
 		boolean[][] layout = showTime.getLayout();
@@ -46,10 +49,11 @@ public class BookingView {
 		
 		return selectedSeat;
 	}
+
 	/**
-	 * Gets the number of tickets for each age group
-	 * @param n total number of tickets to be booked
-	 * @return number of tickets for each age group
+	 * This method gets the number of tickets for each age group
+	 * @param n the total number of tickets to be booked
+	 * @return the number of tickets for each age group
 	 */
 	public static EnumMap<AgeGroup, Integer> getAgeGroupCount(int n) {
 		IOController.displayMessage("How many of each age group?");
@@ -75,8 +79,8 @@ public class BookingView {
 	}
 
 	/**
-	 * Displays available seats for user to select for booking
-	 * @param showtime selected by user
+	 * This method displays the seating plan for the selected show time
+	 * @param showTime the selected show time to display the seats of
 	 */
 	public static void displaySeats(BookShow showTime) {
 		SeatStatus[][] availSeats = showTime.getSeatAvailabilities();
@@ -138,13 +142,13 @@ public class BookingView {
 		
 		IOController.pressEnterToContinue();
 	}
+
 	/**
-	 * Prints booking information for user to confirm payment
-	 * @param showTime showtime selected by user to be booked
-	 * @param ageGroupCount number of tickets for each age group
-	 * @param totalPrice total price of all tickets
+	 * This method displays the booking information
+	 * @param ageGroupCount the number of tickets for each age group
+	 * @param totalPrice the total price of the booking
 	 */
-	public static void printBookInfo(BookShow showTime, EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
+	public static void printBookInfo(EnumMap<AgeGroup, Integer> ageGroupCount, double totalPrice) {
 		IOController.displayTitle("Booking Information");
 		for (AgeGroup ageGroup: AgeGroup.values()) 
 			IOController.displayMessage(ageGroup.getLabel() + ": " + ageGroupCount.get(ageGroup));

@@ -1,34 +1,49 @@
-/**
- *  Represents a cinema screen in a cineplex.
- *  A cineplex can have 3 movie screens.
- */
 package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * This class contains all the information of a cinema
+ */
 public class Cinema implements Serializable, LabelledItem {
-	private static final long serialVersionUID = -3543551736448152076L;
-	private String cinemaCode;
-	private boolean[][] layout;
-	private CinemaClass cinemaClass;
-	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 	/**
-	 * Creates Cinema instance
-	 * @param cinemaCode code given to the cinema to uniquely identify it
-	 * @param layout seating layout of the cinema
-	 * @param cinemaClass class the cinema belongs to (normal or platinum movie suite)
+	 * The serialisation version number
+	 */
+	private static final long serialVersionUID = -3543551736448152076L;
+	/**
+	 * The cinema code of the cinema to uniquely identify it
+	 */
+	private String cinemaCode;
+	/**
+	 * The seating layout of the cinema. The seating layout is represented as a 2D boolean array. If there's a seat at a certain position, it's true, otherwise it's false.
+	 */
+	private boolean[][] layout;
+	/**
+	 * The cinema class of the cinema
+	 */
+	private CinemaClass cinemaClass;
+	/**
+	 * The showtimes of the cinema
+	 */
+	private ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
+
+	/**
+	 * Creates a {@code Cinema} object for the given cinema code, layout and cinema class
+	 * @param cinemaCode the code of the cinema
+	 * @param layout the seating layout of the cinema
+	 * @param cinemaClass the cinema class of the cinema
 	 */
 	public Cinema(String cinemaCode, boolean[][] layout, CinemaClass cinemaClass) {
 		this.cinemaCode = cinemaCode;
 		this.layout = layout;
 		this.cinemaClass = cinemaClass;
 	}
+
 	/**
-	 * Creates ShowTime instance and adds it to the array list showTimes
-	 * @param startTime starting time of the showtime. Includes the date and time.
-	 * @param movie instance of Movie specifying movie details. Includes title, synopsis, director,
-	 * cast, showing status, age ratings, movie type, reviews, showtimes, and duration.
+	 * Creates {@code ShowTime} object for the given start date time and movie and adds it to the cinema's show times
+	 * @param startDateTime the start date and time of the showtime
+	 * @param movie the movie of the showtime
 	 */
 	public void createShowTime(LocalDateTime startDateTime, Movie movie) {
 		ShowTime showTime = new ShowTime(this, startDateTime, movie);
@@ -36,44 +51,44 @@ public class Cinema implements Serializable, LabelledItem {
 		
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getLabel() {
 		return cinemaCode + " (" + cinemaClass.getLabel() + ")";
 	}
 	
 	/**
-	 * Gets the cinema code for the cinema
-	 * @return this cinema's cinemaCode
+	 * This method returns the cinem code of the cinema
+	 * @return the cinem code of the cinema
 	 */
 	public String getCinemaCode() {
 		return cinemaCode;
 	}
+
 	/**
-	 * Gets the seating layout for the cinema
-	 * @return 2D array of this cinema's layout
+	 * This method returns the seating layout of the cinema
+	 * @return the seating layout of the cinema
 	 */
 	public boolean[][] getLayout() {
 		return layout;
 	}
+
 	/**
-	 * Gets the class for the cinema
-	 * @return enum of cinema's cinemaClass
+	 * This method returns the cinema class of the cinema
+	 * @return the cinema class of the cinema
 	 */
 	public CinemaClass getCinemaClass() {
 		return cinemaClass;
 	}
+
 	/**
-	 * Gets all the showtimes for the cinema
-	 * @return array list of showtimes
+	 * This method returns the list of showtimes of the cinema
+	 * @return the list of showtimes of the cinema
 	 */
 	public ArrayList<ShowTime> getShowTimes() {
 		return this.showTimes;
-	}
-	/**
-	 * Removes a particular showtime from the list of showtimes of the cinema
-	 * @param s ShowTime to be deleted from list
-	 */
-	public void removeShowTime(ShowTime s) {
-		showTimes.remove(s);
 	}
 }
 

@@ -10,8 +10,14 @@ import model.Movie;
 import view.ListView;
 import view.MenuView;
 
+/**
+ * This class controls the display of the top 5 movies by ticket sales and overall reviewer's rating
+ */
 public class TopMoviesController implements Controller{
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		while (true) {
@@ -42,6 +48,10 @@ public class TopMoviesController implements Controller{
 		}
 	}
 	
+	/**
+	 * This method determines the top 5 movies by ticket sales and stores the information in the form of a list of strings.
+	 * @return a {@code List} of {@code String} objects containing the information about the top 5 movies by ticket sales
+	 */
 	private List<String> getTopMoviesByTicketSales() {
 		List<Movie> movieList = DataManager.getDataStore().getMovieList();
 		
@@ -61,6 +71,10 @@ public class TopMoviesController implements Controller{
 		return movieStrings;
 	}
 	
+	/**
+	 * This method determines the top 5 movies by overall reviewer's rating and stores the information in the form of a list of strings.
+	 * @return a {@code List} of {@code String} objects containing the information about the top 5 movies by overall reviewer's rating
+	 */
 	private List<String> getTopMoviesByOverallRating() {
 		List<Movie> movieList = DataManager.getDataStore().getMovieList();
 		List<Movie> moviesWithRatings = new ArrayList<Movie>();

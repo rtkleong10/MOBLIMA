@@ -2,17 +2,38 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * * This class contains all the information of a movie goer
+ */
 public class MovieGoer implements Serializable {
+	/**
+	 * The serialisation version number
+	 */
 	private static final long serialVersionUID = 7689870075709929042L;
 	
+	/**
+	 * The username of the movie goer
+	 */
 	private String username;
+	/**
+	 * The name of the movie goer
+	 */
 	private String name;
+	/**
+	 * The mobile number of the movie goer
+	 */
 	private Integer mobileNumber;
+	/**
+	 * The email address of the movie goer
+	 */
 	private String emailAddress;
+	/**
+	 * The password of the movie goer
+	 */
 	private String password;
 	
 	/**
-     * Constructs a {@code MovieGoer} object with its username, name, mobile number, email address and password specified.
+     * Creates a {@code MovieGoer} object with the given username, name, mobile number, email address and password
      * @param username the username of the movie goer
      * @param name the name of the movie goer
      * @param mobileNumber the mobile number of the movie goer
@@ -28,7 +49,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Returns true if the login using the password is successful.
+     * This method returns true if the login using the password is successful
      * @param password the password to test against the password the movie goer
      * @return true if the password was correct, false if not
      */
@@ -37,7 +58,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Returns the username of the movie goer.
+     * This method returns the username of the movie goer
      * @return the username of the movie goer
      */
 	public String getUsername() {
@@ -45,7 +66,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Returns the name of the movie goer.
+     * This method returns the name of the movie goer
      * @return the name of the movie goer
      */
 	public String getName() {
@@ -53,7 +74,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Sets the name of the movie goer.
+     * This method sets the name of the movie goer.
      * @param name the new name of the movie goer
      */
 	public void setName(String name) {
@@ -61,7 +82,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Returns the mobile number of the movie goer.
+     * This method returns the mobile number of the movie goer
      * @return the mobile number of the movie goer
      */
 	public Integer getMobileNumber() {
@@ -69,7 +90,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Sets the mobile number of the movie goer.
+     * This method sets the mobile number of the movie goer.
      * @param mobileNumber the new mobile number of the movie goer
      */
 	public void setMobileNumber(Integer mobileNumber) {
@@ -77,7 +98,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Returns the email address of the movie goer.
+     * This method returns the email address of the movie goer.
      * @return the email address of the movie goer
      */
 	public String getEmailAddress() {
@@ -85,7 +106,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Sets the email address of the movie goer.
+     * This method ets the email address of the movie goer.
      * @param emailAddress the new email address of the movie goer
      */
 	public void setEmailAddress(String emailAddress) {
@@ -93,7 +114,7 @@ public class MovieGoer implements Serializable {
 	}
 	
 	/**
-     * Sets the password of the movie goer.
+     * This method sets the password of the movie goer.
      * @param password the new password of the movie goer
      */
 	public void setPassword(String password) {

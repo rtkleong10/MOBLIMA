@@ -5,7 +5,16 @@ import java.util.List;
 
 import model.LabelledItem;
 
+/**
+ * This class handles the display of a list of items
+ */
 public class ListView {
+	/**
+	 * This method displays a list of strings
+	 * @param title the title of the list
+	 * @param stringList the strings to be displayed as a list
+	 * @param emptyString the string to display if the list is empty
+	 */
 	public static void displayList(String title, List<String> stringList, String emptyString) {
 		IOController.displayMessage("");
 		
@@ -25,6 +34,13 @@ public class ListView {
 		IOController.displayMessage("");
 	}
 	
+	/**
+	 * This method displays a list of {@code LabelledItem} objects
+	 * @param <T> a class that implements the {@code LabelledItem} interface
+	 * @param title the title of the list
+	 * @param labelledItemList the list of items of type {@code T}
+	 * @param emptyString the string to display if the list is empty
+	 */
 	public static <T extends LabelledItem> void displayLabelledItemList(String title, List<T> labelledItemList, String emptyString) {
 		List<String> stringList = new ArrayList<String>();
 		

@@ -1,16 +1,19 @@
 package model;
 
+/**
+ * The seat statuses for a show time seat
+ */
 public enum SeatStatus {
 	/**
-	 * no physical seat
+	 * No physical seat
 	 */
 	NO_SEAT,
 	/**
-	 * empty seat
+	 * Empty seat
 	 */
 	EMPTY,
 	/**
-	 * taken seat
+	 * Taken seat
 	 */
 	TAKEN;
 }

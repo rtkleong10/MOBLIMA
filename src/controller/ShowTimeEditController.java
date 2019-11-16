@@ -4,8 +4,14 @@ import view.MenuView;
 import view.ShowTimeEditView;
 import view.ShowTimeView;
 
+/**
+ * This class controls the creation, modification and removal of showtimes
+ */
 public class ShowTimeEditController implements Controller {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		while (true) {

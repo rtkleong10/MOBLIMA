@@ -1,7 +1,8 @@
-/**
- *  Cinema classes that can be used
- */
 package model;
+
+/**
+ * The cinema classes for a cinema
+ */
 public enum CinemaClass implements LabelledItem {
 	/**
      * Normal cinema class
@@ -12,18 +13,23 @@ public enum CinemaClass implements LabelledItem {
      */
 	PLATINUM_MOVIE_SUITE("Platinum Movie Suite");
 	
-	private String label;
 	/**
-     * Constructor for each enum
-     * @param label the name of the cinema class
-     */
+	 * The label of the cineme class
+	 */
+	private String label;
+	
+	/**
+	 * Creates a {@code CinemaClass} object with the given label
+	 * @param label
+	 */
 	private CinemaClass(String label) {
 		this.label = label;
 	}
-	/** 
-     * Returns the label parameter of the enum class
-     * @return the label of the enum
-     */
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getLabel() {
 		return label;
 	}

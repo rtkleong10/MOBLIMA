@@ -5,8 +5,14 @@ import model.PricingScheme;
 import view.MenuView;
 import view.PricingSchemeEditView;
 
+/**
+ * This class controls the modification of the pricing scheme and the holiday list.
+ */
 public class PricingSchemeEditController implements Controller {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		

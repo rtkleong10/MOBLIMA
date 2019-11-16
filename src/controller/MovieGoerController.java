@@ -4,9 +4,19 @@ import model.MovieGoer;
 import view.MenuView;
 import view.MovieGoerLoginView;
 
+/**
+ * This class controls the signup, login and main menu for movie goers
+ *
+ */
 public class MovieGoerController implements Controller {
+	/**
+	 * The currently logged in movie goer
+	 */
 	private MovieGoer movieGoer;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		while (this.movieGoer == null) {
@@ -35,6 +45,9 @@ public class MovieGoerController implements Controller {
 		displayMenu();
 	}
 	
+	/**
+	 * This methods controls the display of the main menu for movie goers
+	 */
 	private void displayMenu() {
 		int option = MenuView.getMenuOption(
 			"Welcome " + movieGoer.getName() + "!",

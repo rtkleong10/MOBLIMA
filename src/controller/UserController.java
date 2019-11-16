@@ -3,8 +3,14 @@ package controller;
 import view.IOController;
 import view.MenuView;
 
+/**
+ * This class controls the selection of the user portal when a user first opens the application
+ */
 public class UserController implements Controller {
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		IOController.displayMessage("Welcome to MOBLIMA!");

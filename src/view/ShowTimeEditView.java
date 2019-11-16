@@ -10,7 +10,13 @@ import model.DataManager;
 import model.Movie;
 import model.ShowTime;
 
+/**
+ * This class displays the form for creating, modifying and removing show times
+ */
 public class ShowTimeEditView {
+	/**
+	 * This method displays the form for creating a show time
+	 */
 	public static void addShowTime() {
 		Cinema cinema = readCinema();
 		Movie movie = readMovie();
@@ -24,6 +30,9 @@ public class ShowTimeEditView {
 			cinema.createShowTime(startDateTime, movie);
 	}
 	
+	/**
+	 * This method displays the form for modifying a show time
+	 */
 	public static void updateShowTime() {
 		Cinema cinema = readCinema();
 		ShowTime showTime = MenuView.getLabelledItem("Select a show time", cinema.getShowTimes());
@@ -50,6 +59,9 @@ public class ShowTimeEditView {
 		}
 	}
 	
+	/**
+	 * This method displays the form for removing a show time
+	 */
 	public static void removeShowTime() {
 		Cinema cinema = readCinema();
 		List<ShowTime> showTimeList = cinema.getShowTimes();
@@ -57,6 +69,10 @@ public class ShowTimeEditView {
 		showTime.remove();
 	}
 	
+	/**
+	 * This methods reads in the new cinema
+	 * @return the new cinema
+	 */
 	private static Cinema readCinema() {
 		// Select a cineplex
 		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
@@ -67,20 +83,43 @@ public class ShowTimeEditView {
 		return MenuView.getLabelledItem("Select a cinema", cinemaList);
 	}
 	
+	/**
+	 * This methods reads in the new movie
+	 * @return the new movie
+	 */
 	private static Movie readMovie() {
 		// Select a movie
 		List<Movie> movieList = DataManager.getDataStore().getMovieList();
 		return MenuView.getLabelledItem("Select a movie", movieList);
 	}
 	
+	/**
+	 * This methods reads in the new start date and time
+	 * @return the new start date and time
+	 */
 	private static LocalDateTime readStartDateTime() {
 		return IOController.readDateTime("Enter start date & time (dd/mm/yyyy hh:mm): ");
 	}
 	
+	/**
+	 * This method checks whether there is a clash for the selected start date and time and duration and the existing show times in the cinema
+	 * @param startDateTime the selected start date and time
+	 * @param duration the selected duration
+	 * @param cinema the selected cinema
+	 * @return if there's a clash, it will return true, otherwise it returns false
+	 */
 	public static boolean checkClash(LocalDateTime startDateTime, Duration duration, Cinema cinema) {
 		return checkClash(startDateTime, duration, cinema, null);
 	}
 	
+	/**
+	 * This method checks whether there is a clash for the selected start date and time and duration and the existing show times in the cinema, beside the current show time
+	 * @param startDateTime the selected start date and time
+	 * @param duration the selected duration
+	 * @param cinema the selected cinema
+	 * @param currentShowTime the current show time
+	 * @return if there's a clash, it will return true, otherwise it returns false
+	 */
 	public static boolean checkClash(LocalDateTime startDateTime, Duration duration, Cinema cinema, ShowTime currentShowTime) {
 		for (ShowTime showTime: cinema.getShowTimes()) {
 			LocalDateTime endDateTime = startDateTime.plus(duration);

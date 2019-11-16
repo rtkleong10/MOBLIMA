@@ -2,7 +2,14 @@ package view;
 
 import model.*;
 
+/**
+ * This class displays the login and signup form for the movie goers
+ */
 public class MovieGoerLoginView {
+	/**
+	 * This method displays the signup form for the movie goers
+	 * @return the newly signed up movie goer
+	 */
 	public static MovieGoer signupMovieGoer() {
 		String username = IOController.readLine("Username: ");
 		
@@ -36,6 +43,10 @@ public class MovieGoerLoginView {
 		return movieGoer;
 	}
 	
+	/**
+	 * This method displays the login form for the movie goers
+	 * @return the logged in movie goer
+	 */
 	public static MovieGoer loginMovieGoer() {
 		String username = IOController.readLine("Username: ");
 		

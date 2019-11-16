@@ -20,14 +20,30 @@ import view.BookingView;
 import view.IOController;
 import view.MenuView;
 
+/**
+ * This class handles the control flow of movie booking for a movie goer
+ */
 public class BookingController implements Controller {
+	/**
+	 * The movie goer who wants to do the booking
+	 */
 	private MovieGoer movieGoer;
+	/**
+	 * The show time that the movie goer wants to book
+	 */
 	private ShowTime showTime;
 
+	/**
+	 * Creates a new {@code BookingController} object for the given movie goer
+	 * @param movieGoer the movie goer who wants to do the booking
+	 */
 	public BookingController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {		
 		this.showTime = selectShowTime();
@@ -52,7 +68,7 @@ public class BookingController implements Controller {
 			BookingView.displaySeats(showTime);
 			IOController.displayMessage("Booking successful!");
 			IOController.displayMessage("Transaction ID: " + booking.getTransactionId());
-			BookingView.printBookInfo(showTime, ageGroupCount, totalPrice);
+			BookingView.printBookInfo(ageGroupCount, totalPrice);
 			
 		} else {
 			IOController.displayMessage("Booking cancelled");
@@ -61,6 +77,10 @@ public class BookingController implements Controller {
 		NavigationController.goBack();
 	}
 	
+	/**
+	 * This method is used to control the flow of the show time selction. The movie goer is asked to select a cineplex, then a movie, then a show time.
+	 * @return the selected  {@code ShowTime} object
+	 */
 	private ShowTime selectShowTime() {
 		// Select a cineplex
 		List<Cineplex> cineplexList = DataManager.getDataStore().getCineplexList();
@@ -91,11 +111,9 @@ public class BookingController implements Controller {
 	}
 	
 	/**
-	 * Calculates the price of booking transaction
-	 * @param selectedShow showtime selected by user
-	 * @param selectedCinema cinema of the showtime selected by user
-	 * @param ageGrp number of booking for each age group
-	 * @return price of booking transaction
+	 * This method calculates the price of booking transaction
+	 * @param ageGroupCount an {@code EnumMap} containing the number of tickets for each age group
+	 * @return the price of booking transaction
 	 */
 	public double calculatePrice(EnumMap<AgeGroup, Integer> ageGroupCount) {
 		PricingScheme pricingScheme = DataManager.getDataStore().getPricingScheme();

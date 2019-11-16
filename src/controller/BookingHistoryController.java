@@ -11,19 +11,36 @@ import model.MovieGoer;
 import model.ShowTime;
 import view.ListView;
 
+/**
+ * This class controls the display of the booking history of a movie goer
+ */
 public class BookingHistoryController implements Controller {
+	/**
+	 * The movie goer for which the booking history is displayed
+	 */
 	private MovieGoer movieGoer;
 	
+	/**
+	 * Creates a new {@code BookingHistoryController} object for the given movie goer
+	 * @param movieGoer the movie goer for which the booking history is displayed
+	 */
 	public BookingHistoryController(MovieGoer movieGoer) {
 		this.movieGoer = movieGoer;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start() {
 		ListView.displayList("Booking History", getBookingHistory(), "No bookings made");
 		NavigationController.goBack();
 	}
 	
+	/**
+	 * This method iterates through the cineplexes, cinemas, showtimes and bookings to find the bookings of the movie goer. Then, it returns the information of the booking as a string
+	 * @return a {@code List} of {@code String} objects containing the information about each of the movie goer's bookings
+	 */
 	public List<String> getBookingHistory() {
 		List<String> bookingHistoryStrings = new ArrayList<String>();
 		

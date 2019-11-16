@@ -6,8 +6,15 @@ import model.Movie;
 import model.MovieGoer;
 import model.ReviewRating;
 
+/**
+ * This class displays the movie details, reviews and the review form
+ */
 public class MovieView {
 	
+	/**
+	 * This method displays the details of the selected movie
+	 * @param movie the selected movie
+	 */
 	public static void printMovieDetails(Movie movie) {
 		Duration duration = movie.getDuration();
 		String durationString = String.format("%dh %02dmin", duration.toHoursPart(), duration.toMinutesPart());
@@ -31,6 +38,12 @@ public class MovieView {
 		
 		IOController.pressEnterToContinue();
 	}
+	
+	/**
+	 * This method reads in the review and rating from the movie goer and adds it to the movie
+	 * @param movie the selected movie
+	 * @param movieGoer the movie goer giving the review and rating
+	 */
 	public static void addMovieReview(Movie movie, MovieGoer movieGoer) {
 		String review = IOController.readLine("Review: ");
 		int rating = IOController.readInt("Rating: ");

@@ -9,16 +9,31 @@ import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This method contains utility functions for displaying and reading information to and from the console
+ */
 @SuppressWarnings("resource")
 public class IOController {
+	/**
+	 * This method displays the given message with no endline
+	 * @param message the message to be displayed
+	 */
 	public static void displayMessageInline(String message) {
 		System.out.print(message);
 	}
 	
+	/**
+	 * This method displays the given message with an endline
+	 * @param message the message to be displayed
+	 */
 	public static void displayMessage(String message) {
 		System.out.println(message);
 	}
 	
+	/**
+	 * This method displays the given title
+	 * @param title the title to be displayed
+	 */
 	public static void displayTitle(String title) {
 		displayMessage(title);
 		
@@ -30,6 +45,11 @@ public class IOController {
 		displayMessage(line);
 	}
 	
+	/**
+	 * This method displays the given message centred in the given width
+	 * @param message the message to be displayed
+	 * @param width the width for the message to be centred in
+	 */
 	public static void displayMessageCentred(String message, int width) {
 		String margin = "";
 		for (int i = 0; i < (width - message.length()) / 2; i++)
@@ -38,12 +58,22 @@ public class IOController {
 		displayMessage(margin + message);
 	}
 	
+	/**
+	 * This method reads in a line as a string
+	 * @param message the prompt for the input
+	 * @return the read line
+	 */
 	public static String readLine(String message) {
 		displayMessageInline(message);
 		Scanner sc = new Scanner(System.in);
 		return sc.nextLine();
 	}
 	
+	/**
+	 * This method reads in a password as a string. The password is hidden if possible.
+	 * @param message the prompt for the input
+	 * @return the read password
+	 */
 	public static String readPassword(String message) {
 		Console console = System.console();
 		
@@ -57,6 +87,11 @@ public class IOController {
         }
 	}
 	
+	/**
+	 * This method reads in an integer
+	 * @param message the prompt for the input
+	 * @return the read integer
+	 */
 	public static int readInt(String message) {
 		while (true) {
 			try {
@@ -70,6 +105,11 @@ public class IOController {
 		}
 	}
 	
+	/**
+	 * This method reads in a double
+	 * @param message the prompt for the input
+	 * @return the read double
+	 */
 	public static double readDouble(String message) {
 		while (true) {
 			try {
@@ -83,6 +123,13 @@ public class IOController {
 		}
 	}
 	
+	/**
+	 * This method reads in a boolean by checking if the user returned the {@code yesString} or the {@code noString}
+	 * @param message the prompt for the input
+	 * @param yesString the string for {@code true}
+	 * @param noString the string for {@code false}
+	 * @return the read boolean
+	 */
 	public static boolean readBoolean(String message, String yesString, String noString) {
 		while (true) {
 			displayMessageInline(message);
@@ -97,6 +144,11 @@ public class IOController {
 		}
 	}
 	
+	/**
+	 * This method reads in a date time in the format: dd/mm/yyyy hh:mm
+	 * @param message the prompt for the input
+	 * @return the read date time
+	 */
 	public static LocalDateTime readDateTime(String message) {
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 	    
@@ -111,6 +163,11 @@ public class IOController {
 	    }
 	}
 	
+	/**
+	 * This method reads in a date in the format: dd/mm/yyyy
+	 * @param message the prompt for the input
+	 * @return the read date
+	 */
 	public static LocalDate readDate(String message) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
@@ -125,11 +182,19 @@ public class IOController {
 	    }
 	}
 	
+	/**
+	 * This method reads in a duration in minutes
+	 * @param message the prompt for the input
+	 * @return the read duration
+	 */
 	public static Duration readDuration(String message) {
 		int durationMinutes = readInt(message);
 		return Duration.ofMinutes(durationMinutes);
 	}
 	
+	/**
+	 * This method prompts the user to press enter to continue
+	 */
 	public static void pressEnterToContinue() {
 		displayMessage("Press enter to continue...");
 		Scanner sc = new Scanner(System.in);
