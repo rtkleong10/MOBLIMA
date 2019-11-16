@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 /**
- * * This class contains all the information of a movie goer
+ * This class contains all the information of a movie goer
  */
 public class MovieGoer implements Serializable {
 	/**
